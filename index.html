@@ -31,7 +31,7 @@ body{
   width:100%;
   max-width:var(--maxw);
   min-height:100svh;
-  padding:8px 6px 84px;
+  padding:8px 8px 84px;
 }
 .screen{
   min-height:calc(100svh - 16px);
@@ -146,12 +146,10 @@ body{
   margin-top:4px;
 }
 
-/* 属性 */
 .attr-fire{background:rgba(255,110,110,.18)}
 .attr-water{background:rgba(100,170,255,.18)}
 .attr-grass{background:rgba(90,220,130,.18)}
 
-/* モード */
 .modeRow{
   display:flex;
   gap:8px;
@@ -174,7 +172,7 @@ body{
   color:#000;
 }
 
-/* 候補キャラカード */
+/* 候補カード */
 .pickGrid{
   display:grid;
   grid-template-columns:1fr;
@@ -183,7 +181,7 @@ body{
 .pickCardBig{
   border:1px solid rgba(255,255,255,.18);
   border-radius:18px;
-  padding:8px 8px;
+  padding:8px 9px;
   background:#101010;
   position:relative;
   transition:transform .14s ease, box-shadow .2s ease, border-color .2s ease;
@@ -196,24 +194,23 @@ body{
 
 .cardMain{
   display:grid;
-  grid-template-columns:124px 1fr;
-  gap:8px;
+  grid-template-columns:122px 1fr;
+  gap:10px;
   align-items:stretch;
-  min-height:150px;
+  min-height:148px;
 }
 .cardImgWrap{
-  width:124px;
-  min-height:150px;
+  width:122px;
+  min-height:148px;
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   justify-content:center;
-  padding:0;
 }
 .cardImg{
-  width:118px;
-  height:142px;
+  width:100%;
+  height:144px;
   object-fit:contain;
-  object-position:center center;
+  object-position:center bottom;
   filter:drop-shadow(0 8px 18px rgba(0,0,0,.45));
   display:block;
 }
@@ -221,7 +218,7 @@ body{
   display:flex;
   flex-direction:column;
   min-width:0;
-  justify-content:center;
+  padding-top:2px;
 }
 .cardTopLine{
   display:flex;
@@ -295,16 +292,16 @@ body{
   margin-top:auto;
   display:flex;
   gap:6px;
-  padding-top:8px;
+  padding-top:6px;
 }
 .btnMain,.btnSub,.btnDetail,.btnEquip{
   flex:1;
   border:none;
   border-radius:10px;
-  padding:10px 6px;
+  padding:9px 6px;
   font-size:12px;
   font-weight:900;
-  min-height:42px;
+  min-height:40px;
 }
 .btnMain{background:#fff;color:#000}
 .btnSub{background:#333;color:#fff}
@@ -398,7 +395,7 @@ body{
   width:100%;
 }
 .bottomActions{
-  margin-top:auto;
+  margin-top:14px;
   display:flex;
   flex-direction:column;
   gap:10px;
@@ -413,7 +410,8 @@ body{
   line-height:1.65;
   white-space:pre-line;
 }
-  /* マイデッキ */
+
+/* マイデッキ */
 .deckBox,.shareBox{
   margin-top:14px;
   padding:12px;
@@ -423,42 +421,41 @@ body{
 }
 #deckList{
   display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.deckItem{
-  background:#1a1a1a;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:14px;
-  padding:12px;
-}
-.deckHead{
-  display:flex;
-  justify-content:space-between;
   gap:8px;
-  align-items:center;
+  margin-bottom:10px;
 }
-.deckName{
-  font-size:15px;
+.deckSlot{
+  flex:1;
+  padding:10px;
+  border-radius:12px;
+  background:#222;
+  text-align:center;
+  cursor:pointer;
+  border:2px solid transparent;
+  font-size:12px;
   font-weight:900;
 }
-.deckMode{
-  font-size:11px;
-  opacity:.7;
+.deckSlot.active{
+  border-color:#fff;
 }
-.deckStats{
-  margin-top:8px;
+#deckName,#deckCode{
+  width:100%;
+  border:none;
+  border-radius:12px;
+  background:#222;
+  color:#fff;
+  padding:10px;
   font-size:12px;
 }
-.deckLead{
-  margin-top:4px;
-  font-size:12px;
-  opacity:.8;
+#deckCode{
+  min-height:86px;
+  resize:vertical;
+  line-height:1.5;
 }
 .deckBtns{
   display:flex;
   gap:8px;
-  margin-top:10px;
+  margin-top:8px;
 }
 .deckBtns button{
   flex:1;
@@ -470,24 +467,7 @@ body{
   font-size:12px;
   font-weight:900;
 }
-#deckName,#deckCode{
-  width:100%;
-  border:none;
-  border-radius:12px;
-  background:#222;
-  color:#fff;
-  padding:10px;
-  font-size:12px;
-}
-#deckName{margin-bottom:10px}
-#deckCode{
-  min-height:86px;
-  resize:vertical;
-  line-height:1.5;
-  margin-top:10px;
-}
-
-/* 図鑑 */
+  /* 図鑑一覧 */
 .dexList{
   display:flex;
   flex-direction:column;
@@ -528,6 +508,8 @@ body{
   font-weight:900;
   border:1px solid rgba(255,255,255,.12);
 }
+
+/* 図鑑詳細 */
 .dexHero{
   display:flex;
   justify-content:center;
@@ -631,7 +613,7 @@ body{
   margin-top:10px;
 }
 
-/* お試し */
+/* お試し相手選択 */
 .testEnemyGrid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -674,7 +656,7 @@ body{
   font-weight:900;
 }
 
-/* メタ */
+/* 戦況メタ */
 .battleMeta{
   display:flex;
   gap:8px;
@@ -804,7 +786,7 @@ body{
   box-shadow:0 0 10px rgba(255,255,255,.22);
 }
 
-/* 拡大対戦 */
+/* バトル本体 */
 .battleTop{
   display:grid;
   grid-template-columns:1fr 64px 1fr;
@@ -817,7 +799,7 @@ body{
   color:var(--muted);
   margin-bottom:6px;
 }
-.vs,.resultVs{
+.vs{
   display:flex;
   align-items:center;
   justify-content:center;
@@ -863,8 +845,7 @@ body{
   padding-left:8px;
 }
 #enemyCard .fighterHeader,
-#testEnemyCardBox .fighterHeader,
-#resultEnemyCard .fighterHeader{
+#testEnemyCardBox .fighterHeader{
   padding-left:0;
   padding-right:8px;
 }
@@ -937,6 +918,19 @@ body{
 }
 .fighterVisual.player .fighterImg{transform:scaleX(-1)}
 .fighterVisual.enemy .fighterImg{transform:scaleX(1)}
+  .fighterVisual.attackForward{animation:attackForwardPlayer .22s ease}
+.fighterVisual.enemy.attackForward{animation:attackForwardEnemy .22s ease}
+@keyframes attackForwardPlayer{
+  0%{transform:translateX(0)}
+  45%{transform:translateX(18px) scale(1.04)}
+  100%{transform:translateX(0)}
+}
+@keyframes attackForwardEnemy{
+  0%{transform:translateX(0)}
+  45%{transform:translateX(-18px) scale(1.04)}
+  100%{transform:translateX(0)}
+}
+
 .hpWrap{margin-top:8px}
 .hpRow{
   display:flex;
@@ -962,7 +956,6 @@ body{
 .hpFill.mid{background:#ffd24d}
 .hpFill.high{background:#77e0a0}
 
-/* 演出 */
 .liveTicker{
   margin:4px 0 10px;
   padding:14px 14px;
@@ -977,6 +970,132 @@ body{
   align-items:center;
   box-shadow:0 8px 24px rgba(0,0,0,.28);
 }
+.battleBubble{
+  position:absolute;
+  top:-4px;
+  max-width:120px;
+  padding:8px 10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.96);
+  color:#111;
+  font-size:12px;
+  font-weight:900;
+  line-height:1.35;
+  box-shadow:0 6px 18px rgba(0,0,0,.28);
+  z-index:3;
+  animation:bubblePop .45s ease;
+}
+.battleBubble.left{left:-2px}
+.battleBubble.right{right:-2px}
+.battleBubble.left::after{
+  content:"";
+  position:absolute;
+  left:18px;
+  bottom:-8px;
+  border-width:8px 7px 0 7px;
+  border-style:solid;
+  border-color:rgba(255,255,255,.96) transparent transparent transparent;
+}
+.battleBubble.right::after{
+  content:"";
+  position:absolute;
+  right:18px;
+  bottom:-8px;
+  border-width:8px 7px 0 7px;
+  border-style:solid;
+  border-color:rgba(255,255,255,.96) transparent transparent transparent;
+}
+@keyframes bubblePop{
+  0%{opacity:0;transform:translateY(6px) scale(.92)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+.fighterCard.hit{animation:cardHitShake .22s ease}
+.fighterCard.hit-enemy{animation:cardHitShakeEnemy .22s ease}
+.fighterCard.flash::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(255,255,255,.28);
+  pointer-events:none;
+  animation:cardHitFlash .22s ease;
+}
+.fighterCard.koFaded{
+  opacity:.58;
+  filter:grayscale(.35);
+  transition:opacity .18s ease, filter .18s ease;
+}
+@keyframes cardHitShake{
+  0%{transform:translateX(0)}
+  20%{transform:translateX(-8px)}
+  40%{transform:translateX(7px)}
+  60%{transform:translateX(-5px)}
+  80%{transform:translateX(3px)}
+  100%{transform:translateX(0)}
+}
+@keyframes cardHitShakeEnemy{
+  0%{transform:translateX(0)}
+  20%{transform:translateX(8px)}
+  40%{transform:translateX(-7px)}
+  60%{transform:translateX(5px)}
+  80%{transform:translateX(-3px)}
+  100%{transform:translateX(0)}
+}
+@keyframes cardHitFlash{
+  0%{opacity:0}
+  25%{opacity:1}
+  100%{opacity:0}
+}
+.hpBar.hitbar{
+  box-shadow:0 0 0 2px rgba(255,255,255,.12), 0 0 16px rgba(255,255,255,.22);
+}
+.damageText{
+  position:absolute;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:24px;
+  font-weight:900;
+  color:#fff;
+  text-shadow:0 2px 10px rgba(0,0,0,.6);
+  pointer-events:none;
+  z-index:4;
+  animation:damagePop .7s ease forwards;
+}
+.damageText.crit{color:#ffd95e}
+.damageText.adv{
+  color:#ff7b7b;
+  text-shadow:0 0 10px rgba(255,0,0,.45);
+}
+.damageText.dis{
+  color:#6db5ff;
+  text-shadow:0 0 10px rgba(50,120,255,.45);
+}
+@keyframes damagePop{
+  0%{opacity:0;transform:translateX(-50%) translateY(10px) scale(.7)}
+  25%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
+  100%{opacity:0;transform:translateX(-50%) translateY(-24px) scale(1.05)}
+}
+.flashMsg{
+  position:sticky;
+  top:0;
+  z-index:5;
+  margin-bottom:10px;
+  text-align:center;
+  font-size:18px;
+  font-weight:900;
+  padding:10px 12px;
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.2);
+  opacity:0;
+  transform:translateY(-6px) scale(.98);
+  transition:.18s ease;
+  pointer-events:none;
+}
+.flashMsg.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
 .logPanel{
   flex:1;
   background:#111;
@@ -984,8 +1103,8 @@ body{
   border-radius:14px;
   padding:12px;
   overflow:auto;
-  min-height:180px;
-  max-height:26svh;
+  min-height:210px;
+  max-height:30svh;
 }
 .logLine{
   font-size:13px;
@@ -993,25 +1112,23 @@ body{
   padding:4px 0;
   border-bottom:1px dashed rgba(255,255,255,.06);
 }
-
-/* 結果 */
 .battleActions{
   margin-top:12px;
   display:flex;
   flex-direction:column;
-  gap:12px;
+  gap:10px;
 }
 .resultTitle{
   font-size:22px;
   font-weight:900;
   text-align:center;
-  margin:2px 0 2px;
+  margin:8px 0 4px;
 }
 .resultSub{
   text-align:center;
   color:var(--muted);
   font-size:13px;
-  margin-bottom:2px;
+  margin-bottom:8px;
 }
 .summaryCard{
   background:#111;
@@ -1043,8 +1160,6 @@ body{
   background:#fff;
   color:#000;
 }
-
-/* MVP */
 .mvpPanel{
   background:linear-gradient(180deg,#181818,#101010);
   border:1px solid rgba(255,255,255,.16);
@@ -1057,8 +1172,8 @@ body{
 }
 .mvpPanel.show{animation:mvpAppear .42s ease}
 @keyframes mvpAppear{
-  0%{opacity:0;transform:scale(.94) translateY(10px)}
-  100%{opacity:1;transform:scale(1) translateY(0)}
+  0%{opacity:0; transform:scale(.94) translateY(10px)}
+  100%{opacity:1; transform:scale(1) translateY(0)}
 }
 .mvpCrown{
   font-size:14px;
@@ -1067,53 +1182,49 @@ body{
   letter-spacing:.08em;
 }
 .mvpImageWrap{
-  min-height:200px;
+  min-height:180px;
   display:flex;
   align-items:center;
   justify-content:center;
   margin-top:10px;
 }
 .mvpImg{
-  max-width:260px;
-  max-height:200px;
+  max-width:240px;
+  max-height:180px;
   object-fit:contain;
   filter:drop-shadow(0 12px 28px rgba(0,0,0,.45));
+  animation:mvpFloat 2.4s ease-in-out infinite;
+}
+@keyframes mvpFloat{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+  100%{transform:translateY(0)}
 }
 .mvpName{
-  font-size:34px;
+  font-size:28px;
   font-weight:900;
   margin-top:4px;
 }
 .mvpStats{
   margin-top:6px;
   font-size:13px;
-  line-height:1.7;
+  line-height:1.6;
   color:#ddd;
   white-space:pre-line;
 }
 .mvpLine{
-  margin-top:10px;
-  font-size:17px;
+  margin-top:8px;
+  font-size:15px;
   font-weight:900;
 }
-
-/* 勝敗カード */
-.resultDuel{
-  display:grid;
-  grid-template-columns:1fr 64px 1fr;
-  gap:10px;
-  align-items:stretch;
-}
-.resultOutcome{
-  font-size:14px;
-  font-weight:900;
-  margin-bottom:6px;
-}
-.resultOutcome.win{color:#b8ffd1}
-.resultOutcome.lose{color:#ffc1c1}
-.resultCardGhost{
-  opacity:.72;
-  filter:grayscale(.15);
+.replayPanel{
+  background:#111;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  font-size:13px;
+  line-height:1.7;
+  white-space:pre-line;
 }
 
 @media (max-width:520px){
@@ -1131,364 +1242,274 @@ body{
     width:36px;
     height:36px;
   }
-  .battleTop,.resultDuel{
-    grid-template-columns:1fr 48px 1fr;
-    gap:8px;
-  }
-  .vs,.resultVs{font-size:22px}
+  .battleTop{grid-template-columns:1fr 48px 1fr;gap:8px}
+  .vs{font-size:22px}
   .fighterCard{min-height:252px;padding:12px}
   .fighterName{font-size:16px}
   .fighterBody{min-height:128px;padding-bottom:4px}
   .fighterVisual{width:128px;height:128px}
   .fighterImg{max-width:128px;max-height:128px}
-  .cardMain{
-    grid-template-columns:116px 1fr;
-    min-height:146px;
-  }
-  .cardImgWrap{
-    width:116px;
-    min-height:146px;
-  }
-  .cardImg{
-    width:112px;
-    height:138px;
-  }
 }
 </style>
 </head>
 <body>
 <div class="app">
 
-<!-- タイトル -->
 <section id="screenTitle" class="screen">
   <div class="title">デカブサ大戦</div>
-  <div class="sub">並びだけ決めろ。あとは全部オート。</div>
-
+  <div class="sub">5対5 団体オートバトル</div>
   <div class="center">
     <div class="heroWrap">
-      <img src="img/dekabusa.png" class="hero">
-      <div class="copy">5対5の完全オート団体戦</div>
-      <button class="btn" onclick="goBuild()">スタート</button>
+      <img class="hero" src="./dekabusa_title.png" alt="デカブサ大戦" onerror="this.src='./dekabusa.png';this.onerror=null;">
+    </div>
+  </div>
+  <div class="titleFooter">
+    <div class="copy">並びだけ決めろ</div>
+    <button class="btn" onclick="goBuild()">START</button>
+    <div class="version">ver 10.1</div>
+  </div>
+</section>
+
+<section id="screenBuild" class="screen" hidden>
+  <div class="topBar">
+    <button class="btn btnGhost backBtn" onclick="goTitle()">戻る</button>
+    <div style="text-align:right">
+      <div style="font-size:18px;font-weight:900">好きな順に並べろ。</div>
+      <div class="teamInfo">5体まで選択可能</div>
     </div>
   </div>
 
-  <div class="version">v0.9</div>
-</section>
-
-<!-- デッキ編成 -->
-<section id="screenBuild" class="screen" hidden>
-
-  <div class="topBar">
-    <button class="btnGhost backBtn" onclick="goTitle()">戻る</button>
-    <div class="row">
-      <button class="modeBtn active" id="mode5" onclick="setMode(5)">5体</button>
-      <button class="modeBtn" id="mode3" onclick="setMode(3)">3体</button>
+  <div class="panel" style="margin-bottom:10px">
+    <div class="sectionTitle" style="margin-top:0">バトルモード</div>
+    <div class="modeRow">
+      <button id="modeSurvivalBtn" class="modeBtn active" onclick="setBattleMode('survival')">勝ち抜き</button>
+      <button id="modeFixedBtn" class="modeBtn" onclick="setBattleMode('fixed')">対面固定</button>
     </div>
+    <div id="modeHint" class="teamInfo">勝ったキャラが残って次と戦う</div>
   </div>
 
   <div class="row">
-
-    <!-- 左：キャラ一覧 -->
     <div class="col leftCol">
-      <div class="sectionTitle">キャラ選択</div>
-
-      <div class="pickGrid" id="pickGrid">
-        <!-- JSで生成 -->
+      <div class="panel">
+        <div class="sectionTitle">候補キャラ</div>
+        <div id="pickGrid" class="pickGrid"></div>
       </div>
     </div>
 
-    <!-- 右：編成 -->
     <div class="col rightCol">
-      <div class="sectionTitle">編成</div>
+      <div class="panel">
+        <div class="sectionTitle">現在の並び</div>
+        <div class="teamInfo">先鋒 → 次鋒 → 中堅 → 副将 → 大将</div>
+        <div id="teamList" class="teamList"></div>
 
-      <div class="teamList" id="teamList">
-        <!-- スロット -->
+        <div class="bottomActions">
+          <button id="confirmBtn" class="btn" onclick="startBattle()" disabled>この並びでいく</button>
+          <button class="btn btnGhost" onclick="fillRandom()">ランダムで埋める</button>
+          <button class="btn btnGhost" onclick="clearTeam()">全て外す</button>
+          <button class="btn btnGhost" onclick="goDexList()">キャラ図鑑</button>
+        </div>
+
+        <div id="buildHint" class="buildHint">並び特徴をここに表示</div>
       </div>
 
-      <div class="buildHint">
-並び順がそのまま戦闘順になる
-
-① 最初に出る
-② 次に出る
-③ …
+      <div class="deckBox">
+        <div class="sectionTitle" style="margin-top:0">マイデッキ</div>
+        <div id="deckList"></div>
+        <input id="deckName" placeholder="デッキ名">
+        <div class="deckBtns">
+          <button onclick="saveDeck()">保存</button>
+          <button onclick="loadDeck()">読み込み</button>
+          <button onclick="deleteDeck()">削除</button>
+        </div>
       </div>
 
-      <div class="bottomActions">
-        <button class="btn" onclick="startBattle()">バトル開始</button>
-        <button class="btnGhost" onclick="saveDeck()">デッキ保存</button>
-        <button class="btnGhost" onclick="goDeck()">マイデッキ</button>
-        <button class="btnGhost" onclick="goDex()">図鑑</button>
+      <div class="shareBox">
+        <div class="sectionTitle" style="margin-top:0">デッキ共有</div>
+        <textarea id="deckCode" placeholder="ここにデッキコードを表示 / 貼り付け"></textarea>
+        <div class="deckBtns">
+          <button onclick="exportDeckCode()">コード作成</button>
+          <button onclick="copyDeckCode()">コピー</button>
+          <button onclick="importDeckCode()">読み込み</button>
+        </div>
       </div>
-
     </div>
   </div>
 </section>
-
-<!-- マイデッキ -->
-<section id="screenDeck" class="screen" hidden>
-
+<!-- 図鑑一覧 -->
+<section id="screenDexList" class="screen" hidden>
   <div class="topBar">
-    <button class="btnGhost backBtn" onclick="goBuild()">戻る</button>
+    <button class="btn btnGhost backBtn" onclick="goBuild()">戻る</button>
+    <div style="text-align:right">
+      <div style="font-size:18px;font-weight:900">キャラ図鑑</div>
+    </div>
   </div>
-
-  <div class="sectionTitle">マイデッキ</div>
-
-  <div class="deckBox">
-    <input id="deckName" placeholder="デッキ名">
-
-    <div id="deckList"></div>
+  <div class="panel">
+    <div id="dexList" class="dexList"></div>
   </div>
-
-  <div class="shareBox">
-    <div class="sectionTitle">デッキ共有</div>
-    <textarea id="deckCode" placeholder="コードを貼り付け"></textarea>
-    <button class="btnGhost" onclick="loadDeck()">読み込み</button>
-  </div>
-
-</section>
-<!-- 図鑑 -->
-<section id="screenDex" class="screen" hidden>
-
-  <div class="topBar">
-    <button class="btnGhost backBtn" onclick="goBuild()">戻る</button>
-  </div>
-
-  <div class="sectionTitle">図鑑</div>
-
-  <div id="dexList" class="dexList">
-    <!-- JSで生成 -->
-  </div>
-
 </section>
 
 <!-- 図鑑詳細 -->
 <section id="screenDexDetail" class="screen" hidden>
-
   <div class="topBar">
-    <button class="btnGhost backBtn" onclick="goDex()">戻る</button>
+    <button class="btn btnGhost backBtn" onclick="goDexList()">戻る</button>
   </div>
 
   <div class="panel">
     <div class="dexHero">
-      <img id="dexDetailImg" src="">
+      <img id="dexImg">
     </div>
+    <div id="dexName" class="dexDetailName"></div>
+    <div id="dexAttr" class="dexDetailAttr"></div>
+    <div id="dexRole" class="dexRole"></div>
 
-    <div id="dexDetailName" class="dexDetailName">-</div>
-    <div id="dexDetailAttr" class="dexDetailAttr">-</div>
-    <div id="dexDetailRole" class="dexRole">-</div>
-
-    <div id="dexDetailStats" class="dexStatsGrid">
-      <!-- JS -->
-    </div>
+    <div id="dexStats" class="dexStatsGrid"></div>
 
     <div class="dexBlock">
       <div class="dexBlockTitle">スキル</div>
-      <div id="dexDetailSkill" class="dexText">-</div>
+      <div id="dexSkill" class="dexText"></div>
     </div>
 
     <div class="dexBlock">
       <div class="dexBlockTitle">説明</div>
-      <div id="dexDetailDesc" class="dexText">-</div>
+      <div id="dexDesc" class="dexText"></div>
     </div>
   </div>
-
 </section>
 
-<!-- お試し -->
-<section id="screenTest" class="screen" hidden>
-
+<!-- お試し敵選択 -->
+<section id="screenTestEnemy" class="screen" hidden>
   <div class="topBar">
-    <button class="btnGhost backBtn" onclick="goBuild()">戻る</button>
+    <button class="btn btnGhost backBtn" onclick="goBuild()">戻る</button>
+    <div style="text-align:right">
+      <div style="font-size:18px;font-weight:900">対戦相手選択</div>
+    </div>
   </div>
-
-  <div class="sectionTitle">お試しバトル</div>
 
   <div class="panel">
-    <div class="teamInfo">相手を選んで1対1で確認</div>
-    <div id="testEnemyGrid" class="testEnemyGrid">
-      <!-- JSで生成 -->
-    </div>
+    <div id="testEnemyGrid" class="testEnemyGrid"></div>
   </div>
-
 </section>
 
-<!-- バトル -->
+<!-- バトル画面 -->
 <section id="screenBattle" class="screen" hidden>
 
-  <div class="topBar">
-    <button class="btnGhost backBtn" onclick="goBuild()">編成へ</button>
-    <div style="text-align:right">
-      <div style="font-size:18px;font-weight:900">バトル</div>
-      <div class="teamInfo">完全オート</div>
-    </div>
-  </div>
+  <div id="flashMsg" class="flashMsg"></div>
 
   <div class="battleMeta">
-    <div id="battleModeText" class="metaPill">MODE -</div>
-    <div id="battleTurnText" class="metaPill">TURN -</div>
-    <div id="playerAliveText" class="metaPill alivePill aliveGood">自分 残り-</div>
-    <div id="enemyAliveText" class="metaPill alivePill aliveBad">敵 残り-</div>
+    <div id="alivePlayer" class="metaPill alivePill aliveGood"></div>
+    <div id="aliveEnemy" class="metaPill alivePill aliveBad"></div>
+    <div id="turnInfo" class="metaPill"></div>
   </div>
 
-  <div class="panel" style="margin-bottom:10px">
-    <div class="sectionTitle" style="margin-top:0">対戦速度</div>
-    <div class="speedRow">
-      <button class="speedBtn active" onclick="setBattleSpeed('normal',this)">普通</button>
-      <button class="speedBtn" onclick="setBattleSpeed('fast',this)">速い</button>
-      <button class="speedBtn" onclick="setBattleSpeed('turbo',this)">爆速</button>
-    </div>
-  </div>
-
+  <!-- 上の状況一覧 -->
   <div class="statusBoardWrap">
-    <svg id="statusLines" class="statusLines"></svg>
     <div class="statusBoard">
       <div class="statusHead">
         <div class="label">自分</div>
         <div></div>
-        <div class="label right">敵</div>
+        <div class="label right">相手</div>
       </div>
       <div id="statusRows" class="statusRows"></div>
     </div>
+    <svg class="statusLines"></svg>
   </div>
 
+  <!-- メイン対戦 -->
   <div class="battleTop">
-    <div>
-      <div class="sideLabel">自分</div>
-      <div id="playerCard" class="fighterCard none">
-        <div class="fighterHeader">
-          <div id="playerBadges" class="fighterBadges"></div>
-          <div id="playerFighterName" class="fighterName">-</div>
-          <div id="playerFighterRole" class="fighterRole">-</div>
-          <div id="playerFighterEquip" class="fighterEquip">-</div>
-        </div>
 
-        <div class="fighterBody">
-          <div class="fighterVisual player">
-            <img id="playerFighterImg" class="fighterImg" src="">
-          </div>
-        </div>
+    <!-- プレイヤー -->
+    <div id="playerCard" class="fighterCard none">
+      <div class="fighterHeader">
+        <div class="fighterBadges" id="playerBadges"></div>
+        <div id="playerName" class="fighterName"></div>
+        <div id="playerRole" class="fighterRole"></div>
+        <div id="playerEquip" class="fighterEquip"></div>
+      </div>
 
-        <div class="hpWrap">
-          <div class="hpRow">
-            <span>HP</span>
-            <span id="playerHpText">-</span>
-          </div>
-          <div class="hpBar">
-            <div id="playerHpFill" class="hpFill high"></div>
-          </div>
+      <div class="fighterBody">
+        <div id="playerVisual" class="fighterVisual player">
+          <img id="playerImg" class="fighterImg">
+        </div>
+      </div>
+
+      <div class="hpWrap">
+        <div class="hpRow">
+          <span>HP</span>
+          <span id="playerHpText"></span>
+        </div>
+        <div class="hpBar">
+          <div id="playerHp" class="hpFill"></div>
         </div>
       </div>
     </div>
 
     <div class="vs">VS</div>
 
-    <div>
-      <div class="sideLabel" style="text-align:right">敵</div>
-      <div id="enemyCard" class="fighterCard none">
-        <div class="fighterHeader">
-          <div id="enemyBadges" class="fighterBadges right"></div>
-          <div id="enemyFighterName" class="fighterName" style="text-align:right">-</div>
-          <div id="enemyFighterRole" class="fighterRole" style="text-align:right">-</div>
-          <div id="enemyFighterEquip" class="fighterEquip" style="text-align:right">-</div>
-        </div>
+    <!-- 敵 -->
+    <div id="enemyCard" class="fighterCard none">
+      <div class="fighterHeader">
+        <div class="fighterBadges right" id="enemyBadges"></div>
+        <div id="enemyName" class="fighterName" style="text-align:right"></div>
+        <div id="enemyRole" class="fighterRole" style="text-align:right"></div>
+        <div id="enemyEquip" class="fighterEquip" style="text-align:right"></div>
+      </div>
 
-        <div class="fighterBody">
-          <div class="fighterVisual enemy">
-            <img id="enemyFighterImg" class="fighterImg" src="">
-          </div>
+      <div class="fighterBody">
+        <div id="enemyVisual" class="fighterVisual enemy">
+          <img id="enemyImg" class="fighterImg">
         </div>
+      </div>
 
-        <div class="hpWrap">
-          <div class="hpRow">
-            <span>HP</span>
-            <span id="enemyHpText">-</span>
-          </div>
-          <div class="hpBar">
-            <div id="enemyHpFill" class="hpFill high"></div>
-          </div>
+      <div class="hpWrap">
+        <div class="hpRow">
+          <span id="enemyHpText"></span>
+          <span>HP</span>
+        </div>
+        <div class="hpBar">
+          <div id="enemyHp" class="hpFill"></div>
         </div>
       </div>
     </div>
+
   </div>
 
-  <div id="liveTicker" class="liveTicker">対戦開始。</div>
-  <div id="logPanel" class="logPanel"></div>
+  <!-- ログ -->
+  <div id="log" class="logPanel"></div>
 
-  <div id="battleActions" class="battleActions" hidden>
-
-    <div id="mvpPanel" class="mvpPanel" hidden>
-      <div class="mvpCrown">MVP</div>
-      <div class="mvpImageWrap">
-        <img id="mvpImg" class="mvpImg" src="">
-      </div>
-      <div id="mvpName" class="mvpName">-</div>
-      <div id="mvpStats" class="mvpStats">-</div>
-      <div id="mvpLine" class="mvpLine">-</div>
+  <!-- 操作 -->
+  <div class="battleActions">
+    <div class="speedRow">
+      <button class="speedBtn active" onclick="setSpeed(1)">等速</button>
+      <button class="speedBtn" onclick="setSpeed(2)">2倍</button>
+      <button class="speedBtn" onclick="setSpeed(4)">4倍</button>
     </div>
+    <button class="btn btnGhost" onclick="skipBattle()">スキップ</button>
+  </div>
 
-    <div id="resultTitle" class="resultTitle"></div>
-    <div id="resultSub" class="resultSub"></div>
+</section>
 
-    <div class="resultDuel">
-      <div>
-        <div id="resultPlayerOutcome" class="resultOutcome">-</div>
-        <div id="resultPlayerCard" class="fighterCard none resultCardGhost">
-          <div class="fighterHeader">
-            <div id="resultPlayerBadges" class="fighterBadges"></div>
-            <div id="resultPlayerName" class="fighterName">-</div>
-            <div id="resultPlayerRole" class="fighterRole">-</div>
-            <div id="resultPlayerEquip" class="fighterEquip">-</div>
-          </div>
-          <div class="fighterBody">
-            <div class="fighterVisual player">
-              <img id="resultPlayerImg" class="fighterImg" src="">
-            </div>
-          </div>
-          <div class="hpWrap">
-            <div class="hpRow">
-              <span>HP</span>
-              <span id="resultPlayerHp">-</span>
-            </div>
-            <div class="hpBar">
-              <div id="resultPlayerHpFill" class="hpFill high"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- リザルト -->
+<section id="screenResult" class="screen" hidden>
 
-      <div class="resultVs">VS</div>
+  <div class="resultTitle" id="resultTitle"></div>
+  <div class="resultSub" id="resultSub"></div>
 
-      <div>
-        <div id="resultEnemyOutcome" class="resultOutcome" style="text-align:right">-</div>
-        <div id="resultEnemyCard" class="fighterCard none resultCardGhost">
-          <div class="fighterHeader">
-            <div id="resultEnemyBadges" class="fighterBadges right"></div>
-            <div id="resultEnemyName" class="fighterName" style="text-align:right">-</div>
-            <div id="resultEnemyRole" class="fighterRole" style="text-align:right">-</div>
-            <div id="resultEnemyEquip" class="fighterEquip" style="text-align:right">-</div>
-          </div>
-          <div class="fighterBody">
-            <div class="fighterVisual enemy">
-              <img id="resultEnemyImg" class="fighterImg" src="">
-            </div>
-          </div>
-          <div class="hpWrap">
-            <div class="hpRow">
-              <span>HP</span>
-              <span id="resultEnemyHp">-</span>
-            </div>
-            <div class="hpBar">
-              <div id="resultEnemyHpFill" class="hpFill high"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- MVP -->
+  <div id="mvpPanel" class="mvpPanel">
+    <div class="mvpCrown">MVP</div>
+    <div class="mvpImageWrap">
+      <img id="mvpImg" class="mvpImg">
     </div>
+    <div id="mvpName" class="mvpName"></div>
+    <div id="mvpStats" class="mvpStats"></div>
+    <div id="mvpLine" class="mvpLine"></div>
+  </div>
 
-    <div id="summaryCard" class="summaryCard"></div>
+  <div id="summary" class="summaryCard"></div>
 
-    <button class="btn" onclick="rematch()">もう一度やる</button>
-    <button class="btnGhost" onclick="goBuild()">編成に戻る</button>
+  <div class="battleActions">
+    <button class="btn" onclick="goBuild()">もう一度</button>
+    <button class="btn btnGhost" onclick="goTitle()">タイトルへ</button>
   </div>
 
 </section>
