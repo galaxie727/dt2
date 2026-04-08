@@ -42,7 +42,7 @@ body{
   text-align:center;
   font-size:34px;
   font-weight:900;
-  letter-spacing:.08em;
+  letter-spacing:.04em;
   margin-top:8px;
 }
 .sub{
@@ -97,7 +97,7 @@ body{
   text-align:center;
   font-size:16px;
   opacity:.85;
-  margin-bottom:22px;
+  margin:18px 0 22px;
 }
 .titleFooter{padding-bottom:10px}
 @keyframes float{
@@ -146,10 +146,12 @@ body{
   margin-top:4px;
 }
 
+/* 属性 */
 .attr-fire{background:rgba(255,110,110,.18)}
 .attr-water{background:rgba(100,170,255,.18)}
 .attr-grass{background:rgba(90,220,130,.18)}
 
+/* モード */
 .modeRow{
   display:flex;
   gap:8px;
@@ -183,24 +185,20 @@ body{
   border-radius:18px;
   padding:8px 9px;
   background:#101010;
-  position:relative;
-  transition:transform .14s ease, box-shadow .2s ease, border-color .2s ease;
 }
 .pickCardBig.selected{
   border:2px solid #fff;
-  box-shadow:0 0 10px rgba(255,255,255,.68), 0 0 22px rgba(255,255,255,.25);
+  box-shadow:0 0 10px rgba(255,255,255,.28);
 }
-.pickCardBig.tap{transform:scale(.985)}
-
 .cardMain{
   display:grid;
-  grid-template-columns:122px 1fr;
+  grid-template-columns:120px 1fr;
   gap:10px;
   align-items:stretch;
   min-height:148px;
 }
 .cardImgWrap{
-  width:122px;
+  width:120px;
   min-height:148px;
   display:flex;
   align-items:flex-end;
@@ -467,7 +465,8 @@ body{
   font-size:12px;
   font-weight:900;
 }
-  /* 図鑑一覧 */
+
+/* 図鑑 */
 .dexList{
   display:flex;
   flex-direction:column;
@@ -508,8 +507,6 @@ body{
   font-weight:900;
   border:1px solid rgba(255,255,255,.12);
 }
-
-/* 図鑑詳細 */
 .dexHero{
   display:flex;
   justify-content:center;
@@ -582,7 +579,7 @@ body{
   white-space:pre-line;
 }
 
-/* 装備技 */
+/* 装備 */
 .skillList{
   display:flex;
   flex-direction:column;
@@ -613,7 +610,7 @@ body{
   margin-top:10px;
 }
 
-/* お試し相手選択 */
+/* お試し */
 .testEnemyGrid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -656,7 +653,7 @@ body{
   font-weight:900;
 }
 
-/* 戦況メタ */
+/* バトル */
 .battleMeta{
   display:flex;
   gap:8px;
@@ -675,7 +672,6 @@ body{
 .aliveGood{color:#b8ffd1}
 .aliveBad{color:#ffc1c1}
 
-/* 戦況表 */
 .statusBoardWrap{
   position:relative;
   margin-bottom:12px;
@@ -731,7 +727,6 @@ body{
   grid-template-columns:40px 1fr auto;
   gap:8px;
   align-items:center;
-  position:relative;
 }
 .miniSideCard.right{grid-template-columns:auto 1fr 40px}
 .miniSideCard.dead{
@@ -779,14 +774,12 @@ body{
   width:100%;
   height:2px;
   background:rgba(255,255,255,.18);
-  position:relative;
 }
 .boardLink.active{
   background:rgba(255,255,255,.75);
   box-shadow:0 0 10px rgba(255,255,255,.22);
 }
 
-/* バトル本体 */
 .battleTop{
   display:grid;
   grid-template-columns:1fr 64px 1fr;
@@ -842,12 +835,6 @@ body{
   flex-direction:column;
   gap:6px;
   min-width:0;
-  padding-left:8px;
-}
-#enemyCard .fighterHeader,
-#testEnemyCardBox .fighterHeader{
-  padding-left:0;
-  padding-right:8px;
 }
 .fighterBadges{
   display:flex;
@@ -884,9 +871,6 @@ body{
   font-size:14px;
   color:#b8c8ff;
   line-height:1.2;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
 }
 .fighterEquip{
   font-size:11px;
@@ -898,7 +882,6 @@ body{
   display:flex;
   align-items:flex-end;
   justify-content:center;
-  position:relative;
   min-height:140px;
   padding-bottom:6px;
 }
@@ -917,20 +900,6 @@ body{
   filter:drop-shadow(0 8px 18px rgba(0,0,0,.45));
 }
 .fighterVisual.player .fighterImg{transform:scaleX(-1)}
-.fighterVisual.enemy .fighterImg{transform:scaleX(1)}
-  .fighterVisual.attackForward{animation:attackForwardPlayer .22s ease}
-.fighterVisual.enemy.attackForward{animation:attackForwardEnemy .22s ease}
-@keyframes attackForwardPlayer{
-  0%{transform:translateX(0)}
-  45%{transform:translateX(18px) scale(1.04)}
-  100%{transform:translateX(0)}
-}
-@keyframes attackForwardEnemy{
-  0%{transform:translateX(0)}
-  45%{transform:translateX(-18px) scale(1.04)}
-  100%{transform:translateX(0)}
-}
-
 .hpWrap{margin-top:8px}
 .hpRow{
   display:flex;
@@ -955,147 +924,6 @@ body{
 .hpFill.low{background:#ff7b7b}
 .hpFill.mid{background:#ffd24d}
 .hpFill.high{background:#77e0a0}
-
-.liveTicker{
-  margin:4px 0 10px;
-  padding:14px 14px;
-  border-radius:14px;
-  background:linear-gradient(180deg,#181818,#111);
-  border:1px solid rgba(255,255,255,.12);
-  font-size:17px;
-  font-weight:900;
-  line-height:1.45;
-  min-height:56px;
-  display:flex;
-  align-items:center;
-  box-shadow:0 8px 24px rgba(0,0,0,.28);
-}
-.battleBubble{
-  position:absolute;
-  top:-4px;
-  max-width:120px;
-  padding:8px 10px;
-  border-radius:12px;
-  background:rgba(255,255,255,.96);
-  color:#111;
-  font-size:12px;
-  font-weight:900;
-  line-height:1.35;
-  box-shadow:0 6px 18px rgba(0,0,0,.28);
-  z-index:3;
-  animation:bubblePop .45s ease;
-}
-.battleBubble.left{left:-2px}
-.battleBubble.right{right:-2px}
-.battleBubble.left::after{
-  content:"";
-  position:absolute;
-  left:18px;
-  bottom:-8px;
-  border-width:8px 7px 0 7px;
-  border-style:solid;
-  border-color:rgba(255,255,255,.96) transparent transparent transparent;
-}
-.battleBubble.right::after{
-  content:"";
-  position:absolute;
-  right:18px;
-  bottom:-8px;
-  border-width:8px 7px 0 7px;
-  border-style:solid;
-  border-color:rgba(255,255,255,.96) transparent transparent transparent;
-}
-@keyframes bubblePop{
-  0%{opacity:0;transform:translateY(6px) scale(.92)}
-  100%{opacity:1;transform:translateY(0) scale(1)}
-}
-.fighterCard.hit{animation:cardHitShake .22s ease}
-.fighterCard.hit-enemy{animation:cardHitShakeEnemy .22s ease}
-.fighterCard.flash::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(255,255,255,.28);
-  pointer-events:none;
-  animation:cardHitFlash .22s ease;
-}
-.fighterCard.koFaded{
-  opacity:.58;
-  filter:grayscale(.35);
-  transition:opacity .18s ease, filter .18s ease;
-}
-@keyframes cardHitShake{
-  0%{transform:translateX(0)}
-  20%{transform:translateX(-8px)}
-  40%{transform:translateX(7px)}
-  60%{transform:translateX(-5px)}
-  80%{transform:translateX(3px)}
-  100%{transform:translateX(0)}
-}
-@keyframes cardHitShakeEnemy{
-  0%{transform:translateX(0)}
-  20%{transform:translateX(8px)}
-  40%{transform:translateX(-7px)}
-  60%{transform:translateX(5px)}
-  80%{transform:translateX(-3px)}
-  100%{transform:translateX(0)}
-}
-@keyframes cardHitFlash{
-  0%{opacity:0}
-  25%{opacity:1}
-  100%{opacity:0}
-}
-.hpBar.hitbar{
-  box-shadow:0 0 0 2px rgba(255,255,255,.12), 0 0 16px rgba(255,255,255,.22);
-}
-.damageText{
-  position:absolute;
-  top:18px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:24px;
-  font-weight:900;
-  color:#fff;
-  text-shadow:0 2px 10px rgba(0,0,0,.6);
-  pointer-events:none;
-  z-index:4;
-  animation:damagePop .7s ease forwards;
-}
-.damageText.crit{color:#ffd95e}
-.damageText.adv{
-  color:#ff7b7b;
-  text-shadow:0 0 10px rgba(255,0,0,.45);
-}
-.damageText.dis{
-  color:#6db5ff;
-  text-shadow:0 0 10px rgba(50,120,255,.45);
-}
-@keyframes damagePop{
-  0%{opacity:0;transform:translateX(-50%) translateY(10px) scale(.7)}
-  25%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
-  100%{opacity:0;transform:translateX(-50%) translateY(-24px) scale(1.05)}
-}
-.flashMsg{
-  position:sticky;
-  top:0;
-  z-index:5;
-  margin-bottom:10px;
-  text-align:center;
-  font-size:18px;
-  font-weight:900;
-  padding:10px 12px;
-  border-radius:14px;
-  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.06));
-  border:1px solid rgba(255,255,255,.2);
-  opacity:0;
-  transform:translateY(-6px) scale(.98);
-  transition:.18s ease;
-  pointer-events:none;
-}
-.flashMsg.show{
-  opacity:1;
-  transform:translateY(0) scale(1);
-}
 .logPanel{
   flex:1;
   background:#111;
@@ -1104,7 +932,7 @@ body{
   padding:12px;
   overflow:auto;
   min-height:210px;
-  max-height:30svh;
+  max-height:32svh;
 }
 .logLine{
   font-size:13px;
@@ -1117,27 +945,6 @@ body{
   display:flex;
   flex-direction:column;
   gap:10px;
-}
-.resultTitle{
-  font-size:22px;
-  font-weight:900;
-  text-align:center;
-  margin:8px 0 4px;
-}
-.resultSub{
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:8px;
-}
-.summaryCard{
-  background:#111;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-  line-height:1.75;
-  font-size:13px;
-  white-space:pre-line;
 }
 .speedRow{
   display:flex;
@@ -1160,6 +967,29 @@ body{
   background:#fff;
   color:#000;
 }
+
+/* 結果 */
+.resultTitle{
+  font-size:22px;
+  font-weight:900;
+  text-align:center;
+  margin:8px 0 4px;
+}
+.resultSub{
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:8px;
+}
+.summaryCard{
+  background:#111;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  line-height:1.75;
+  font-size:13px;
+  white-space:pre-line;
+}
 .mvpPanel{
   background:linear-gradient(180deg,#181818,#101010);
   border:1px solid rgba(255,255,255,.16);
@@ -1169,17 +999,7 @@ body{
   box-shadow:0 8px 28px rgba(0,0,0,.38);
   overflow:hidden;
   position:relative;
-}
-.mvpPanel.show{animation:mvpAppear .42s ease}
-@keyframes mvpAppear{
-  0%{opacity:0; transform:scale(.94) translateY(10px)}
-  100%{opacity:1; transform:scale(1) translateY(0)}
-}
-.mvpCrown{
-  font-size:14px;
-  font-weight:900;
-  color:#ffd95e;
-  letter-spacing:.08em;
+  margin-bottom:12px;
 }
 .mvpImageWrap{
   min-height:180px;
@@ -1193,12 +1013,12 @@ body{
   max-height:180px;
   object-fit:contain;
   filter:drop-shadow(0 12px 28px rgba(0,0,0,.45));
-  animation:mvpFloat 2.4s ease-in-out infinite;
 }
-@keyframes mvpFloat{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-5px)}
-  100%{transform:translateY(0)}
+.mvpCrown{
+  font-size:14px;
+  font-weight:900;
+  color:#ffd95e;
+  letter-spacing:.08em;
 }
 .mvpName{
   font-size:28px;
@@ -1216,15 +1036,6 @@ body{
   margin-top:8px;
   font-size:15px;
   font-weight:900;
-}
-.replayPanel{
-  background:#111;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-  font-size:13px;
-  line-height:1.7;
-  white-space:pre-line;
 }
 
 @media (max-width:520px){
@@ -1261,18 +1072,16 @@ body{
   <div class="center">
     <div class="heroWrap">
       <img class="hero" src="./dekabusa_title.png" alt="デカブサ大戦" onerror="this.src='./dekabusa.png';this.onerror=null;">
+      <div class="copy">並びだけ決めろ</div>
+      <button class="btn" onclick="goBuild()">START</button>
+      <div class="version">ver 10.2</div>
     </div>
-  </div>
-  <div class="titleFooter">
-    <div class="copy">並びだけ決めろ</div>
-    <button class="btn" onclick="goBuild()">START</button>
-    <div class="version">ver 10.1</div>
   </div>
 </section>
 
 <section id="screenBuild" class="screen" hidden>
   <div class="topBar">
-    <button class="btn btnGhost backBtn" onclick="goTitle()">戻る</button>
+    <button class="btnGhost backBtn" onclick="goTitle()">戻る</button>
     <div style="text-align:right">
       <div style="font-size:18px;font-weight:900">好きな順に並べろ。</div>
       <div class="teamInfo">5体まで選択可能</div>
@@ -1304,9 +1113,9 @@ body{
 
         <div class="bottomActions">
           <button id="confirmBtn" class="btn" onclick="startBattle()" disabled>この並びでいく</button>
-          <button class="btn btnGhost" onclick="fillRandom()">ランダムで埋める</button>
-          <button class="btn btnGhost" onclick="clearTeam()">全て外す</button>
-          <button class="btn btnGhost" onclick="goDexList()">キャラ図鑑</button>
+          <button class="btnGhost" onclick="fillRandom()">ランダムで埋める</button>
+          <button class="btnGhost" onclick="clearTeam()">全て外す</button>
+          <button class="btnGhost" onclick="goDexList()">キャラ図鑑</button>
         </div>
 
         <div id="buildHint" class="buildHint">並び特徴をここに表示</div>
@@ -1335,10 +1144,10 @@ body{
     </div>
   </div>
 </section>
-<!-- 図鑑一覧 -->
+
 <section id="screenDexList" class="screen" hidden>
   <div class="topBar">
-    <button class="btn btnGhost backBtn" onclick="goBuild()">戻る</button>
+    <button class="btnGhost backBtn" onclick="goBuild()">戻る</button>
     <div style="text-align:right">
       <div style="font-size:18px;font-weight:900">キャラ図鑑</div>
     </div>
@@ -1348,20 +1157,18 @@ body{
   </div>
 </section>
 
-<!-- 図鑑詳細 -->
 <section id="screenDexDetail" class="screen" hidden>
   <div class="topBar">
-    <button class="btn btnGhost backBtn" onclick="goDexList()">戻る</button>
+    <button class="btnGhost backBtn" onclick="goDexList()">戻る</button>
   </div>
 
   <div class="panel">
     <div class="dexHero">
-      <img id="dexImg">
+      <img id="dexImg" alt="">
     </div>
     <div id="dexName" class="dexDetailName"></div>
     <div id="dexAttr" class="dexDetailAttr"></div>
     <div id="dexRole" class="dexRole"></div>
-
     <div id="dexStats" class="dexStatsGrid"></div>
 
     <div class="dexBlock">
@@ -1376,24 +1183,38 @@ body{
   </div>
 </section>
 
-<!-- お試し敵選択 -->
-<section id="screenTestEnemy" class="screen" hidden>
+<section id="screenEquip" class="screen" hidden>
   <div class="topBar">
-    <button class="btn btnGhost backBtn" onclick="goBuild()">戻る</button>
+    <button class="btnGhost backBtn" onclick="goBuild()">編成へ</button>
     <div style="text-align:right">
-      <div style="font-size:18px;font-weight:900">対戦相手選択</div>
+      <div id="equipTitle" style="font-size:18px;font-weight:900">装備技変更</div>
+      <div class="teamInfo">3つの中から1つ選ぶ</div>
     </div>
   </div>
+  <div class="panel">
+    <div id="skillList" class="skillList"></div>
+  </div>
+</section>
 
+<section id="screenTestEnemy" class="screen" hidden>
+  <div class="topBar">
+    <button class="btnGhost backBtn" onclick="goBuild()">編成へ</button>
+    <div style="text-align:right">
+      <div style="font-size:18px;font-weight:900">相手を選んで試す</div>
+    </div>
+  </div>
   <div class="panel">
     <div id="testEnemyGrid" class="testEnemyGrid"></div>
   </div>
 </section>
 
-<!-- バトル画面 -->
 <section id="screenBattle" class="screen" hidden>
-
-  <div id="flashMsg" class="flashMsg"></div>
+  <div class="topBar">
+    <button class="btnGhost backBtn" onclick="backToBuildFromBattle()">編成へ</button>
+    <div style="text-align:right">
+      <div style="font-size:18px;font-weight:900">オート対戦</div>
+    </div>
+  </div>
 
   <div class="battleMeta">
     <div id="alivePlayer" class="metaPill alivePill aliveGood"></div>
@@ -1401,7 +1222,6 @@ body{
     <div id="turnInfo" class="metaPill"></div>
   </div>
 
-  <!-- 上の状況一覧 -->
   <div class="statusBoardWrap">
     <div class="statusBoard">
       <div class="statusHead">
@@ -1414,91 +1234,82 @@ body{
     <svg class="statusLines"></svg>
   </div>
 
-  <!-- メイン対戦 -->
   <div class="battleTop">
-
-    <!-- プレイヤー -->
-    <div id="playerCard" class="fighterCard none">
-      <div class="fighterHeader">
-        <div class="fighterBadges" id="playerBadges"></div>
-        <div id="playerName" class="fighterName"></div>
-        <div id="playerRole" class="fighterRole"></div>
-        <div id="playerEquip" class="fighterEquip"></div>
-      </div>
-
-      <div class="fighterBody">
-        <div id="playerVisual" class="fighterVisual player">
-          <img id="playerImg" class="fighterImg">
+    <div>
+      <div class="sideLabel">あなた</div>
+      <div id="playerCard" class="fighterCard none">
+        <div class="fighterHeader">
+          <div class="fighterBadges" id="playerBadges"></div>
+          <div id="playerName" class="fighterName"></div>
+          <div id="playerRole" class="fighterRole"></div>
+          <div id="playerEquip" class="fighterEquip"></div>
         </div>
-      </div>
-
-      <div class="hpWrap">
-        <div class="hpRow">
-          <span>HP</span>
-          <span id="playerHpText"></span>
+        <div class="fighterBody">
+          <div id="playerVisual" class="fighterVisual player">
+            <img id="playerImg" class="fighterImg" alt="">
+          </div>
         </div>
-        <div class="hpBar">
-          <div id="playerHp" class="hpFill"></div>
+        <div class="hpWrap">
+          <div class="hpRow">
+            <span>HP</span>
+            <span id="playerHpText"></span>
+          </div>
+          <div class="hpBar">
+            <div id="playerHp" class="hpFill"></div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="vs">VS</div>
 
-    <!-- 敵 -->
-    <div id="enemyCard" class="fighterCard none">
-      <div class="fighterHeader">
-        <div class="fighterBadges right" id="enemyBadges"></div>
-        <div id="enemyName" class="fighterName" style="text-align:right"></div>
-        <div id="enemyRole" class="fighterRole" style="text-align:right"></div>
-        <div id="enemyEquip" class="fighterEquip" style="text-align:right"></div>
-      </div>
-
-      <div class="fighterBody">
-        <div id="enemyVisual" class="fighterVisual enemy">
-          <img id="enemyImg" class="fighterImg">
+    <div>
+      <div class="sideLabel" style="text-align:right">敵</div>
+      <div id="enemyCard" class="fighterCard none">
+        <div class="fighterHeader">
+          <div class="fighterBadges right" id="enemyBadges"></div>
+          <div id="enemyName" class="fighterName" style="text-align:right"></div>
+          <div id="enemyRole" class="fighterRole" style="text-align:right"></div>
+          <div id="enemyEquip" class="fighterEquip" style="text-align:right"></div>
         </div>
-      </div>
-
-      <div class="hpWrap">
-        <div class="hpRow">
-          <span id="enemyHpText"></span>
-          <span>HP</span>
+        <div class="fighterBody">
+          <div id="enemyVisual" class="fighterVisual enemy">
+            <img id="enemyImg" class="fighterImg" alt="">
+          </div>
         </div>
-        <div class="hpBar">
-          <div id="enemyHp" class="hpFill"></div>
+        <div class="hpWrap">
+          <div class="hpRow">
+            <span id="enemyHpText"></span>
+            <span>HP</span>
+          </div>
+          <div class="hpBar">
+            <div id="enemyHp" class="hpFill"></div>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 
-  <!-- ログ -->
   <div id="log" class="logPanel"></div>
 
-  <!-- 操作 -->
   <div class="battleActions">
     <div class="speedRow">
       <button class="speedBtn active" onclick="setSpeed(1)">等速</button>
       <button class="speedBtn" onclick="setSpeed(2)">2倍</button>
       <button class="speedBtn" onclick="setSpeed(4)">4倍</button>
     </div>
-    <button class="btn btnGhost" onclick="skipBattle()">スキップ</button>
+    <button class="btnGhost" onclick="skipBattle()">スキップ</button>
   </div>
-
 </section>
 
-<!-- リザルト -->
 <section id="screenResult" class="screen" hidden>
-
   <div class="resultTitle" id="resultTitle"></div>
   <div class="resultSub" id="resultSub"></div>
 
-  <!-- MVP -->
   <div id="mvpPanel" class="mvpPanel">
     <div class="mvpCrown">MVP</div>
     <div class="mvpImageWrap">
-      <img id="mvpImg" class="mvpImg">
+      <img id="mvpImg" class="mvpImg" alt="">
     </div>
     <div id="mvpName" class="mvpName"></div>
     <div id="mvpStats" class="mvpStats"></div>
@@ -1509,9 +1320,8 @@ body{
 
   <div class="battleActions">
     <button class="btn" onclick="goBuild()">もう一度</button>
-    <button class="btn btnGhost" onclick="goTitle()">タイトルへ</button>
+    <button class="btnGhost" onclick="goTitle()">タイトルへ</button>
   </div>
-
 </section>
 
 </div>
