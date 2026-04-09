@@ -41,79 +41,46 @@ linear-gradient(180deg,#101a2a,#0c1018)}
 .bubble.right:after{content:"";position:absolute;right:18px;bottom:-8px;border-width:8px 7px 0 7px;border-style:solid;border-color:rgba(255,255,255,.96) transparent transparent transparent}
 .controls{display:flex;flex-direction:column;gap:10px;margin-top:12px}
 .result{margin-top:12px}
-.muted{color:rgba(255,255,255,.72)}
 .hidden{display:none!important}
 .overlay{position:fixed;inset:0;background:#000;display:flex;align-items:stretch;justify-content:center;z-index:1000}
-.fullCutin{
-  width:100%;
-  height:100%;
-  position:relative;
-  overflow:hidden;
-  background:#000;
-}
-.fullCutinBg{
-  position:absolute;
-  inset:0;
-  object-fit:cover;
-  width:100%;
-  height:100%;
-}
-.fullShade{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.28) 0%, rgba(0,0,0,.05) 24%, rgba(0,0,0,.1) 50%, rgba(0,0,0,.52) 100%);
-}
+.fullCutin{width:100%;height:100%;position:relative;overflow:hidden;background:#000}
+.fullCutinBg{position:absolute;inset:0;object-fit:cover;width:100%;height:100%}
+.fullShade{position:absolute;inset:0;background:
+linear-gradient(180deg, rgba(0,0,0,.22) 0%, rgba(0,0,0,.08) 28%, rgba(0,0,0,.18) 58%, rgba(0,0,0,.70) 100%)}
 .fullTop{
-  position:absolute;
-  top:max(18px, env(safe-area-inset-top));
-  left:0; right:0;
-  text-align:center;
-  font-size:14px;
-  font-weight:900;
-  color:#ffd95e;
-  letter-spacing:.08em;
-  z-index:2;
+  position:absolute;top:max(18px, env(safe-area-inset-top));left:0;right:0;
+  text-align:center;font-size:14px;font-weight:900;color:#ffd95e;letter-spacing:.08em;z-index:2
 }
-.fullCard{
-  position:absolute;
-  left:14px;
-  right:14px;
-  bottom:max(16px, env(safe-area-inset-bottom));
-  z-index:2;
-  border-radius:24px;
-  padding:16px 16px 14px;
-  background:rgba(255,255,255,.16);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,.18);
-  box-shadow:0 18px 48px rgba(0,0,0,.28);
+.dialogWrap{
+  position:absolute;left:14px;right:14px;bottom:92px;z-index:2
+}
+.dialogBox{
+  border-radius:24px;padding:16px 16px 14px;
+  background:rgba(0,0,0,.56);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 18px 48px rgba(0,0,0,.28)
 }
 .fullBadge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:40px;
-  padding:8px 16px;
-  border-radius:999px;
-  background:rgba(0,0,0,.6);
-  color:#fff;
-  font-size:18px;
-  font-weight:900;
+  display:inline-flex;align-items:center;justify-content:center;min-height:40px;
+  padding:8px 16px;border-radius:999px;background:rgba(0,0,0,.62);color:#fff;
+  font-size:18px;font-weight:900
 }
 .fullText{
-  margin-top:14px;
-  font-size:18px;
-  line-height:1.75;
-  white-space:pre-line;
-  text-shadow:0 2px 10px rgba(0,0,0,.22);
+  margin-top:14px;font-size:18px;line-height:1.78;white-space:pre-line;color:#fff;
+  text-shadow:0 2px 10px rgba(0,0,0,.26)
 }
-.fullBtns{
-  display:flex;
-  gap:10px;
-  margin-top:16px;
+.systemPrompt{
+  margin-top:14px;font-size:14px;line-height:1.55;color:rgba(255,255,255,.76)
 }
-.fullBtns button{flex:1}
+.systemUI{
+  position:absolute;left:0;right:0;bottom:max(12px, env(safe-area-inset-bottom));z-index:2;
+  padding:0 14px 4px;
+  display:flex;gap:10px;
+}
+.systemUI button{flex:1;height:54px;border-radius:16px;font-size:18px;font-weight:900;border:none}
+.systemCancel{background:#1c1c1f;color:#fff;border:1px solid rgba(255,255,255,.14)}
+.systemOk{background:#fff;color:#000}
 .overlayCard{width:min(94vw,520px);max-height:92svh;overflow:auto;border-radius:24px;background:
 radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 38%),
 linear-gradient(180deg,#1b1b1d,#111113);
@@ -150,6 +117,8 @@ border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);pa
   .cutText{font-size:16px}
   .fullBadge{font-size:16px}
   .fullText{font-size:16px}
+  .systemPrompt{font-size:13px}
+  .dialogWrap{bottom:88px}
 }
 </style>
 </head>
@@ -214,13 +183,18 @@ border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);pa
     <img id="cutinImg" class="fullCutinBg" src="girlA_top.png" alt="">
     <div class="fullShade"></div>
     <div id="cutinTop" class="fullTop">第1話</div>
-    <div class="fullCard">
-      <div id="cutinName" class="fullBadge">チー娘A</div>
-      <div id="cutinText" class="fullText">今日は軽く試すだけ。</div>
-      <div class="fullBtns">
-        <button id="cutinCancel" class="btnGhost hidden">キャンセル</button>
-        <button id="cutinOk" class="btn">OK</button>
+
+    <div class="dialogWrap">
+      <div class="dialogBox">
+        <div id="cutinName" class="fullBadge">チー娘A</div>
+        <div id="cutinText" class="fullText">今日は軽く試すだけ。</div>
+        <div id="systemPrompt" class="systemPrompt hidden">この相手と戦いますか？</div>
       </div>
+    </div>
+
+    <div class="systemUI">
+      <button id="cutinCancel" class="systemCancel hidden">キャンセル</button>
+      <button id="cutinOk" class="systemOk">OK</button>
     </div>
   </div>
 </div>
@@ -244,6 +218,7 @@ const GIRLS = {
     name: "チー娘A",
     img: "girlA_top.png",
     intro: "今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？",
+    systemAsk: "この相手と戦いますか？",
     win: "ふーん……最初にしては悪くないかも。",
     lose: "その並び、まだ固まってない感じするね。",
     commentary: {
@@ -310,6 +285,7 @@ const el = {
   cutinImg: document.getElementById("cutinImg"),
   cutinName: document.getElementById("cutinName"),
   cutinText: document.getElementById("cutinText"),
+  systemPrompt: document.getElementById("systemPrompt"),
   cutinOk: document.getElementById("cutinOk"),
   cutinCancel: document.getElementById("cutinCancel"),
   mvpModal: document.getElementById("mvpModal"),
@@ -419,11 +395,13 @@ function showDamage(side, damage, crit=false) {
   setTimeout(() => div.remove(), 700);
 }
 
-function openCutin({top,name,img,text,showCancel=false,onOk=null,onCancel=null}) {
+function openCutin({top,name,img,text,systemText="",showCancel=false,onOk=null,onCancel=null}) {
   el.cutinTop.textContent = top;
   el.cutinName.textContent = name;
   el.cutinImg.src = img;
   el.cutinText.textContent = text;
+  el.systemPrompt.textContent = systemText;
+  el.systemPrompt.classList.toggle("hidden", !systemText);
   el.cutin.classList.remove("hidden");
   el.cutinCancel.classList.toggle("hidden", !showCancel);
 
@@ -551,6 +529,7 @@ function finishBattle(playerWon) {
     name: state.girl.name,
     img: state.girl.img,
     text: playerWon ? state.girl.win : state.girl.lose,
+    systemText: "",
     showCancel: false,
     onOk: () => {
       const hp = state.mvp.hp > 0 ? state.mvp.hp : 0;
@@ -570,7 +549,8 @@ el.startBtn.onclick = () => {
     top: "第1話",
     name: state.girl.name,
     img: state.girl.img,
-    text: state.girl.intro + "\n\nこの相手と戦いますか？",
+    text: state.girl.intro,
+    systemText: state.girl.systemAsk,
     showCancel: true,
     onOk: () => battleLoop(),
     onCancel: () => setLive("キャンセルした。")
