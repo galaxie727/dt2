@@ -70,8 +70,24 @@ linear-gradient(180deg, rgba(0,0,0,.22) 0%, rgba(0,0,0,.08) 28%, rgba(0,0,0,.18)
   margin-top:14px;font-size:18px;line-height:1.78;white-space:pre-line;color:#fff;
   text-shadow:0 2px 10px rgba(0,0,0,.26)
 }
-.systemPrompt{
-  margin-top:14px;font-size:14px;line-height:1.55;color:rgba(255,255,255,.76)
+.systemPromptBar{
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:76px;
+  z-index:2;
+  padding:0;
+}
+.systemPromptText{
+  border-radius:14px;
+  padding:12px 14px;
+  background:rgba(10,10,12,.78);
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.92);
+  font-size:15px;
+  line-height:1.45;
+  text-align:center;
+  box-shadow:0 10px 28px rgba(0,0,0,.24);
 }
 .systemUI{
   position:absolute;left:0;right:0;bottom:max(12px, env(safe-area-inset-bottom));z-index:2;
@@ -117,8 +133,9 @@ border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);pa
   .cutText{font-size:16px}
   .fullBadge{font-size:16px}
   .fullText{font-size:16px}
-  .systemPrompt{font-size:13px}
-  .dialogWrap{bottom:88px}
+  .systemPromptBar{bottom:74px}
+  .systemPromptText{font-size:14px}
+  .dialogWrap{bottom:136px}
 }
 </style>
 </head>
@@ -188,7 +205,11 @@ border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);pa
       <div class="dialogBox">
         <div id="cutinName" class="fullBadge">チー娘A</div>
         <div id="cutinText" class="fullText">今日は軽く試すだけ。</div>
-        <div id="systemPrompt" class="systemPrompt hidden">この相手と戦いますか？</div>
+      </div>
+    </div>
+
+    <div id="systemPromptBar" class="systemPromptBar hidden">
+      <div id="systemPrompt" class="systemPromptText">この相手と戦いますか？</div>
       </div>
     </div>
 
@@ -285,6 +306,7 @@ const el = {
   cutinImg: document.getElementById("cutinImg"),
   cutinName: document.getElementById("cutinName"),
   cutinText: document.getElementById("cutinText"),
+  systemPromptBar: document.getElementById("systemPromptBar"),
   systemPrompt: document.getElementById("systemPrompt"),
   cutinOk: document.getElementById("cutinOk"),
   cutinCancel: document.getElementById("cutinCancel"),
@@ -401,7 +423,7 @@ function openCutin({top,name,img,text,systemText="",showCancel=false,onOk=null,o
   el.cutinImg.src = img;
   el.cutinText.textContent = text;
   el.systemPrompt.textContent = systemText;
-  el.systemPrompt.classList.toggle("hidden", !systemText);
+  el.systemPromptBar.classList.toggle("hidden", !systemText);
   el.cutin.classList.remove("hidden");
   el.cutinCancel.classList.toggle("hidden", !showCancel);
 
