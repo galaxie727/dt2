@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>デカブサ大戦</title>
+
 <style>
 *{box-sizing:border-box}
 html,body{
@@ -33,11 +34,13 @@ body{
   min-height:100svh;
   padding:8px 8px 84px;
 }
+
 .screen{
   min-height:calc(100svh - 16px);
   display:flex;
   flex-direction:column;
 }
+
 .title{
   text-align:center;
   font-size:34px;
@@ -45,18 +48,21 @@ body{
   letter-spacing:.08em;
   margin-top:8px;
 }
+
 .sub{
   text-align:center;
   font-size:14px;
   color:var(--muted);
   margin-top:10px;
 }
+
 .center{
   flex:1;
   display:flex;
   align-items:center;
   justify-content:center;
 }
+
 .btn{
   width:100%;
   border:none;
@@ -67,7 +73,9 @@ body{
   background:#fff;
   color:#000;
 }
+
 .btn:active{transform:scale(.98)}
+
 .btnGhost{
   width:100%;
   border:none;
@@ -79,1176 +87,52 @@ body{
   color:#fff;
   border:1px solid var(--line);
 }
+
 .version{
   text-align:center;
   font-size:12px;
   opacity:.4;
   margin-top:12px;
 }
-.heroWrap{text-align:center}
-.hero{
-  width:min(76vw,310px);
-  max-width:310px;
-  opacity:.97;
-  animation:float 4s ease-in-out infinite;
-  filter:drop-shadow(0 8px 24px rgba(0,0,0,.45));
-}
-.copy{
-  text-align:center;
-  font-size:16px;
-  opacity:.85;
-  margin-bottom:22px;
-}
-.titleFooter{padding-bottom:10px}
-@keyframes float{
+
+/* チー娘浮遊 */
+@keyframes chiFloat{
   0%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
+  50%{transform:translateY(-6px)}
   100%{transform:translateY(0)}
 }
 
-.topBar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:10px;
-}
-.backBtn{
-  width:auto;
-  min-width:92px;
-  padding:12px 14px;
-  font-size:14px;
-  border-radius:12px;
-}
-.row{
-  display:flex;
-  gap:8px;
-}
-.col{min-width:0}
-.leftCol{flex:1.08}
-.rightCol{flex:.92}
-
-.panel{
-  background:linear-gradient(180deg,#141414,#101010);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:12px;
-  box-shadow:var(--panelGlow);
-}
-.sectionTitle{
-  font-size:18px;
-  font-weight:900;
-  margin:14px 0 10px;
-}
-.teamInfo{
-  font-size:12px;
-  color:var(--muted);
-  margin-top:4px;
-}
-.attr-fire{background:rgba(255,110,110,.18)}
-.attr-water{background:rgba(100,170,255,.18)}
-.attr-grass{background:rgba(90,220,130,.18)}
-
-.modeRow{
-  display:flex;
-  gap:8px;
-  margin:10px 0 2px;
-}
-.modeBtn{
-  flex:1;
-  min-width:110px;
-  border:none;
-  border-radius:12px;
-  padding:12px 10px;
-  background:#242424;
-  color:#fff;
-  border:1px solid var(--line);
-  font-size:13px;
-  font-weight:900;
-}
-.modeBtn.active{
-  background:#fff;
-  color:#000;
-}
-
-/* 候補カード */
-.pickGrid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-}
-.pickCardBig{
-  border:1px solid rgba(255,255,255,.18);
-  border-radius:18px;
-  padding:8px 9px;
-  background:#101010;
-  position:relative;
-  transition:transform .14s ease, box-shadow .2s ease, border-color .2s ease;
-}
-.pickCardBig.selected{
-  border:2px solid #fff;
-  box-shadow:0 0 10px rgba(255,255,255,.68), 0 0 22px rgba(255,255,255,.25);
-}
-.pickCardBig.tap{transform:scale(.985)}
-
-.cardMain{
-  display:grid;
-  grid-template-columns:122px 1fr;
-  gap:10px;
-  align-items:stretch;
-  min-height:148px;
-}
-.cardImgWrap{
-  width:122px;
-  min-height:148px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-}
-.cardImg{
-  width:100%;
-  height:144px;
-  object-fit:contain;
-  object-position:center bottom;
-  filter:drop-shadow(0 8px 18px rgba(0,0,0,.45));
-  display:block;
-}
-.cardInfo{
-  display:flex;
-  flex-direction:column;
-  min-width:0;
-  padding-top:2px;
-}
-.cardTopLine{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:8px;
-}
-.cardName{
-  font-size:17px;
-  font-weight:900;
-  line-height:1.1;
-}
-.cardAttr{
-  padding:4px 9px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:900;
-  border:1px solid rgba(255,255,255,.12);
-  flex-shrink:0;
-}
-.cardRole{
-  font-size:12px;
-  opacity:.82;
-  margin-top:2px;
-  line-height:1.25;
-}
-.cardStats{
-  font-size:12px;
-  margin-top:5px;
-  color:#ddd;
-  line-height:1.25;
-}
-.roleRow{
-  margin-top:6px;
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-}
-.roleTag{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:4px 8px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:#232323;
-  font-size:11px;
-  font-weight:800;
-  color:#f1f1f1;
-  line-height:1;
-}
-.roleTag.type-attack{background:rgba(255,120,120,.12)}
-.roleTag.type-tank{background:rgba(120,200,255,.12)}
-.roleTag.type-speed{background:rgba(255,220,120,.12)}
-.roleTag.type-balance{background:rgba(180,180,180,.12)}
-.roleTag.type-finisher{background:rgba(200,120,255,.12)}
-.roleTag.type-trick{background:rgba(120,255,200,.12)}
-.cardSkill{
-  font-size:12px;
-  margin-top:7px;
-  line-height:1.35;
-  color:#f2f2f2;
-}
-.cardEquip{
-  font-size:11px;
-  margin-top:6px;
-  color:#b8d7ff;
-  line-height:1.35;
-}
-.cardButtons{
-  margin-top:auto;
-  display:flex;
-  gap:6px;
-  padding-top:6px;
-}
-.btnMain,.btnSub,.btnDetail,.btnEquip{
-  flex:1;
-  border:none;
-  border-radius:10px;
-  padding:9px 6px;
-  font-size:12px;
-  font-weight:900;
-  min-height:40px;
-}
-.btnMain{background:#fff;color:#000}
-.btnSub{background:#333;color:#fff}
-.btnDetail{background:#555;color:#fff}
-.btnEquip{background:#2b2b2b;color:#fff}
-
-/* 並び */
-.teamList{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.teamSlot{
-  background:#1d1d1d;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:10px;
-  display:grid;
-  grid-template-columns:42px 54px 1fr 58px;
-  gap:10px;
-  align-items:center;
-}
-.slotNum{
-  width:42px;
-  height:42px;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#202020;
-  border:1px solid var(--line);
-  font-weight:900;
-  font-size:14px;
-}
-.slotThumb{
-  width:54px;
-  height:54px;
-  border-radius:12px;
-  object-fit:cover;
-  background:#0d0d0d;
-  border:1px solid var(--line);
-}
-.slotMain{min-width:0}
-.slotName{
-  font-size:15px;
-  font-weight:900;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.slotMeta{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:2px;
-}
-.slotEquip{
-  font-size:10px;
-  color:#b8d7ff;
-  margin-top:4px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.slotEmpty{color:rgba(255,255,255,.35)}
-.moveBtns{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-.moveBtn{
-  border:none;
-  border-radius:10px;
-  background:#2a2a2a;
-  color:#fff;
-  font-weight:900;
-  padding:7px 0;
-  border:1px solid var(--line);
-  font-size:12px;
-}
-.moveBtn:disabled{opacity:.28}
-.removeBtn{
-  margin-top:6px;
-  border:none;
-  border-radius:10px;
-  background:#1d1d1d;
-  color:#fff;
-  border:1px solid var(--line);
-  padding:8px 0;
-  font-size:12px;
-  font-weight:900;
-  width:100%;
-}
-.bottomActions{
-  margin-top:14px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.buildHint{
-  margin-top:10px;
-  background:#111;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-  font-size:13px;
-  line-height:1.65;
-  white-space:pre-line;
-}
-
-/* マイデッキ */
-.deckBox,.shareBox{
-  margin-top:14px;
-  padding:12px;
-  border-radius:16px;
-  background:#111;
-  border:1px solid var(--line);
-}
-#deckList{
-  display:flex;
-  gap:8px;
-  margin-bottom:10px;
-}
-.deckSlot{
-  flex:1;
-  padding:10px;
-  border-radius:12px;
-  background:#222;
-  text-align:center;
-  cursor:pointer;
-  border:2px solid transparent;
-  font-size:12px;
-  font-weight:900;
-}
-.deckSlot.active{
-  border-color:#fff;
-}
-#deckName,#deckCode{
-  width:100%;
-  border:none;
-  border-radius:12px;
-  background:#222;
-  color:#fff;
-  padding:10px;
-  font-size:12px;
-}
-#deckCode{
-  min-height:86px;
-  resize:vertical;
-  line-height:1.5;
-}
-.deckBtns{
-  display:flex;
-  gap:8px;
-  margin-top:8px;
-}
-.deckBtns button{
-  flex:1;
-  padding:10px;
-  border-radius:10px;
-  border:none;
-  background:#333;
-  color:#fff;
-  font-size:12px;
-  font-weight:900;
-}
-
-/* 図鑑一覧 */
-.dexList{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.dexRow{
-  display:grid;
-  grid-template-columns:56px 1fr auto;
-  gap:10px;
-  align-items:center;
-  background:#1b1b1b;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:8px;
-  cursor:pointer;
-}
-.dexThumb{
-  width:56px;
-  height:56px;
-  object-fit:contain;
-  border-radius:10px;
-  background:#0d0d0d;
-  border:1px solid var(--line);
-}
-.dexName{
-  font-size:14px;
-  font-weight:900;
-}
-.dexMini{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:2px;
-}
-.dexAttr{
-  padding:4px 8px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:900;
-  border:1px solid rgba(255,255,255,.12);
-}
-
-/* 図鑑詳細 */
-.dexHero{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:190px;
-}
-.dexHero img{
-  max-width:220px;
-  max-height:180px;
-  object-fit:contain;
-  filter:drop-shadow(0 12px 28px rgba(0,0,0,.45));
-}
-.dexDetailName{
-  font-size:26px;
-  font-weight:900;
-  text-align:center;
-}
-.dexDetailAttr{
-  margin:8px auto 0;
-  width:max-content;
-  padding:6px 12px;
-  border-radius:999px;
-  font-size:12px;
-  font-weight:900;
-  border:1px solid rgba(255,255,255,.14);
-}
-.dexRole{
-  text-align:center;
-  font-size:14px;
-  color:#ddd;
-  margin-top:8px;
-}
-.dexStatsGrid{
-  margin-top:14px;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
-}
-.dexStat{
-  background:#171717;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:10px;
-}
-.dexStatLabel{
-  font-size:11px;
-  color:var(--muted);
-}
-.dexStatValue{
-  font-size:18px;
-  font-weight:900;
-  margin-top:4px;
-}
-.dexBlock{
-  margin-top:12px;
-  background:#171717;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:12px;
-}
-.dexBlockTitle{
-  font-size:13px;
-  font-weight:900;
-  margin-bottom:6px;
-}
-.dexText{
-  font-size:13px;
-  line-height:1.65;
-  color:#eee;
-  white-space:pre-line;
-}
-
-/* 装備技 */
-.skillList{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.skillCard{
-  background:#171717;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-}
-.skillCard.active{
-  outline:2px solid rgba(255,255,255,.55);
-}
-.skillName{
-  font-size:15px;
-  font-weight:900;
-}
-.skillDesc{
-  font-size:12px;
-  line-height:1.55;
-  color:#ddd;
-  margin-top:6px;
-}
-.skillBtns{
-  display:flex;
-  gap:8px;
-  margin-top:10px;
-}
-
-/* お試し相手選択 */
-.testEnemyGrid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-.testEnemyCard{
-  background:#161616;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:12px;
-  text-align:center;
-}
-.testEnemyCard img{
-  width:100%;
-  aspect-ratio:1/1;
-  object-fit:contain;
-  border-radius:12px;
-  background:#0d0d0d;
-  border:1px solid var(--line);
-}
-.testEnemyName{
-  font-size:14px;
-  font-weight:900;
-  margin-top:8px;
-}
-.testEnemyAttr{
-  font-size:12px;
-  color:#ddd;
-  margin-top:2px;
-}
-.testEnemyBtn{
-  margin-top:10px;
-  width:100%;
-  border:none;
-  border-radius:12px;
-  padding:12px 8px;
-  background:#fff;
-  color:#000;
-  font-size:13px;
-  font-weight:900;
-}
-
-/* 戦況メタ */
-.battleMeta{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:10px;
-}
-.metaPill{
-  padding:7px 10px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:#171717;
-  font-size:11px;
-  color:#ddd;
-}
-.alivePill{font-weight:900}
-.aliveGood{color:#b8ffd1}
-.aliveBad{color:#ffc1c1}
-
-/* 戦況表 */
-.statusBoardWrap{
-  position:relative;
-  margin-bottom:12px;
-}
-.statusBoard{
-  background:linear-gradient(180deg,#141414,#101010);
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:12px;
-  box-shadow:var(--panelGlow);
-  position:relative;
-  z-index:1;
-}
-.statusLines{
-  position:absolute;
+/* MVPモーダル */
+#mvpModal{
+  position:fixed;
   inset:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-  z-index:2;
-}
-.statusHead{
-  display:grid;
-  grid-template-columns:1fr 44px 1fr;
-  gap:8px;
-  align-items:center;
-  margin-bottom:8px;
-}
-.statusHead .label{
-  font-size:13px;
-  font-weight:900;
-  color:#ddd;
-}
-.statusHead .label.right{text-align:right}
-.statusRows{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-}
-.statusRow{
-  display:grid;
-  grid-template-columns:1fr 44px 1fr;
-  gap:8px;
-  align-items:center;
-}
-.miniSideCard{
-  background:#1a1a1a;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:8px;
-  min-height:58px;
-  display:grid;
-  grid-template-columns:40px 1fr auto;
-  gap:8px;
-  align-items:center;
-  position:relative;
-}
-.miniSideCard.right{grid-template-columns:auto 1fr 40px}
-.miniSideCard.dead{
-  opacity:.25;
-  filter:grayscale(1);
-}
-.miniSideCard.active{
-  outline:2px solid rgba(255,255,255,.55);
-  box-shadow:0 0 0 3px rgba(255,255,255,.08);
-}
-.miniSideCard img{
-  width:40px;
-  height:40px;
-  border-radius:10px;
-  object-fit:cover;
-  background:#0d0d0d;
-  border:1px solid var(--line);
-}
-.miniSideCard.playerSide img{transform:scaleX(-1)}
-.miniSideCard.enemySide img{transform:scaleX(1)}
-.miniSideMain{min-width:0}
-.miniSideName{
-  font-size:12px;
-  font-weight:900;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.miniSideMeta{
-  font-size:10px;
-  color:var(--muted);
-  margin-top:2px;
-}
-.miniSideBadge{
-  font-size:11px;
-  font-weight:900;
-  color:#fff;
-}
-.boardVs{
+  z-index:999;
+  background:rgba(0,0,0,.6);
   display:flex;
   align-items:center;
   justify-content:center;
-}
-.boardLink{
-  width:100%;
-  height:2px;
-  background:rgba(255,255,255,.18);
-  position:relative;
-}
-.boardLink.active{
-  background:rgba(255,255,255,.75);
-  box-shadow:0 0 10px rgba(255,255,255,.22);
 }
 
-/* バトル本体 */
-.battleTop{
-  display:grid;
-  grid-template-columns:1fr 64px 1fr;
-  gap:10px;
-  align-items:stretch;
-  margin-bottom:10px;
-}
-.sideLabel{
-  font-size:12px;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-.vs{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:28px;
-  font-weight:900;
-  opacity:.95;
-}
-.fighterCard{
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:14px;
-  min-height:286px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  box-shadow:var(--panelGlow);
-  position:relative;
-  overflow:hidden;
-}
-.fighterCard.fire{
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255,90,90,.20), transparent 42%),
-    linear-gradient(180deg,#251313,#120d0d);
-}
-.fighterCard.water{
-  background:
-    radial-gradient(circle at 30% 20%, rgba(90,150,255,.20), transparent 42%),
-    linear-gradient(180deg,#101a2a,#0c1018);
-}
-.fighterCard.grass{
-  background:
-    radial-gradient(circle at 30% 20%, rgba(90,220,130,.18), transparent 42%),
-    linear-gradient(180deg,#112317,#0b120d);
-}
-.fighterCard.none{
-  background:linear-gradient(180deg,#171717,#101010);
-}
-.fighterHeader{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  min-width:0;
-  padding-left:8px;
-}
-#enemyCard .fighterHeader,#testEnemyCardBox .fighterHeader{
-  padding-left:0;
-  padding-right:8px;
-}
-.fighterBadges{
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
-}
-.fighterBadges.right{justify-content:flex-end}
-.infoBadge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:4px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.16);
-  background:rgba(255,255,255,.08);
-  font-size:11px;
-  font-weight:900;
-}
-.badge-attr-fire{background:rgba(255,123,123,.12)}
-.badge-attr-water{background:rgba(115,169,255,.12)}
-.badge-attr-grass{background:rgba(100,220,130,.12)}
-.badge-good{background:rgba(120,225,160,.16);color:#b8ffd1}
-.badge-bad{background:rgba(255,127,127,.16);color:#ffc1c1}
-.badge-even{background:rgba(255,255,255,.08);color:#eee}
-.fighterName{
-  font-size:20px;
-  font-weight:900;
-  line-height:1.1;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.fighterRole{
-  font-size:14px;
-  color:#b8c8ff;
-  line-height:1.2;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.fighterEquip{
-  font-size:11px;
-  color:#d7e6ff;
-  line-height:1.35;
-}
-.fighterBody{
-  flex:1;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  position:relative;
-  min-height:140px;
-  padding-bottom:6px;
-}
-.fighterVisual{
-  width:150px;
-  height:140px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  position:relative;
-}
-.fighterImg{
-  max-width:100%;
-  max-height:140px;
-  object-fit:contain;
-  filter:drop-shadow(0 8px 18px rgba(0,0,0,.45));
-}
-.fighterVisual.player .fighterImg{transform:scaleX(-1)}
-.fighterVisual.enemy .fighterImg{transform:scaleX(1)}
-
-.fighterVisual.attackForward{animation:attackForwardPlayer .22s ease}
-.fighterVisual.enemy.attackForward{animation:attackForwardEnemy .22s ease}
-@keyframes attackForwardPlayer{
-  0%{transform:translateX(0)}
-  45%{transform:translateX(18px) scale(1.04)}
-  100%{transform:translateX(0)}
-}
-@keyframes attackForwardEnemy{
-  0%{transform:translateX(0)}
-  45%{transform:translateX(-18px) scale(1.04)}
-  100%{transform:translateX(0)}
-}
-
-.hpWrap{margin-top:8px}
-.hpRow{
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  margin-bottom:5px;
-}
-.hpBar{
-  width:100%;
-  height:12px;
-  background:#292929;
-  border-radius:999px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
-}
-.hpFill{
-  height:100%;
-  width:100%;
-  background:#fff;
-  transition:width .28s ease;
-}
-.hpFill.low{background:#ff7b7b}
-.hpFill.mid{background:#ffd24d}
-.hpFill.high{background:#77e0a0}
-
-.liveTicker{
-  margin:4px 0 10px;
-  padding:14px 14px;
-  border-radius:14px;
-  background:linear-gradient(180deg,#181818,#111);
-  border:1px solid rgba(255,255,255,.12);
-  font-size:17px;
-  font-weight:900;
-  line-height:1.45;
-  min-height:56px;
-  display:flex;
-  align-items:center;
-  box-shadow:0 8px 24px rgba(0,0,0,.28);
-}
-.battleBubble{
-  position:absolute;
-  top:-4px;
-  max-width:120px;
-  padding:8px 10px;
-  border-radius:12px;
-  background:rgba(255,255,255,.96);
-  color:#111;
-  font-size:12px;
-  font-weight:900;
-  line-height:1.35;
-  box-shadow:0 6px 18px rgba(0,0,0,.28);
-  z-index:3;
-  animation:bubblePop .45s ease;
-}
-.battleBubble.left{left:-2px}
-.battleBubble.right{right:-2px}
-.battleBubble.left::after{
-  content:"";
-  position:absolute;
-  left:18px;
-  bottom:-8px;
-  border-width:8px 7px 0 7px;
-  border-style:solid;
-  border-color:rgba(255,255,255,.96) transparent transparent transparent;
-}
-.battleBubble.right::after{
-  content:"";
-  position:absolute;
-  right:18px;
-  bottom:-8px;
-  border-width:8px 7px 0 7px;
-  border-style:solid;
-  border-color:rgba(255,255,255,.96) transparent transparent transparent;
-}
-@keyframes bubblePop{
-  0%{opacity:0;transform:translateY(6px) scale(.92)}
-  100%{opacity:1;transform:translateY(0) scale(1)}
-}
-.fighterCard.hit{animation:cardHitShake .22s ease}
-.fighterCard.hit-enemy{animation:cardHitShakeEnemy .22s ease}
-.fighterCard.flash::after{
-  content:"";
-  position:absolute;
+/* カットイン */
+#storyCutin{
+  position:fixed;
   inset:0;
-  background:rgba(255,255,255,.28);
-  pointer-events:none;
-  animation:cardHitFlash .22s ease;
-}
-.fighterCard.koFaded{
-  opacity:.58;
-  filter:grayscale(.35);
-  transition:opacity .18s ease, filter .18s ease;
-}
-@keyframes cardHitShake{
-  0%{transform:translateX(0)}
-  20%{transform:translateX(-8px)}
-  40%{transform:translateX(7px)}
-  60%{transform:translateX(-5px)}
-  80%{transform:translateX(3px)}
-  100%{transform:translateX(0)}
-}
-@keyframes cardHitShakeEnemy{
-  0%{transform:translateX(0)}
-  20%{transform:translateX(8px)}
-  40%{transform:translateX(-7px)}
-  60%{transform:translateX(5px)}
-  80%{transform:translateX(-3px)}
-  100%{transform:translateX(0)}
-}
-@keyframes cardHitFlash{
-  0%{opacity:0}
-  25%{opacity:1}
-  100%{opacity:0}
-}
-.hpBar.hitbar{
-  box-shadow:0 0 0 2px rgba(255,255,255,.12), 0 0 16px rgba(255,255,255,.22);
-}
-.damageText{
-  position:absolute;
-  top:18px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:24px;
-  font-weight:900;
-  color:#fff;
-  text-shadow:0 2px 10px rgba(0,0,0,.6);
-  pointer-events:none;
-  z-index:4;
-  animation:damagePop .7s ease forwards;
-}
-.damageText.crit{color:#ffd95e}
-.damageText.adv{
-  color:#ff7b7b;
-  text-shadow:0 0 10px rgba(255,0,0,.45);
-}
-.damageText.dis{
-  color:#6db5ff;
-  text-shadow:0 0 10px rgba(50,120,255,.45);
-}
-@keyframes damagePop{
-  0%{opacity:0;transform:translateX(-50%) translateY(10px) scale(.7)}
-  25%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
-  100%{opacity:0;transform:translateX(-50%) translateY(-24px) scale(1.05)}
-}
-.flashMsg{
-  position:sticky;
-  top:0;
-  z-index:5;
-  margin-bottom:10px;
-  text-align:center;
-  font-size:18px;
-  font-weight:900;
-  padding:10px 12px;
-  border-radius:14px;
-  background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.06));
-  border:1px solid rgba(255,255,255,.2);
-  opacity:0;
-  transform:translateY(-6px) scale(.98);
-  transition:.18s ease;
-  pointer-events:none;
-}
-.flashMsg.show{
-  opacity:1;
-  transform:translateY(0) scale(1);
-}
-.logPanel{
-  flex:1;
-  background:#111;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-  overflow:auto;
-  min-height:210px;
-  max-height:30svh;
-}
-.logLine{
-  font-size:13px;
-  line-height:1.65;
-  padding:4px 0;
-  border-bottom:1px dashed rgba(255,255,255,.06);
-}
-.battleActions{
-  margin-top:12px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.resultTitle{
-  font-size:22px;
-  font-weight:900;
-  text-align:center;
-  margin:8px 0 4px;
-}
-.resultSub{
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:8px;
-}
-.summaryCard{
-  background:#111;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-  line-height:1.75;
-  font-size:13px;
-  white-space:pre-line;
-}
-.speedRow{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-.speedBtn{
-  flex:1;
-  min-width:84px;
-  border:none;
-  border-radius:12px;
-  padding:10px 8px;
-  background:#242424;
-  color:#fff;
-  border:1px solid var(--line);
-  font-size:12px;
-  font-weight:900;
-}
-.speedBtn.active{
-  background:#fff;
-  color:#000;
-}
-.mvpPanel{
-  background:linear-gradient(180deg,#181818,#101010);
-  border:1px solid rgba(255,255,255,.16);
-  border-radius:18px;
-  padding:18px 14px;
-  text-align:center;
-  box-shadow:0 8px 28px rgba(0,0,0,.38);
-  overflow:hidden;
-  position:relative;
-}
-.mvpPanel.show{animation:mvpAppear .42s ease}
-@keyframes mvpAppear{
-  0%{opacity:0; transform:scale(.94) translateY(10px)}
-  100%{opacity:1; transform:scale(1) translateY(0)}
-}
-.mvpCrown{
-  font-size:14px;
-  font-weight:900;
-  color:#ffd95e;
-  letter-spacing:.08em;
-}
-.mvpImageWrap{
-  min-height:180px;
+  z-index:1200;
+  background:rgba(0,0,0,.6);
   display:flex;
   align-items:center;
   justify-content:center;
-  margin-top:10px;
-}
-.mvpImg{
-  max-width:240px;
-  max-height:180px;
-  object-fit:contain;
-  filter:drop-shadow(0 12px 28px rgba(0,0,0,.45));
-  animation:mvpFloat 2.4s ease-in-out infinite;
-}
-@keyframes mvpFloat{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-5px)}
-  100%{transform:translateY(0)}
-}
-.mvpName{
-  font-size:28px;
-  font-weight:900;
-  margin-top:4px;
-}
-.mvpStats{
-  margin-top:6px;
-  font-size:13px;
-  line-height:1.6;
-  color:#ddd;
-  white-space:pre-line;
-}
-.mvpLine{
-  margin-top:8px;
-  font-size:15px;
-  font-weight:900;
-}
-.replayPanel{
-  background:#111;
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-  font-size:13px;
-  line-height:1.7;
-  white-space:pre-line;
 }
 
-@media (max-width:520px){
-  .title{font-size:31px}
-  .row{flex-direction:column}
-  .statusHead{grid-template-columns:1fr 34px 1fr;gap:6px}
-  .statusRow{grid-template-columns:1fr 34px 1fr;gap:6px}
-  .miniSideCard{
-    min-height:54px;
-    grid-template-columns:36px 1fr auto;
-    padding:7px;
-  }
-  .miniSideCard.right{grid-template-columns:auto 1fr 36px}
-  .miniSideCard img{
-    width:36px;
-    height:36px;
-  }
-  .battleTop{grid-template-columns:1fr 48px 1fr;gap:8px}
-  .vs{font-size:22px}
-  .fighterCard{min-height:252px;padding:12px}
-  .fighterName{font-size:16px}
-  .fighterBody{min-height:128px;padding-bottom:4px}
-  .fighterVisual{width:128px;height:128px}
-  .fighterImg{max-width:128px;max-height:128px}
+/* 勝敗カットイン */
+#resultCutin{
+  position:fixed;
+  inset:0;
+  z-index:1300;
+  background:rgba(0,0,0,.7);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 </style>
 </head>
@@ -1259,97 +143,97 @@ body{
   <div class="title">デカブサ大戦</div>
   <div class="sub">5対5 団体オートバトル</div>
   <div class="center">
-    <div class="heroWrap">
-      <img class="hero" src="./dekabusa_title.png" alt="デカブサ大戦" onerror="this.src='./dekabusa.png';this.onerror=null;">
+    <div style="text-align:center">
+      <img src="./dekabusa_title.png" alt="デカブサ大戦" style="width:min(76vw,310px);max-width:310px;opacity:.97;animation:chiFloat 4s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(0,0,0,.45));" onerror="this.src='./dekabusa.png';this.onerror=null;">
     </div>
   </div>
-  <div class="titleFooter">
-    <div class="copy">並びだけ決めろ</div>
+  <div style="padding-bottom:10px">
+    <div style="text-align:center;font-size:16px;opacity:.85;margin-bottom:22px;">並びだけ決めろ</div>
     <div id="titleStoryInfo" class="sub" style="margin-bottom:14px;">ストーリー進行：第1話</div>
     <button class="btn" onclick="goBuild()">START</button>
-    <div class="version">ver 10.5</div>
+    <div class="version">ver 11.0</div>
   </div>
 </section>
 
 <section id="screenBuild" class="screen" hidden>
-  <div class="topBar">
-    <button class="btn btnGhost backBtn" onclick="goTitle()">戻る</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">
+    <button class="btn btnGhost" style="width:auto;min-width:92px;padding:12px 14px;font-size:14px;border-radius:12px;" onclick="goTitle()">戻る</button>
     <div style="text-align:right">
       <div style="font-size:18px;font-weight:900">好きな順に並べろ。</div>
-      <div class="teamInfo">5体まで選択可能</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.68);margin-top:4px;">5体まで選択可能</div>
     </div>
   </div>
 
-  <div class="panel" style="margin-bottom:10px">
-    <div class="sectionTitle" style="margin-top:0">バトルモード</div>
-    <div class="modeRow">
-      <button id="modeSurvivalBtn" class="modeBtn active" onclick="setBattleMode('survival')">勝ち抜き</button>
-      <button id="modeFixedBtn" class="modeBtn" onclick="setBattleMode('fixed')">対面固定</button>
+  <div style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);margin-bottom:10px;">
+    <div style="font-size:18px;font-weight:900;margin:0 0 10px;">バトルモード</div>
+    <div style="display:flex;gap:8px;margin:10px 0 2px;">
+      <button id="modeSurvivalBtn" class="btnGhost" style="flex:1;min-width:110px;padding:12px 10px;font-size:13px;" onclick="setBattleMode('survival')">勝ち抜き</button>
+      <button id="modeFixedBtn" class="btnGhost" style="flex:1;min-width:110px;padding:12px 10px;font-size:13px;" onclick="setBattleMode('fixed')">対面固定</button>
     </div>
-    <div id="modeHint" class="teamInfo">勝ったキャラが残って次と戦う</div>
+    <div id="modeHint" style="font-size:12px;color:rgba(255,255,255,.68);margin-top:4px;">勝ったキャラが残って次と戦う</div>
   </div>
 
-  <div class="panel" style="margin-bottom:10px">
-    <div class="sectionTitle" style="margin-top:0">ゲームモード</div>
-    <div class="modeRow">
-      <button id="mainModeFreeBtn" class="modeBtn active" onclick="setMainMode('free')">通常対戦</button>
-      <button id="mainModeStoryBtn" class="modeBtn" onclick="setMainMode('story')">ストーリー</button>
+  <div style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);margin-bottom:10px;">
+    <div style="font-size:18px;font-weight:900;margin:0 0 10px;">ゲームモード</div>
+    <div style="display:flex;gap:8px;margin:10px 0 2px;">
+      <button id="mainModeFreeBtn" class="btnGhost" style="flex:1;min-width:110px;padding:12px 10px;font-size:13px;" onclick="setMainMode('free')">通常対戦</button>
+      <button id="mainModeStoryBtn" class="btnGhost" style="flex:1;min-width:110px;padding:12px 10px;font-size:13px;" onclick="setMainMode('story')">ストーリー</button>
     </div>
-    <div id="mainModeHint" class="teamInfo">通常対戦：ランダム敵チームと戦う</div>
+    <div id="mainModeHint" style="font-size:12px;color:rgba(255,255,255,.68);margin-top:4px;">通常対戦：ランダム敵チームと戦う</div>
   </div>
 
-  <div id="storyPanel" class="panel" style="margin-bottom:10px" hidden>
-    <div class="sectionTitle" style="margin-top:0">ストーリー</div>
-    <div id="storyStageInfo" class="buildHint">第1話　チー娘A
+  <div id="storyPanel" style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);margin-bottom:10px;" hidden>
+    <div style="font-size:18px;font-weight:900;margin:0 0 10px;">ストーリー</div>
+    <div id="storyStageInfo" style="margin-top:10px;background:#111;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px;font-size:13px;line-height:1.65;white-space:pre-line;">第1話　チー娘A
 今日は軽く試すだけ。</div>
-    <div class="bottomActions" style="margin-top:10px">
+    <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;">
       <button class="btn" onclick="openStoryStart()">この相手と戦う</button>
       <button class="btn btnGhost" onclick="resetStoryProgress()">ストーリー進行リセット</button>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col leftCol">
-      <div class="panel">
-        <div class="sectionTitle">候補キャラ</div>
-        <div id="pickGrid" class="pickGrid"></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <div style="flex:1.08;min-width:0;">
+      <div style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);">
+        <div style="font-size:18px;font-weight:900;margin:14px 0 10px;">候補キャラ</div>
+        <div id="pickGrid"></div>
       </div>
     </div>
 
-    <div class="col rightCol">
-      <div class="panel">
-        <div class="sectionTitle">現在の並び</div>
-        <div class="teamInfo">先鋒 → 次鋒 → 中堅 → 副将 → 大将</div>
-        <div id="teamList" class="teamList"></div>
+    <div style="flex:.92;min-width:0;">
+      <div style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);">
+        <div style="font-size:18px;font-weight:900;margin:14px 0 10px;">現在の並び</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.68);margin-top:4px;">先鋒 → 次鋒 → 中堅 → 副将 → 大将</div>
+        <div id="teamList"></div>
 
-        <div class="bottomActions">
+        <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;">
           <button id="confirmBtn" class="btn" onclick="startBattle()" disabled>この並びでいく</button>
           <button class="btn btnGhost" onclick="fillRandom()">ランダムで埋める</button>
           <button class="btn btnGhost" onclick="clearTeam()">全て外す</button>
           <button class="btn btnGhost" onclick="goDexList()">キャラ図鑑</button>
         </div>
 
-        <div id="buildHint" class="buildHint">並び特徴をここに表示</div>
+        <div id="buildHint" style="margin-top:10px;background:#111;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px;font-size:13px;line-height:1.65;white-space:pre-line;">並び特徴をここに表示</div>
       </div>
 
-      <div class="deckBox">
-        <div class="sectionTitle" style="margin-top:0">マイデッキ</div>
-        <div id="deckList"></div>
-        <input id="deckName" placeholder="デッキ名">
-        <div class="deckBtns">
-          <button onclick="saveDeck()">保存</button>
-          <button onclick="loadDeck()">読み込み</button>
-          <button onclick="deleteDeck()">削除</button>
+      <div style="margin-top:14px;padding:12px;border-radius:16px;background:#111;border:1px solid rgba(255,255,255,.12);">
+        <div style="font-size:18px;font-weight:900;margin:0 0 10px;">マイデッキ</div>
+        <div id="deckList" style="display:flex;gap:8px;margin-bottom:10px;"></div>
+        <input id="deckName" placeholder="デッキ名" style="width:100%;border:none;border-radius:12px;background:#222;color:#fff;padding:10px;font-size:12px;">
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <button class="btnGhost" style="flex:1;padding:10px;font-size:12px;" onclick="saveDeck()">保存</button>
+          <button class="btnGhost" style="flex:1;padding:10px;font-size:12px;" onclick="loadDeck()">読み込み</button>
+          <button class="btnGhost" style="flex:1;padding:10px;font-size:12px;" onclick="deleteDeck()">削除</button>
         </div>
       </div>
 
-      <div class="shareBox">
-        <div class="sectionTitle" style="margin-top:0">デッキ共有</div>
-        <textarea id="deckCode" placeholder="ここにデッキコードを表示 / 貼り付け"></textarea>
-        <div class="deckBtns">
-          <button onclick="exportDeckCode()">コード作成</button>
-          <button onclick="copyDeckCode()">コピー</button>
-          <button onclick="importDeckCode()">読み込み</button>
+      <div style="margin-top:14px;padding:12px;border-radius:16px;background:#111;border:1px solid rgba(255,255,255,.12);">
+        <div style="font-size:18px;font-weight:900;margin:0 0 10px;">デッキ共有</div>
+        <textarea id="deckCode" placeholder="ここにデッキコードを表示 / 貼り付け" style="width:100%;border:none;border-radius:12px;background:#222;color:#fff;padding:10px;font-size:12px;min-height:86px;resize:vertical;line-height:1.5;"></textarea>
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <button class="btnGhost" style="flex:1;padding:10px;font-size:12px;" onclick="exportDeckCode()">コード作成</button>
+          <button class="btnGhost" style="flex:1;padding:10px;font-size:12px;" onclick="copyDeckCode()">コピー</button>
+          <button class="btnGhost" style="flex:1;padding:10px;font-size:12px;" onclick="importDeckCode()">読み込み</button>
         </div>
       </div>
     </div>
@@ -1357,232 +241,353 @@ body{
 </section>
 
 <section id="screenDexList" class="screen" hidden>
-  <div class="topBar">
-    <button class="btn btnGhost backBtn" onclick="goBuild()">編成へ</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">
+    <button class="btn btnGhost" style="width:auto;min-width:92px;padding:12px 14px;font-size:14px;border-radius:12px;" onclick="goBuild()">編成へ</button>
     <div style="text-align:right">
       <div style="font-size:18px;font-weight:900">キャラ図鑑</div>
-      <div class="teamInfo">一覧</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.68);margin-top:4px;">一覧</div>
     </div>
   </div>
-  <div class="panel">
-    <div id="dexList" class="dexList"></div>
+  <div style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);">
+    <div id="dexList"></div>
   </div>
 </section>
 
 <section id="screenDexDetail" class="screen" hidden>
-  <div class="topBar">
-    <button class="btn btnGhost backBtn" onclick="goDexList()">戻る</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">
+    <button class="btn btnGhost" style="width:auto;min-width:92px;padding:12px 14px;font-size:14px;border-radius:12px;" onclick="goDexList()">戻る</button>
     <div style="text-align:right">
       <div style="font-size:18px;font-weight:900">キャラ詳細</div>
-      <div class="teamInfo">図鑑</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.68);margin-top:4px;">図鑑</div>
     </div>
   </div>
-  <div class="panel">
+  <div style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);">
     <div id="dexDetailBody"></div>
   </div>
 </section>
 
 <section id="screenEquip" class="screen" hidden>
-  <div class="topBar">
-    <button class="btn btnGhost backBtn" onclick="goBuild()">編成へ</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">
+    <button class="btn btnGhost" style="width:auto;min-width:92px;padding:12px 14px;font-size:14px;border-radius:12px;" onclick="goBuild()">編成へ</button>
     <div style="text-align:right">
       <div id="equipTitle" style="font-size:18px;font-weight:900">装備技変更</div>
-      <div class="teamInfo">3つの中から1つ選ぶ</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.68);margin-top:4px;">3つの中から1つ選ぶ</div>
     </div>
   </div>
-  <div class="panel">
-    <div id="equipCharInfo" class="buildHint">-</div>
-    <div id="skillList" class="skillList"></div>
+  <div style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);">
+    <div id="equipCharInfo" style="margin-top:10px;background:#111;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px;font-size:13px;line-height:1.65;white-space:pre-line;">-</div>
+    <div id="skillList"></div>
   </div>
 </section>
 
 <section id="screenTestSelect" class="screen" hidden>
-  <div class="topBar">
-    <button class="btn btnGhost backBtn" onclick="goBuild()">編成へ</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">
+    <button class="btn btnGhost" style="width:auto;min-width:92px;padding:12px 14px;font-size:14px;border-radius:12px;" onclick="goBuild()">編成へ</button>
     <div style="text-align:right">
       <div id="testSelectTitle" style="font-size:18px;font-weight:900">相手を選んで試す</div>
-      <div class="teamInfo">相性確認用</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.68);margin-top:4px;">相性確認用</div>
     </div>
   </div>
-  <div class="panel">
-    <div id="testSelectHint" class="buildHint">-</div>
-    <div id="testEnemyGrid" class="testEnemyGrid"></div>
+  <div style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);">
+    <div id="testSelectHint" style="margin-top:10px;background:#111;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px;font-size:13px;line-height:1.65;white-space:pre-line;">-</div>
+    <div id="testEnemyGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;"></div>
   </div>
 </section>
 
 <section id="screenTestBattle" class="screen" hidden>
-  <div class="topBar">
-    <button class="btn btnGhost backBtn" onclick="goTestSelect(testPlayerId)">相手選択へ</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">
+    <button class="btn btnGhost" style="width:auto;min-width:92px;padding:12px 14px;font-size:14px;border-radius:12px;" onclick="goTestSelect(testPlayerId)">相手選択へ</button>
     <div style="text-align:right">
       <div id="testBattleTitle" style="font-size:18px;font-weight:900">お試しバトル</div>
-      <div class="teamInfo">1対1の確認</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.68);margin-top:4px;">1対1の確認</div>
     </div>
   </div>
 
-  <div class="battleTop">
+  <div style="display:grid;grid-template-columns:1fr 64px 1fr;gap:10px;align-items:stretch;margin-bottom:10px;">
     <div>
-      <div class="sideLabel">あなた</div>
-      <div id="testPlayerCardBox" class="fighterCard none">
-        <div class="fighterHeader">
-          <div id="testPlayerBadges" class="fighterBadges"></div>
-          <div id="testPlayerName" class="fighterName">-</div>
-          <div id="testPlayerRole" class="fighterRole">-</div>
-          <div id="testPlayerEquip" class="fighterEquip">-</div>
-        </div>
-        <div class="fighterBody">
-          <div class="fighterVisual player">
-            <img id="testPlayerImg" class="fighterImg" src="" alt="">
-          </div>
-        </div>
-        <div class="hpWrap">
-          <div class="hpRow"><span>HP</span><span id="testPlayerHp">-</span></div>
-          <div class="hpBar"><div id="testPlayerHpFill" class="hpFill high"></div></div>
-        </div>
-      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,.68);margin-bottom:6px;">あなた</div>
+      <div id="testPlayerCardBox"></div>
     </div>
-
-    <div class="vs">VS</div>
-
+    <div style="display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;opacity:.95;">VS</div>
     <div>
-      <div class="sideLabel" style="text-align:right">敵</div>
-      <div id="testEnemyCardBox" class="fighterCard none">
-        <div class="fighterHeader">
-          <div id="testEnemyBadges" class="fighterBadges right"></div>
-          <div id="testEnemyName" class="fighterName" style="text-align:right">-</div>
-          <div id="testEnemyRole" class="fighterRole" style="text-align:right">-</div>
-          <div id="testEnemyEquip" class="fighterEquip" style="text-align:right">-</div>
-        </div>
-        <div class="fighterBody">
-          <div class="fighterVisual enemy">
-            <img id="testEnemyImg" class="fighterImg" src="" alt="">
-          </div>
-        </div>
-        <div class="hpWrap">
-          <div class="hpRow"><span>HP</span><span id="testEnemyHp">-</span></div>
-          <div class="hpBar"><div id="testEnemyHpFill" class="hpFill high"></div></div>
-        </div>
-      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,.68);margin-bottom:6px;text-align:right;">敵</div>
+      <div id="testEnemyCardBox"></div>
     </div>
   </div>
 
-  <div id="testSummary" class="buildHint">簡易評価</div>
-  <div id="testLog" class="buildHint">戦闘ログ</div>
+  <div id="testSummary" style="margin-top:10px;background:#111;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px;font-size:13px;line-height:1.65;white-space:pre-line;">簡易評価</div>
+  <div id="testLog" style="margin-top:10px;background:#111;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px;font-size:13px;line-height:1.65;white-space:pre-line;">戦闘ログ</div>
 </section>
-
 <section id="screenBattle" class="screen" hidden>
-  <div class="topBar">
-    <button class="btn btnGhost backBtn" onclick="backToBuildFromBattle()">編成へ</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">
+    <button class="btn btnGhost" style="width:auto;min-width:92px;padding:12px 14px;font-size:14px;border-radius:12px;" onclick="backToBuildFromBattle()">編成へ</button>
     <div style="text-align:right">
       <div id="battleScreenTitle" style="font-size:18px;font-weight:900">オート対戦</div>
-      <div id="battleScreenSub" class="teamInfo">見守るだけ</div>
+      <div id="battleScreenSub" style="font-size:12px;color:rgba(255,255,255,.68);margin-top:4px;">見守るだけ</div>
     </div>
   </div>
 
-  <div id="flashMsg" class="flashMsg"></div>
+  <div id="flashMsg" style="
+    position:sticky;
+    top:0;
+    z-index:5;
+    margin-bottom:10px;
+    text-align:center;
+    font-size:18px;
+    font-weight:900;
+    padding:10px 12px;
+    border-radius:14px;
+    background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.06));
+    border:1px solid rgba(255,255,255,.2);
+    opacity:0;
+    transform:translateY(-6px) scale(.98);
+    transition:.18s ease;
+    pointer-events:none;
+  "></div>
 
-  <div class="battleMeta">
-    <div class="metaPill" id="battleModeText">MODE -</div>
-    <div class="metaPill" id="battleTurnText">TURN -</div>
-    <div class="metaPill" id="battleRoundText">MATCH -</div>
-    <div class="metaPill" id="battleSpeedText">速度：普通</div>
-    <div class="metaPill alivePill aliveGood" id="playerAliveText">あなた 残り-</div>
-    <div class="metaPill alivePill aliveBad" id="enemyAliveText">敵 残り-</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+    <div id="battleModeText" style="padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#171717;font-size:11px;color:#ddd;">MODE -</div>
+    <div id="battleTurnText" style="padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#171717;font-size:11px;color:#ddd;">TURN -</div>
+    <div id="battleRoundText" style="padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#171717;font-size:11px;color:#ddd;">MATCH -</div>
+    <div id="battleSpeedText" style="padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#171717;font-size:11px;color:#ddd;">速度：普通</div>
+    <div id="playerAliveText" style="padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#171717;font-size:11px;color:#b8ffd1;font-weight:900;">あなた 残り-</div>
+    <div id="enemyAliveText" style="padding:7px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#171717;font-size:11px;color:#ffc1c1;font-weight:900;">敵 残り-</div>
   </div>
 
-  <div class="panel" style="margin-bottom:10px">
-    <div class="sectionTitle" style="margin-top:0">対戦速度</div>
-    <div class="speedRow">
-      <button class="speedBtn active" onclick="setBattleSpeed('normal',this)">普通</button>
-      <button class="speedBtn" onclick="setBattleSpeed('fast',this)">速い</button>
-      <button class="speedBtn" onclick="setBattleSpeed('turbo',this)">爆速</button>
+  <div style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);margin-bottom:10px;">
+    <div style="font-size:18px;font-weight:900;margin:0 0 10px;">対戦速度</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btnGhost speedBtn active" style="flex:1;min-width:84px;padding:10px 8px;font-size:12px;" onclick="setBattleSpeed('normal',this)">普通</button>
+      <button class="btnGhost speedBtn" style="flex:1;min-width:84px;padding:10px 8px;font-size:12px;" onclick="setBattleSpeed('fast',this)">速い</button>
+      <button class="btnGhost speedBtn" style="flex:1;min-width:84px;padding:10px 8px;font-size:12px;" onclick="setBattleSpeed('turbo',this)">爆速</button>
     </div>
   </div>
 
-  <div id="storyTalkBox" class="buildHint" hidden>チー娘「今日は軽く試すだけ。」</div>
+  <div id="storyTalkBox" hidden style="
+    margin-top:10px;
+    margin-bottom:10px;
+    background:#111;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    padding:12px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+  ">
+    <img id="storyTalkImg" src="" alt="" style="
+      width:84px;
+      height:84px;
+      object-fit:contain;
+      flex:0 0 84px;
+      filter:drop-shadow(0 6px 14px rgba(0,0,0,.35));
+      animation:chiFloat 3.2s ease-in-out infinite;
+    " onerror="this.style.opacity='.15'">
+    <div id="storyTalkText" style="font-size:14px;line-height:1.7;white-space:pre-line;">チー娘「今日は軽く試すだけ。」</div>
+  </div>
 
-  <div class="statusBoardWrap">
-    <svg id="statusLines" class="statusLines"></svg>
-    <div class="statusBoard">
-      <div class="statusHead">
-        <div class="label">あなた</div>
+  <div style="position:relative;margin-bottom:12px;">
+    <svg id="statusLines" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;"></svg>
+    <div style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);position:relative;z-index:1;">
+      <div style="display:grid;grid-template-columns:1fr 44px 1fr;gap:8px;align-items:center;margin-bottom:8px;">
+        <div style="font-size:13px;font-weight:900;color:#ddd;">あなた</div>
         <div></div>
-        <div class="label right">敵</div>
+        <div style="font-size:13px;font-weight:900;color:#ddd;text-align:right;">敵</div>
       </div>
-      <div id="statusRows" class="statusRows"></div>
+      <div id="statusRows" style="display:flex;flex-direction:column;gap:6px;"></div>
     </div>
   </div>
 
-  <div class="battleTop">
+  <div style="display:grid;grid-template-columns:1fr 64px 1fr;gap:10px;align-items:stretch;margin-bottom:10px;">
     <div>
-      <div class="sideLabel">あなた</div>
-      <div id="playerCard" class="fighterCard none">
-        <div class="fighterHeader">
-          <div id="playerBadges" class="fighterBadges"></div>
-          <div id="playerFighterName" class="fighterName">-</div>
-          <div id="playerFighterRole" class="fighterRole">-</div>
-          <div id="playerFighterEquip" class="fighterEquip">-</div>
-        </div>
-        <div class="fighterBody">
-          <div class="fighterVisual player">
-            <div id="playerBubble" class="battleBubble left" hidden></div>
-            <img id="playerFighterImg" class="fighterImg" src="" alt="">
-          </div>
-        </div>
-        <div class="hpWrap">
-          <div class="hpRow"><span>HP</span><span id="playerHpText">-</span></div>
-          <div class="hpBar"><div id="playerHpFill" class="hpFill high"></div></div>
-        </div>
-      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,.68);margin-bottom:6px;">あなた</div>
+      <div id="playerCard"></div>
     </div>
 
-    <div class="vs">VS</div>
+    <div style="display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;opacity:.95;">VS</div>
 
     <div>
-      <div class="sideLabel" style="text-align:right">敵</div>
-      <div id="enemyCard" class="fighterCard none">
-        <div class="fighterHeader">
-          <div id="enemyBadges" class="fighterBadges right"></div>
-          <div id="enemyFighterName" class="fighterName" style="text-align:right">-</div>
-          <div id="enemyFighterRole" class="fighterRole" style="text-align:right">-</div>
-          <div id="enemyFighterEquip" class="fighterEquip" style="text-align:right">-</div>
-        </div>
-        <div class="fighterBody">
-          <div class="fighterVisual enemy">
-            <div id="enemyBubble" class="battleBubble right" hidden></div>
-            <img id="enemyFighterImg" class="fighterImg" src="" alt="">
-          </div>
-        </div>
-        <div class="hpWrap">
-          <div class="hpRow"><span>HP</span><span id="enemyHpText">-</span></div>
-          <div class="hpBar"><div id="enemyHpFill" class="hpFill high"></div></div>
-        </div>
-      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,.68);margin-bottom:6px;text-align:right;">敵</div>
+      <div id="enemyCard"></div>
     </div>
   </div>
 
-  <div id="liveTicker" class="liveTicker">対戦開始。</div>
-  <div id="logPanel" class="logPanel"></div>
+  <div id="liveTicker" style="
+    margin:4px 0 10px;
+    padding:14px 14px;
+    border-radius:14px;
+    background:linear-gradient(180deg,#181818,#111);
+    border:1px solid rgba(255,255,255,.12);
+    font-size:17px;
+    font-weight:900;
+    line-height:1.45;
+    min-height:56px;
+    display:flex;
+    align-items:center;
+    box-shadow:0 8px 24px rgba(0,0,0,.28);
+  ">対戦開始。</div>
 
-  <div id="battleActions" class="battleActions" hidden>
-    <div id="mvpPanel" class="mvpPanel" hidden>
-      <div class="mvpCrown">MVP</div>
-      <div class="mvpImageWrap"><img id="mvpImg" class="mvpImg" src="" alt=""></div>
-      <div id="mvpName" class="mvpName">-</div>
-      <div id="mvpStats" class="mvpStats">-</div>
-      <div id="mvpLine" class="mvpLine">-</div>
+  <div id="logPanel" style="
+    flex:1;
+    background:#111;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    padding:12px;
+    overflow:auto;
+    min-height:210px;
+    max-height:30svh;
+  "></div>
+
+  <div id="battleActions" hidden style="margin-top:12px;display:flex;flex-direction:column;gap:10px;">
+    <div style="display:flex;justify-content:center;">
+      <button class="btn btnGhost" style="max-width:220px" onclick="openMvpModal()">MVPを表示</button>
     </div>
-    <div id="resultTitle" class="resultTitle"></div>
-    <div id="resultSub" class="resultSub"></div>
-    <div id="summaryCard" class="summaryCard"></div>
-    <div class="panel">
-      <div class="sectionTitle" style="margin-top:0">簡易リプレイ</div>
-      <div id="replayPanel" class="replayPanel"></div>
+
+    <div id="mvpPanel" hidden style="
+      background:linear-gradient(180deg,#181818,#101010);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:18px;
+      padding:18px 14px;
+      text-align:center;
+      box-shadow:0 8px 28px rgba(0,0,0,.38);
+      overflow:hidden;
+      position:relative;
+    ">
+      <div style="font-size:14px;font-weight:900;color:#ffd95e;letter-spacing:.08em;">MVP</div>
+      <div style="min-height:180px;display:flex;align-items:center;justify-content:center;margin-top:10px;">
+        <img id="mvpImg" src="" alt="" style="
+          max-width:240px;
+          max-height:180px;
+          object-fit:contain;
+          filter:drop-shadow(0 12px 28px rgba(0,0,0,.45));
+          animation:chiFloat 2.4s ease-in-out infinite;
+        ">
+      </div>
+      <div id="mvpName" style="font-size:28px;font-weight:900;margin-top:4px;">-</div>
+      <div id="mvpStats" style="margin-top:6px;font-size:13px;line-height:1.6;color:#ddd;white-space:pre-line;">-</div>
+      <div id="mvpLine" style="margin-top:8px;font-size:15px;font-weight:900;">-</div>
     </div>
+
+    <div id="resultTitle" style="font-size:22px;font-weight:900;text-align:center;margin:8px 0 4px;"></div>
+    <div id="resultSub" style="text-align:center;color:rgba(255,255,255,.68);font-size:13px;margin-bottom:8px;"></div>
+    <div id="summaryCard" style="
+      background:#111;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:12px;
+      line-height:1.75;
+      font-size:13px;
+      white-space:pre-line;
+    "></div>
+
+    <div style="background:linear-gradient(180deg,#141414,#101010);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;box-shadow:0 8px 24px rgba(0,0,0,.35);">
+      <div style="font-size:18px;font-weight:900;margin:0 0 10px;">簡易リプレイ</div>
+      <div id="replayPanel" style="
+        background:#111;
+        border:1px solid rgba(255,255,255,.12);
+        border-radius:14px;
+        padding:12px;
+        font-size:13px;
+        line-height:1.7;
+        white-space:pre-line;
+      "></div>
+    </div>
+
     <button class="btn" onclick="rematch()">もう一度やる</button>
     <button class="btn btnGhost" onclick="goBuild()">編成に戻る</button>
   </div>
 </section>
 
+<!-- MVPモーダル -->
+<div id="mvpModal" hidden style="padding:18px;">
+  <div style="
+    width:min(92vw,420px);
+    max-height:88svh;
+    overflow:auto;
+    background:linear-gradient(180deg,#181818,#101010);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:22px;
+    padding:18px 16px 16px;
+    box-shadow:0 14px 40px rgba(0,0,0,.45);
+    text-align:center;
+  ">
+    <div style="font-size:14px;font-weight:900;color:#ffd95e;letter-spacing:.08em;">MVP</div>
+    <div style="min-height:180px;display:flex;align-items:center;justify-content:center;margin-top:10px;">
+      <img id="mvpModalImg" src="" alt="" style="
+        max-width:240px;
+        max-height:180px;
+        object-fit:contain;
+        filter:drop-shadow(0 12px 28px rgba(0,0,0,.45));
+      ">
+    </div>
+    <div id="mvpModalName" style="font-size:30px;font-weight:900;margin-top:4px;">-</div>
+    <div id="mvpModalStats" style="margin-top:8px;font-size:14px;line-height:1.7;color:#ddd;white-space:pre-line;">-</div>
+    <div id="mvpModalLine" style="margin-top:10px;font-size:16px;font-weight:900;">-</div>
+
+    <div style="display:flex;gap:10px;margin-top:16px;">
+      <button class="btn btnGhost" style="flex:1" onclick="closeMvpModal()">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- ストーリー開始カットイン -->
+<div id="storyCutin" hidden style="padding:20px;pointer-events:none;">
+  <div id="storyCutinCard" style="
+    width:min(92vw,420px);
+    border-radius:26px;
+    border:1px solid rgba(255,255,255,.18);
+    background:
+      radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 38%),
+      linear-gradient(180deg,#1b1b1d,#111113);
+    box-shadow:0 18px 48px rgba(0,0,0,.45);
+    padding:20px 18px 18px;
+    text-align:center;
+    transform:scale(.92) translateY(12px);
+    opacity:0;
+    transition:transform .28s ease, opacity .28s ease;
+  ">
+    <div id="storyCutinStage" style="font-size:14px;font-weight:900;color:#ffd95e;letter-spacing:.08em;">STORY</div>
+    <div style="min-height:190px;display:flex;align-items:center;justify-content:center;margin-top:8px;">
+      <img id="storyCutinImg" src="" alt="" style="
+        max-width:240px;
+        max-height:180px;
+        object-fit:contain;
+        filter:drop-shadow(0 12px 28px rgba(0,0,0,.45));
+        animation:chiFloat 3.2s ease-in-out infinite;
+      " onerror="this.style.opacity='.15'">
+    </div>
+    <div id="storyCutinName" style="font-size:30px;font-weight:900;margin-top:2px;">チー娘A</div>
+    <div id="storyCutinText" style="margin-top:10px;font-size:15px;line-height:1.8;white-space:pre-line;">今日は軽く試すだけ。</div>
+  </div>
+</div>
+
+<!-- 勝敗カットイン -->
+<div id="resultCutin" hidden style="padding:20px;pointer-events:none;">
+  <div id="resultCutinCard" style="
+    width:min(92vw,420px);
+    border-radius:26px;
+    border:1px solid rgba(255,255,255,.18);
+    background:linear-gradient(180deg,#1b1b1d,#111113);
+    box-shadow:0 18px 48px rgba(0,0,0,.45);
+    padding:20px 18px 18px;
+    text-align:center;
+    transform:scale(.92) translateY(12px);
+    opacity:0;
+    transition:transform .28s ease, opacity .28s ease;
+  ">
+    <div id="resultCutinLabel" style="font-size:14px;font-weight:900;color:#ffd95e;letter-spacing:.08em;">RESULT</div>
+    <div style="min-height:190px;display:flex;align-items:center;justify-content:center;margin-top:8px;">
+      <img id="resultCutinImg" src="" alt="" style="
+        max-width:240px;
+        max-height:180px;
+        object-fit:contain;
+        filter:drop-shadow(0 12px 28px rgba(0,0,0,.45));
+        animation:chiFloat 3.2s ease-in-out infinite;
+      " onerror="this.style.opacity='.15'">
+    </div>
+    <div id="resultCutinName" style="font-size:30px;font-weight:900;margin-top:2px;">チー娘A</div>
+    <div id="resultCutinText" style="margin-top:10px;font-size:15px;line-height:1.8;white-space:pre-line;">……負けた。まあ、今日はあなたの勝ちでいいよ。</div>
+  </div>
+</div>
 <script>
 const characters = [
   {id:"dekabusa",name:"デカブサ",attr:"water",role:"安定",roleType:"balance",hp:130,atk:25,def:22,spd:8,img:"./dekabusa.png",passive:"背水：HP50%以下で与ダメージ+50%",desc:"耐久寄りの安定型。",mvpLine:"まあ、こんな日もある。",skills:[{id:"db_hp",name:"しぶとい",desc:"最大HP+10",effect:{hp:10}},{id:"db_atk",name:"重い一撃",desc:"攻撃+4",effect:{atk:4}},{id:"db_guard",name:"ねばる",desc:"初回被ダメージ-20%",effect:{firstReduce:0.2}}]},
@@ -1604,55 +609,23 @@ const hitLines={dekabusa:["いて","重いな","まだだ"],kanemon:["まだだ"
 const koLines={dekabusa:["今日はそういう日だ"],panpan:["暴れ足りない"],kabao:["ここまでか"],ratel:["速いだけじゃ足りない"],ani:["次は本気だ。"]};
 
 const storyStages = [
-  {
-    id:0,
-    girl:"A",
-    girlName:"チー娘A",
-    text:"今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？",
-    winText:"ふーん……最初にしては悪くないかも。",
-    loseText:"その並び、まだ固まってない感じするね。",
-    enemyTeam:["nise","kabao","tora","king","kanemon"]
-  },
-  {
-    id:1,
-    girl:"B",
-    girlName:"チー娘B",
-    text:"後ろに強いの置いても、前で崩れたら終わりだよ。試してみる？",
-    winText:"ちゃんと前から考えてるんだ。ちょっと見直した。",
-    loseText:"速さ対策してないと、こうなるよね。",
-    enemyTeam:["ratel","ani","panpan","namaken","king"]
-  },
-  {
-    id:2,
-    girl:"C",
-    girlName:"チー娘C",
-    text:"すぐ倒せると思った？ 粘られる相手もいるんだけど。",
-    winText:"へえ……その火力で抜いてくるんだ。",
-    loseText:"押し切れないと、こっちの流れになるよ。",
-    enemyTeam:["kabao","juzo","dekabusa","gori","kanemon"]
-  },
-  {
-    id:3,
-    girl:"A",
-    girlName:"チー娘A",
-    text:"最後。ここまで来たなら、本気で編成してるってことだよね。",
-    winText:"……負けた。まあ、今日はあなたの勝ちでいいよ。",
-    loseText:"惜しかったね。でも最後は並びの差、かな。",
-    enemyTeam:["king","ratel","kabao","ani","juzo"]
-  }
+  {id:0,girl:"A",girlName:"チー娘A",img:"./girlA_top.png",text:"今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？",winText:"ふーん……最初にしては悪くないかも。",loseText:"その並び、まだ固まってない感じするね。",enemyTeam:["nise","kabao","tora","king","kanemon"]},
+  {id:1,girl:"B",girlName:"チー娘B",img:"./girlB_top.png",text:"後ろに強いの置いても、前で崩れたら終わりだよ。試してみる？",winText:"ちゃんと前から考えてるんだ。ちょっと見直した。",loseText:"速さ対策してないと、こうなるよね。",enemyTeam:["ratel","ani","panpan","namaken","king"]},
+  {id:2,girl:"C",girlName:"チー娘C",img:"./girlC_top.png",text:"すぐ倒せると思った？ 粘られる相手もいるんだけど。",winText:"へえ……その火力で抜いてくるんだ。",loseText:"押し切れないと、こっちの流れになるよ。",enemyTeam:["kabao","juzo","dekabusa","gori","kanemon"]},
+  {id:3,girl:"D",girlName:"チー娘D",img:"./girlD_top.png",text:"最後。ここまで来たなら、本気で編成してるってことだよね。",winText:"……負けた。まあ、今日はあなたの勝ちでいいよ。",loseText:"惜しかったね。でも最後は並びの差、かな。",enemyTeam:["king","ratel","kabao","ani","juzo"]}
 ];
 
 const storyCommentary = {
   A:["その並びで来たんだ。","前が崩れるときついよ。","今の一発は大きいね。","そこ耐えるんだ。"],
   B:["速さって大事でしょ。","後ろに置いても遅いと間に合わないよ。","流れが変わりそう。","そこ取ったのは大きい。"],
-  C:["粘る相手、嫌でしょ。","押し切れないと苦しいよ。","思ったより耐えるね。","ここからが長いかも。"]
+  C:["粘る相手、嫌でしょ。","押し切れないと苦しいよ。","思ったより耐えるね。","ここからが長いかも。"],
+  D:["ここまで来たんだ。","最後は甘くないよ。","その一手、重いね。","終盤の差が出るかも。"]
 };
 
 let team=[];
 let battle=null;
 let speedMode="normal";
 let battleMode="survival";
-let dexSelectedId=null;
 let equipTargetId=null;
 let testPlayerId=null;
 let testEnemyId=null;
@@ -1669,58 +642,93 @@ const DECK_KEY="myDecks_v1";
 const equippedSkills={};
 characters.forEach(c=>equippedSkills[c.id]=c.skills[0].id);
 
-function attrLabel(attr){if(attr==="fire")return"火";if(attr==="water")return"水";if(attr==="grass")return"草";return""}
-function attrClass(attr){if(attr==="fire")return"attr-fire";if(attr==="water")return"attr-water";if(attr==="grass")return"attr-grass";return""}
-function attrCardClass(attr){if(attr==="fire")return"fire";if(attr==="water")return"water";if(attr==="grass")return"grass";return"none"}
-function roleTypeLabel(type){if(type==="attack")return"攻撃";if(type==="tank")return"耐久";if(type==="speed")return"先手";if(type==="balance")return"万能";if(type==="finisher")return"後半";return"搦手"}
-function orderLabel(i){return["先鋒","次鋒","中堅","副将","大将"][i]||"-"}
-function getChar(id){return characters.find(c=>c.id===id)}
-function getEquippedSkill(charId){const ch=getChar(charId);if(!ch)return null;const sid=equippedSkills[charId];return ch.skills.find(s=>s.id===sid)||ch.skills[0]}
-function roleTagHtml(ch){return `<span class="roleTag type-${ch.roleType}">${roleTypeLabel(ch.roleType)}</span><span class="roleTag">属性:${attrLabel(ch.attr)}</span>`}
-function getAttrRate(a,d){if(a==="water"&&d==="fire")return 1.2;if(a==="fire"&&d==="grass")return 1.2;if(a==="grass"&&d==="water")return 1.2;if(a==="fire"&&d==="water")return 0.8;if(a==="grass"&&d==="fire")return 0.8;if(a==="water"&&d==="grass")return 0.8;return 1}
-function matchupText(a,b){const r=getAttrRate(a.attr,b.attr);if(r>1)return{text:"有利",cls:"badge-good"};if(r<1)return{text:"不利",cls:"badge-bad"};return{text:"五分",cls:"badge-even"}}
-function getVictoryLine(name){const map={"デカブサ":"まあ勝った。","カンえもん":"初手で決めた。","パンパン":"たまたまだな。","キング":"仕留めた。","ゴリさん":"ふんばった。","カバオ":"まだ立ってる。","ナマケン":"やればできる。","ニセブサ":"似てるだけじゃない。","デカブサ兄":"当然だな。","トラさん":"分身しただけだ。","ジュウゾウ":"反撃完了。","ラテロウ":"速かっただろ。"};return map[name]||"勝った。"}
-function getLoseLine(name){const map={"デカブサ":"今日はそういう日だ。","カンえもん":"初手は良かった。","パンパン":"暴れ足りない。","キング":"仕留めきれなかった。","ゴリさん":"受けきれなかった。","カバオ":"まだいけると思った。","ナマケン":"ちょっと遅かった。","ニセブサ":"本物じゃなかった。","デカブサ兄":"次は本気だ。","トラさん":"分身不足だ。","ジュウゾウ":"返しきれなかった。","ラテロウ":"速いだけじゃ足りない。"};return map[name]||"負けた。"}
-function randomLine(map,id,fallback){const arr=map[id];if(!arr||!arr.length)return fallback;return arr[Math.floor(Math.random()*arr.length)]}
-function wait(ms){return new Promise(r=>setTimeout(r,ms))}
-function showOnlyScreen(id){["screenTitle","screenBuild","screenDexList","screenDexDetail","screenEquip","screenTestSelect","screenTestBattle","screenBattle"].forEach(s=>{const el=document.getElementById(s);if(el)el.hidden=true});document.getElementById(id).hidden=false}
-function goTitle(){showOnlyScreen("screenTitle");updateTitleStoryInfo()}
-function goBuild(){showOnlyScreen("screenBuild");renderAll();initDeckUI();renderStoryPanel();updateTitleStoryInfo()}
-function goDexList(){showOnlyScreen("screenDexList");renderDexList()}
-function goDexDetail(id){dexSelectedId=id;showOnlyScreen("screenDexDetail");renderDexDetail(id)}
-function goEquip(id){equipTargetId=id;showOnlyScreen("screenEquip");renderEquipScreen()}
-function goTestSelect(id){testPlayerId=id;showOnlyScreen("screenTestSelect");renderTestSelectScreen()}
-function goTestBattle(enemyId){testEnemyId=enemyId;showOnlyScreen("screenTestBattle");renderTestBattleScreen()}
-function backToBuildFromBattle(){battle=null;battleRunning=false;goBuild()}
-function setBattleMode(mode){battleMode=mode;document.getElementById("modeSurvivalBtn").classList.toggle("active",mode==="survival");document.getElementById("modeFixedBtn").classList.toggle("active",mode==="fixed");document.getElementById("modeHint").textContent=mode==="survival"?"勝ったキャラが残って次と戦う":"先鋒同士、次鋒同士…の5本勝負";const hint=document.getElementById("buildHint");if(hint)hint.textContent=buildTeamHint()}
+function attrLabel(attr){ if(attr==="fire")return"火"; if(attr==="water")return"水"; if(attr==="grass")return"草"; return""; }
+function attrClass(attr){ if(attr==="fire")return"background:rgba(255,110,110,.18);"; if(attr==="water")return"background:rgba(100,170,255,.18);"; if(attr==="grass")return"background:rgba(90,220,130,.18);"; return""; }
+function attrCardClass(attr){ if(attr==="fire")return "radial-gradient(circle at 30% 20%, rgba(255,90,90,.20), transparent 42%),linear-gradient(180deg,#251313,#120d0d)"; if(attr==="water")return "radial-gradient(circle at 30% 20%, rgba(90,150,255,.20), transparent 42%),linear-gradient(180deg,#101a2a,#0c1018)"; if(attr==="grass")return "radial-gradient(circle at 30% 20%, rgba(90,220,130,.18), transparent 42%),linear-gradient(180deg,#112317,#0b120d)"; return "linear-gradient(180deg,#171717,#101010)"; }
+function roleTypeLabel(type){ if(type==="attack")return"攻撃"; if(type==="tank")return"耐久"; if(type==="speed")return"先手"; if(type==="balance")return"万能"; if(type==="finisher")return"後半"; return"搦手"; }
+function orderLabel(i){ return["先鋒","次鋒","中堅","副将","大将"][i]||"-"; }
+function getChar(id){ return characters.find(c=>c.id===id); }
+function getEquippedSkill(charId){ const ch=getChar(charId); if(!ch)return null; const sid=equippedSkills[charId]; return ch.skills.find(s=>s.id===sid)||ch.skills[0]; }
+function roleTagHtml(ch){ return `<span style="display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#232323;font-size:11px;font-weight:800;color:#f1f1f1;line-height:1;">${roleTypeLabel(ch.roleType)}</span><span style="display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:#232323;font-size:11px;font-weight:800;color:#f1f1f1;line-height:1;">属性:${attrLabel(ch.attr)}</span>`; }
+function getAttrRate(a,d){ if(a==="water"&&d==="fire")return 1.2; if(a==="fire"&&d==="grass")return 1.2; if(a==="grass"&&d==="water")return 1.2; if(a==="fire"&&d==="water")return 0.8; if(a==="grass"&&d==="fire")return 0.8; if(a==="water"&&d==="grass")return 0.8; return 1; }
+function matchupText(a,b){ const r=getAttrRate(a.attr,b.attr); if(r>1)return{text:"有利",cls:"good"}; if(r<1)return{text:"不利",cls:"bad"}; return{text:"五分",cls:"even"}; }
+function getVictoryLine(name){ const map={"デカブサ":"まあ勝った。","カンえもん":"初手で決めた。","パンパン":"たまたまだな。","キング":"仕留めた。","ゴリさん":"ふんばった。","カバオ":"まだ立ってる。","ナマケン":"やればできる。","ニセブサ":"似てるだけじゃない。","デカブサ兄":"当然だな。","トラさん":"分身しただけだ。","ジュウゾウ":"反撃完了。","ラテロウ":"速かっただろ。"}; return map[name]||"勝った。"; }
+function getLoseLine(name){ const map={"デカブサ":"今日はそういう日だ。","カンえもん":"初手は良かった。","パンパン":"暴れ足りない。","キング":"仕留めきれなかった。","ゴリさん":"受けきれなかった。","カバオ":"まだいけると思った。","ナマケン":"ちょっと遅かった。","ニセブサ":"本物じゃなかった。","デカブサ兄":"次は本気だ。","トラさん":"分身不足だ。","ジュウゾウ":"返しきれなかった。","ラテロウ":"速いだけじゃ足りない。"}; return map[name]||"負けた。"; }
+function randomLine(map,id,fallback){ const arr=map[id]; if(!arr||!arr.length)return fallback; return arr[Math.floor(Math.random()*arr.length)]; }
+function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+function showOnlyScreen(id){
+  ["screenTitle","screenBuild","screenDexList","screenDexDetail","screenEquip","screenTestSelect","screenTestBattle","screenBattle"].forEach(s=>{
+    const el=document.getElementById(s);
+    if(el) el.hidden=true;
+  });
+  document.getElementById(id).hidden=false;
+}
+
+function goTitle(){ showOnlyScreen("screenTitle"); updateTitleStoryInfo(); }
+function goBuild(){ showOnlyScreen("screenBuild"); renderAll(); initDeckUI(); renderStoryPanel(); updateTitleStoryInfo(); }
+function goDexList(){ showOnlyScreen("screenDexList"); renderDexList(); }
+function goDexDetail(id){ showOnlyScreen("screenDexDetail"); renderDexDetail(id); }
+function goEquip(id){ equipTargetId=id; showOnlyScreen("screenEquip"); renderEquipScreen(); }
+function goTestSelect(id){ testPlayerId=id; showOnlyScreen("screenTestSelect"); renderTestSelectScreen(); }
+function goTestBattle(enemyId){ testEnemyId=enemyId; showOnlyScreen("screenTestBattle"); renderTestBattleScreen(); }
+function backToBuildFromBattle(){ battle=null; battleRunning=false; closeMvpModal(); goBuild(); }
+
+function setBattleMode(mode){
+  battleMode=mode;
+  document.getElementById("modeSurvivalBtn").style.background = mode==="survival" ? "#fff" : "#1f1f1f";
+  document.getElementById("modeSurvivalBtn").style.color = mode==="survival" ? "#000" : "#fff";
+  document.getElementById("modeFixedBtn").style.background = mode==="fixed" ? "#fff" : "#1f1f1f";
+  document.getElementById("modeFixedBtn").style.color = mode==="fixed" ? "#000" : "#fff";
+  document.getElementById("modeHint").textContent = mode==="survival" ? "勝ったキャラが残って次と戦う" : "先鋒同士、次鋒同士…の5本勝負";
+  const hint=document.getElementById("buildHint");
+  if(hint) hint.textContent=buildTeamHint();
+}
+
 function setMainMode(mode){
   mainMode=mode;
-  document.getElementById("mainModeFreeBtn").classList.toggle("active",mode==="free");
-  document.getElementById("mainModeStoryBtn").classList.toggle("active",mode==="story");
-  document.getElementById("storyPanel").hidden=mode!=="story";
-  document.getElementById("mainModeHint").textContent=mode==="free"?"通常対戦：ランダム敵チームと戦う":"ストーリー：チー娘が編成したチームと戦う";
+  document.getElementById("mainModeFreeBtn").style.background = mode==="free" ? "#fff" : "#1f1f1f";
+  document.getElementById("mainModeFreeBtn").style.color = mode==="free" ? "#000" : "#fff";
+  document.getElementById("mainModeStoryBtn").style.background = mode==="story" ? "#fff" : "#1f1f1f";
+  document.getElementById("mainModeStoryBtn").style.color = mode==="story" ? "#000" : "#fff";
+  document.getElementById("storyPanel").hidden = mode!=="story";
+  document.getElementById("mainModeHint").textContent = mode==="free" ? "通常対戦：ランダム敵チームと戦う" : "ストーリー：チー娘が編成したチームと戦う";
   renderStoryPanel();
 }
-function playTapEffect(el){el.classList.add("tap");setTimeout(()=>el.classList.remove("tap"),120)}
-function addToTeam(id){if(team.includes(id))return;if(team.length>=5){alert("5体までです");return}team.push(id);renderAll()}
-function removeFromTeam(id){team=team.filter(v=>v!==id);renderAll()}
-function moveUp(index){if(index<=0)return;[team[index-1],team[index]]=[team[index],team[index-1]];renderAll()}
-function moveDown(index){if(index>=team.length-1)return;[team[index+1],team[index]]=[team[index],team[index+1]];renderAll()}
-function clearTeam(){team=[];renderAll()}
-function fillRandom(){team=shuffle(characters.map(c=>c.id)).slice(0,5);renderAll()}
-function buildTeamHint(){if(team.length===0)return"並び特徴\nまだ未選択";const arr=team.map(getChar);const avgSpd=arr.reduce((s,v)=>s+v.spd,0)/arr.length;const avgDef=arr.reduce((s,v)=>s+v.def,0)/arr.length;const first=arr[0];const last=arr[arr.length-1];const lines=[];lines.push("並び特徴");lines.push(`モード：${battleMode==="survival"?"勝ち抜き":"対面固定"}`);lines.push(`ゲーム：${mainMode==="story"?"ストーリー":"通常対戦"}`);if(avgSpd>=15)lines.push("全体：先手寄り");else if(avgDef>=21)lines.push("全体：耐久寄り");else lines.push("全体：バランス");if(first)lines.push(`先鋒向き：${first.name}（${first.role}）`);if(last&&arr.length>=3)lines.push(`後半の鍵：${last.name}（${last.role}）`);lines.push(battleMode==="fixed"?"固定戦では相性をぶつける並びが重要":"勝ち抜きでは連戦向きの配置が重要");return lines.join("\n")}
-function getCurrentStoryStage(){
-  const idx=Math.min(storyProgress, storyStages.length-1);
-  return storyStages[idx];
+
+function addToTeam(id){ if(team.includes(id))return; if(team.length>=5){alert("5体までです");return;} team.push(id); renderAll(); }
+function removeFromTeam(id){ team=team.filter(v=>v!==id); renderAll(); }
+function moveUp(index){ if(index<=0)return; [team[index-1],team[index]]=[team[index],team[index-1]]; renderAll(); }
+function moveDown(index){ if(index>=team.length-1)return; [team[index+1],team[index]]=[team[index],team[index+1]]; renderAll(); }
+function clearTeam(){ team=[]; renderAll(); }
+function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function fillRandom(){ team=shuffle(characters.map(c=>c.id)).slice(0,5); renderAll(); }
+
+function buildTeamHint(){
+  if(team.length===0) return "並び特徴\nまだ未選択";
+  const arr=team.map(getChar);
+  const avgSpd=arr.reduce((s,v)=>s+v.spd,0)/arr.length;
+  const avgDef=arr.reduce((s,v)=>s+v.def,0)/arr.length;
+  const first=arr[0];
+  const last=arr[arr.length-1];
+  const lines=[];
+  lines.push("並び特徴");
+  lines.push(`モード：${battleMode==="survival"?"勝ち抜き":"対面固定"}`);
+  lines.push(`ゲーム：${mainMode==="story"?"ストーリー":"通常対戦"}`);
+  if(avgSpd>=15) lines.push("全体：先手寄り");
+  else if(avgDef>=21) lines.push("全体：耐久寄り");
+  else lines.push("全体：バランス");
+  if(first) lines.push(`先鋒向き：${first.name}（${first.role}）`);
+  if(last&&arr.length>=3) lines.push(`後半の鍵：${last.name}（${last.role}）`);
+  lines.push(battleMode==="fixed"?"固定戦では相性をぶつける並びが重要":"勝ち抜きでは連戦向きの配置が重要");
+  return lines.join("\n");
 }
+
+function getCurrentStoryStage(){ return storyStages[Math.min(storyProgress, storyStages.length-1)]; }
 function updateTitleStoryInfo(){
   const el=document.getElementById("titleStoryInfo");
   if(!el) return;
-  if(storyProgress>=storyStages.length){
-    el.textContent="ストーリー進行：クリア済み";
-  }else{
-    el.textContent=`ストーリー進行：第${storyProgress+1}話`;
-  }
+  el.textContent = storyProgress>=storyStages.length ? "ストーリー進行：クリア済み" : `ストーリー進行：第${storyProgress+1}話`;
 }
 function renderStoryPanel(){
   const el=document.getElementById("storyStageInfo");
@@ -1732,19 +740,38 @@ function renderStoryPanel(){
   const s=getCurrentStoryStage();
   el.textContent=`第${s.id+1}話　${s.girlName}\n${s.text}`;
 }
+
 function openStoryStart(){
-  if(team.length!==5){
-    alert("5体必要");
-    return;
-  }
-  if(storyProgress>=storyStages.length){
-    alert("ストーリーはクリア済みです");
-    return;
-  }
+  if(team.length!==5){ alert("5体必要"); return; }
+  if(storyProgress>=storyStages.length){ alert("ストーリーはクリア済みです"); return; }
+
   const s=getCurrentStoryStage();
-  const ok=confirm(`第${s.id+1}話\n${s.girlName}\n\n「${s.text}」\n\nこの相手と戦いますか？`);
-  if(ok) startStoryBattle();
+  const old=document.getElementById("storyStartModal");
+  if(old) old.remove();
+
+  const modal=document.createElement("div");
+  modal.id="storyStartModal";
+  modal.style.cssText=`position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:18px;`;
+
+  modal.innerHTML=`
+    <div style="width:min(92vw,420px);background:linear-gradient(180deg,#1b1b1d,#111113);border:1px solid rgba(255,255,255,.16);border-radius:24px;padding:18px 16px 16px;box-shadow:0 14px 40px rgba(0,0,0,.45);color:#fff;">
+      <div style="display:flex;justify-content:center;margin-bottom:12px;">
+        <img src="${s.img}" alt="${s.girlName}" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.45));animation:chiFloat 3.2s ease-in-out infinite;" onerror="this.style.opacity='.15'">
+      </div>
+      <div style="font-size:16px;font-weight:900;line-height:1.5;text-align:center;white-space:pre-line;">第${s.id+1}話\n${s.girlName}</div>
+      <div style="margin-top:14px;font-size:15px;line-height:1.85;white-space:pre-line;">「${s.text}」</div>
+      <div style="margin-top:18px;font-size:15px;line-height:1.7;">この相手と戦いますか？</div>
+      <div style="display:flex;justify-content:flex-end;gap:14px;margin-top:20px;">
+        <button id="storyModalCancel" style="border:none;background:transparent;color:#5aa2ff;font-size:16px;font-weight:900;">キャンセル</button>
+        <button id="storyModalOk" style="border:none;background:transparent;color:#5aa2ff;font-size:16px;font-weight:900;">OK</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  document.getElementById("storyModalCancel").onclick=()=>modal.remove();
+  document.getElementById("storyModalOk").onclick=()=>{ modal.remove(); startStoryBattle(); };
 }
+
 function resetStoryProgress(){
   const ok=confirm("ストーリー進行を最初からに戻しますか？");
   if(!ok) return;
@@ -1753,589 +780,505 @@ function resetStoryProgress(){
   renderStoryPanel();
   updateTitleStoryInfo();
 }
-function startStoryBattle(){
-  const s=getCurrentStoryStage();
-  currentStoryStage=s;
-  battleSource="story";
-  startBattleWithEnemyTeam(s.enemyTeam);
+
+function setStoryTalk(text){
+  const box=document.getElementById("storyTalkBox");
+  const img=document.getElementById("storyTalkImg");
+  const txt=document.getElementById("storyTalkText");
+  if(!box||!img||!txt) return;
+
+  if(battleSource==="story" && currentStoryStage){
+    box.hidden=false;
+    img.src=currentStoryStage.img;
+    img.alt=currentStoryStage.girlName;
+    txt.textContent=`${currentStoryStage.girlName}「${text}」`;
+  }else{
+    box.hidden=true;
+    img.src="";
+    txt.textContent="";
+  }
 }
-function startFreeBattle(){
-  battleSource="free";
-  currentStoryStage=null;
-  startBattleWithEnemyTeam(makeEnemyTeam());
+
+async function showStoryCutin(){
+  if(battleSource!=="story" || !currentStoryStage) return;
+  const wrap=document.getElementById("storyCutin");
+  const card=document.getElementById("storyCutinCard");
+  document.getElementById("storyCutinStage").textContent=`第${currentStoryStage.id+1}話`;
+  document.getElementById("storyCutinImg").src=currentStoryStage.img;
+  document.getElementById("storyCutinName").textContent=currentStoryStage.girlName;
+  document.getElementById("storyCutinText").textContent=currentStoryStage.text;
+  wrap.hidden=false;
+  requestAnimationFrame(()=>{ card.style.opacity="1"; card.style.transform="scale(1) translateY(0)"; });
+  await wait(speedMode==="turbo" ? 500 : speedMode==="fast" ? 900 : 1400);
+  card.style.opacity="0";
+  card.style.transform="scale(.94) translateY(8px)";
+  await wait(260);
+  wrap.hidden=true;
 }
-function renderPickGrid(){const el=document.getElementById("pickGrid");el.innerHTML="";characters.forEach(ch=>{const selected=team.includes(ch.id);const skill=getEquippedSkill(ch.id);const card=document.createElement("div");card.className="pickCardBig"+(selected?" selected":"");card.addEventListener("click",()=>playTapEffect(card));card.innerHTML=`<div class="cardMain"><div class="cardImgWrap"><img src="${ch.img}" class="cardImg" alt="${ch.name}" onerror="this.style.opacity='.15'"></div><div class="cardInfo"><div><div class="cardTopLine"><div class="cardName">${ch.name}</div><div class="cardAttr ${attrClass(ch.attr)}">${attrLabel(ch.attr)}</div></div><div class="cardRole">${ch.role}</div><div class="cardStats">HP ${ch.hp}　攻 ${ch.atk}　防 ${ch.def}　速 ${ch.spd}</div><div class="roleRow">${roleTagHtml(ch)}</div><div class="cardSkill">${ch.passive}</div><div class="cardEquip">装備技：${skill.name}</div></div><div class="cardButtons">${selected?`<button class="btnSub" onclick="event.stopPropagation();removeFromTeam('${ch.id}')">外す</button>`:`<button class="btnMain" onclick="event.stopPropagation();addToTeam('${ch.id}')">選ぶ</button>`}<button class="btnEquip" onclick="event.stopPropagation();goEquip('${ch.id}')">技</button><button class="btnDetail" onclick="event.stopPropagation();goTestSelect('${ch.id}')">試す</button></div></div></div>`;el.appendChild(card)});document.getElementById("buildHint").textContent=buildTeamHint()}
-function renderTeamList(){const el=document.getElementById("teamList");el.innerHTML="";const labels=["先鋒","次鋒","中堅","副将","大将"];for(let i=0;i<5;i++){const id=team[i];const slot=document.createElement("div");slot.className="teamSlot";if(id){const ch=getChar(id);const sk=getEquippedSkill(id);slot.innerHTML=`<div class="slotNum">${labels[i]}</div><img class="slotThumb" src="${ch.img}" alt="${ch.name}" onerror="this.style.opacity='.15'"><div class="slotMain"><div class="slotName">${ch.name}</div><div class="slotMeta">${attrLabel(ch.attr)} / ${ch.role}</div><div class="slotEquip">装備技：${sk.name}</div><button class="removeBtn" onclick="removeFromTeam('${ch.id}')">外す</button></div><div class="moveBtns"><button class="moveBtn" onclick="moveUp(${i})" ${i===0?"disabled":""}>▲</button><button class="moveBtn" onclick="moveDown(${i})" ${i===team.length-1?"disabled":""}>▼</button></div>`}else{slot.innerHTML=`<div class="slotNum">${labels[i]}</div><div class="slotThumb" style="opacity:.15"></div><div class="slotMain"><div class="slotName slotEmpty">未選択</div><div class="slotMeta">ここに入れる</div></div><div></div>`}el.appendChild(slot)}document.getElementById("confirmBtn").disabled=team.length!==5}
-function renderAll(){renderPickGrid();renderTeamList();setBattleMode(battleMode);setMainMode(mainMode)}
+
+async function showResultCutin(playerWon){
+  if(battleSource!=="story" || !currentStoryStage) return;
+  const wrap=document.getElementById("resultCutin");
+  const card=document.getElementById("resultCutinCard");
+  document.getElementById("resultCutinLabel").textContent = playerWon ? "WIN" : "LOSE";
+  document.getElementById("resultCutinImg").src=currentStoryStage.img;
+  document.getElementById("resultCutinName").textContent=currentStoryStage.girlName;
+  document.getElementById("resultCutinText").textContent = playerWon ? currentStoryStage.winText : currentStoryStage.loseText;
+  wrap.hidden=false;
+  requestAnimationFrame(()=>{ card.style.opacity="1"; card.style.transform="scale(1) translateY(0)"; });
+  await wait(speedMode==="turbo" ? 650 : speedMode==="fast" ? 1100 : 1800);
+  card.style.opacity="0";
+  card.style.transform="scale(.94) translateY(8px)";
+  await wait(260);
+  wrap.hidden=true;
+}
+
+function startStoryBattle(){ currentStoryStage=getCurrentStoryStage(); battleSource="story"; startBattleWithEnemyTeam(currentStoryStage.enemyTeam); }
+function startFreeBattle(){ currentStoryStage=null; battleSource="free"; startBattleWithEnemyTeam(makeEnemyTeam()); }
+
+function renderPickGrid(){
+  const el=document.getElementById("pickGrid");
+  el.innerHTML="";
+  characters.forEach(ch=>{
+    const selected=team.includes(ch.id);
+    const skill=getEquippedSkill(ch.id);
+    const card=document.createElement("div");
+    card.style.cssText=`border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:8px 9px;background:#101010;position:relative;${selected ? "border:2px solid #fff;box-shadow:0 0 10px rgba(255,255,255,.68),0 0 22px rgba(255,255,255,.25);" : ""}`;
+    card.innerHTML=`
+      <div style="display:grid;grid-template-columns:122px 1fr;gap:10px;align-items:stretch;min-height:148px;">
+        <div style="width:122px;min-height:148px;display:flex;align-items:flex-end;justify-content:center;">
+          <img src="${ch.img}" alt="${ch.name}" style="width:100%;height:144px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 8px 18px rgba(0,0,0,.45));display:block;" onerror="this.style.opacity='.15'">
+        </div>
+        <div style="display:flex;flex-direction:column;min-width:0;padding-top:2px;">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+              <div style="font-size:17px;font-weight:900;line-height:1.1;">${ch.name}</div>
+              <div style="padding:4px 9px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid rgba(255,255,255,.12);flex-shrink:0;${attrClass(ch.attr)}">${attrLabel(ch.attr)}</div>
+            </div>
+            <div style="font-size:12px;opacity:.82;margin-top:2px;line-height:1.25;">${ch.role}</div>
+            <div style="font-size:12px;margin-top:5px;color:#ddd;line-height:1.25;">HP ${ch.hp}　攻 ${ch.atk}　防 ${ch.def}　速 ${ch.spd}</div>
+            <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;">${roleTagHtml(ch)}</div>
+            <div style="font-size:12px;margin-top:7px;line-height:1.35;color:#f2f2f2;">${ch.passive}</div>
+            <div style="font-size:11px;margin-top:6px;color:#b8d7ff;line-height:1.35;">装備技：${skill.name}</div>
+          </div>
+          <div style="margin-top:auto;display:flex;gap:6px;padding-top:6px;">
+            ${selected
+              ? `<button style="flex:1;border:none;border-radius:10px;padding:9px 6px;font-size:12px;font-weight:900;min-height:40px;background:#333;color:#fff;" onclick="removeFromTeam('${ch.id}')">外す</button>`
+              : `<button style="flex:1;border:none;border-radius:10px;padding:9px 6px;font-size:12px;font-weight:900;min-height:40px;background:#fff;color:#000;" onclick="addToTeam('${ch.id}')">選ぶ</button>`
+            }
+            <button style="flex:1;border:none;border-radius:10px;padding:9px 6px;font-size:12px;font-weight:900;min-height:40px;background:#2b2b2b;color:#fff;" onclick="goEquip('${ch.id}')">技</button>
+            <button style="flex:1;border:none;border-radius:10px;padding:9px 6px;font-size:12px;font-weight:900;min-height:40px;background:#555;color:#fff;" onclick="goTestSelect('${ch.id}')">試す</button>
+          </div>
+        </div>
+      </div>`;
+    el.appendChild(card);
+  });
+  document.getElementById("buildHint").textContent=buildTeamHint();
+}
+
+function renderTeamList(){
+  const el=document.getElementById("teamList");
+  el.innerHTML="";
+  const labels=["先鋒","次鋒","中堅","副将","大将"];
+  for(let i=0;i<5;i++){
+    const id=team[i];
+    const slot=document.createElement("div");
+    slot.style.cssText="background:#1d1d1d;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:10px;display:grid;grid-template-columns:42px 54px 1fr 58px;gap:10px;align-items:center;";
+    if(id){
+      const ch=getChar(id), sk=getEquippedSkill(id);
+      slot.innerHTML=`
+        <div style="width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#202020;border:1px solid rgba(255,255,255,.12);font-weight:900;font-size:14px;">${labels[i]}</div>
+        <img src="${ch.img}" alt="${ch.name}" style="width:54px;height:54px;border-radius:12px;object-fit:cover;background:#0d0d0d;border:1px solid rgba(255,255,255,.12);" onerror="this.style.opacity='.15'">
+        <div style="min-width:0">
+          <div style="font-size:15px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${ch.name}</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.68);margin-top:2px;">${attrLabel(ch.attr)} / ${ch.role}</div>
+          <div style="font-size:10px;color:#b8d7ff;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">装備技：${sk.name}</div>
+          <button style="margin-top:6px;border:none;border-radius:10px;background:#1d1d1d;color:#fff;border:1px solid rgba(255,255,255,.12);padding:8px 0;font-size:12px;font-weight:900;width:100%;" onclick="removeFromTeam('${ch.id}')">外す</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <button style="border:none;border-radius:10px;background:#2a2a2a;color:#fff;font-weight:900;padding:7px 0;border:1px solid rgba(255,255,255,.12);font-size:12px;${i===0 ? "opacity:.28;" : ""}" onclick="moveUp(${i})" ${i===0?"disabled":""}>▲</button>
+          <button style="border:none;border-radius:10px;background:#2a2a2a;color:#fff;font-weight:900;padding:7px 0;border:1px solid rgba(255,255,255,.12);font-size:12px;${i===team.length-1 ? "opacity:.28;" : ""}" onclick="moveDown(${i})" ${i===team.length-1?"disabled":""}>▼</button>
+        </div>`;
+    }else{
+      slot.innerHTML=`
+        <div style="width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#202020;border:1px solid rgba(255,255,255,.12);font-weight:900;font-size:14px;">${labels[i]}</div>
+        <div style="width:54px;height:54px;border-radius:12px;background:#0d0d0d;border:1px solid rgba(255,255,255,.12);opacity:.15"></div>
+        <div><div style="font-size:15px;font-weight:900;color:rgba(255,255,255,.35)">未選択</div><div style="font-size:11px;color:rgba(255,255,255,.68);margin-top:2px;">ここに入れる</div></div>
+        <div></div>`;
+    }
+    el.appendChild(slot);
+  }
+  document.getElementById("confirmBtn").disabled=team.length!==5;
+}
+
+function renderAll(){ renderPickGrid(); renderTeamList(); setBattleMode(battleMode); setMainMode(mainMode); }
+
 function renderDexList(){
-  const el = document.getElementById("dexList");
-  el.innerHTML = "";
-
-  characters.forEach(ch => {
-    const row = document.createElement("div");
-    row.className = "dexRow";
-    row.onclick = () => goDexDetail(ch.id);
-
-    row.innerHTML = `
-      <img class="dexThumb" src="${ch.img}" alt="${ch.name}" onerror="this.style.opacity='.15'">
-      <div>
-        <div class="dexName">${ch.name}</div>
-        <div class="dexMini">${ch.role}</div>
-      </div>
-      <div class="dexAttr ${attrClass(ch.attr)}">${attrLabel(ch.attr)}</div>
-    `;
+  const el=document.getElementById("dexList");
+  el.innerHTML="";
+  characters.forEach(ch=>{
+    const row=document.createElement("div");
+    row.style.cssText="display:grid;grid-template-columns:56px 1fr auto;gap:10px;align-items:center;background:#1b1b1b;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:8px;cursor:pointer;margin-bottom:8px;";
+    row.onclick=()=>goDexDetail(ch.id);
+    row.innerHTML=`<img src="${ch.img}" alt="${ch.name}" style="width:56px;height:56px;object-fit:contain;border-radius:10px;background:#0d0d0d;border:1px solid rgba(255,255,255,.12);" onerror="this.style.opacity='.15'"><div><div style="font-size:14px;font-weight:900;">${ch.name}</div><div style="font-size:11px;color:rgba(255,255,255,.68);margin-top:2px;">${ch.role}</div></div><div style="padding:4px 8px;border-radius:999px;font-size:11px;font-weight:900;border:1px solid rgba(255,255,255,.12);${attrClass(ch.attr)}">${attrLabel(ch.attr)}</div>`;
     el.appendChild(row);
   });
 }
 
 function renderDexDetail(id){
-  const el = document.getElementById("dexDetailBody");
-  const ch = getChar(id);
-  if(!ch){
-    el.innerHTML = `<div class="dexText">キャラが見つかりません</div>`;
-    return;
-  }
-
-  const skillList = ch.skills.map(s => {
-    const mark = equippedSkills[ch.id] === s.id ? "（装備中）" : "";
-    return `・${s.name}${mark}\n${s.desc}`;
-  }).join("\n\n");
-
-  el.innerHTML = `
-    <div class="dexHero">
-      <img src="${ch.img}" alt="${ch.name}" onerror="this.style.opacity='.15'">
+  const el=document.getElementById("dexDetailBody");
+  const ch=getChar(id);
+  if(!ch){ el.innerHTML=`<div>キャラが見つかりません</div>`; return; }
+  const skillList = ch.skills.map(s=>`・${s.name}${equippedSkills[ch.id]===s.id?"（装備中）":""}\n${s.desc}`).join("\n\n");
+  el.innerHTML=`
+    <div style="display:flex;justify-content:center;align-items:center;min-height:190px;"><img src="${ch.img}" alt="${ch.name}" style="max-width:220px;max-height:180px;object-fit:contain;filter:drop-shadow(0 12px 28px rgba(0,0,0,.45));" onerror="this.style.opacity='.15'"></div>
+    <div style="font-size:26px;font-weight:900;text-align:center;">${ch.name}</div>
+    <div style="margin:8px auto 0;width:max-content;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:900;border:1px solid rgba(255,255,255,.14);${attrClass(ch.attr)}">${attrLabel(ch.attr)}</div>
+    <div style="text-align:center;font-size:14px;color:#ddd;margin-top:8px;">${ch.role} / ${roleTypeLabel(ch.roleType)}</div>
+    <div style="margin-top:14px;display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+      <div style="background:#171717;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px;"><div style="font-size:11px;color:rgba(255,255,255,.68)">HP</div><div style="font-size:18px;font-weight:900;margin-top:4px;">${ch.hp}</div></div>
+      <div style="background:#171717;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px;"><div style="font-size:11px;color:rgba(255,255,255,.68)">攻撃</div><div style="font-size:18px;font-weight:900;margin-top:4px;">${ch.atk}</div></div>
+      <div style="background:#171717;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px;"><div style="font-size:11px;color:rgba(255,255,255,.68)">防御</div><div style="font-size:18px;font-weight:900;margin-top:4px;">${ch.def}</div></div>
+      <div style="background:#171717;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:10px;"><div style="font-size:11px;color:rgba(255,255,255,.68)">速度</div><div style="font-size:18px;font-weight:900;margin-top:4px;">${ch.spd}</div></div>
     </div>
-
-    <div class="dexDetailName">${ch.name}</div>
-    <div class="dexDetailAttr ${attrClass(ch.attr)}">${attrLabel(ch.attr)}</div>
-    <div class="dexRole">${ch.role} / ${roleTypeLabel(ch.roleType)}</div>
-
-    <div class="dexStatsGrid">
-      <div class="dexStat"><div class="dexStatLabel">HP</div><div class="dexStatValue">${ch.hp}</div></div>
-      <div class="dexStat"><div class="dexStatLabel">攻撃</div><div class="dexStatValue">${ch.atk}</div></div>
-      <div class="dexStat"><div class="dexStatLabel">防御</div><div class="dexStatValue">${ch.def}</div></div>
-      <div class="dexStat"><div class="dexStatLabel">速度</div><div class="dexStatValue">${ch.spd}</div></div>
-    </div>
-
-    <div class="dexBlock">
-      <div class="dexBlockTitle">固定特性</div>
-      <div class="dexText">${ch.passive}</div>
-    </div>
-
-    <div class="dexBlock">
-      <div class="dexBlockTitle">装備技候補</div>
-      <div class="dexText">${skillList}</div>
-    </div>
-
-    <div class="dexBlock">
-      <div class="dexBlockTitle">説明</div>
-      <div class="dexText">${ch.desc}</div>
-    </div>
-
-    <div class="dexBlock">
-      <div class="dexBlockTitle">MVP時の一言</div>
-      <div class="dexText">${ch.mvpLine}</div>
-    </div>
+    <div style="margin-top:12px;background:#171717;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px;"><div style="font-size:13px;font-weight:900;margin-bottom:6px;">固定特性</div><div style="font-size:13px;line-height:1.65;color:#eee;white-space:pre-line;">${ch.passive}</div></div>
+    <div style="margin-top:12px;background:#171717;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px;"><div style="font-size:13px;font-weight:900;margin-bottom:6px;">装備技候補</div><div style="font-size:13px;line-height:1.65;color:#eee;white-space:pre-line;">${skillList}</div></div>
+    <div style="margin-top:12px;background:#171717;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px;"><div style="font-size:13px;font-weight:900;margin-bottom:6px;">説明</div><div style="font-size:13px;line-height:1.65;color:#eee;white-space:pre-line;">${ch.desc}</div></div>
+    <div style="margin-top:12px;background:#171717;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px;"><div style="font-size:13px;font-weight:900;margin-bottom:6px;">MVP時の一言</div><div style="font-size:13px;line-height:1.65;color:#eee;white-space:pre-line;">${ch.mvpLine}</div></div>
   `;
 }
-  function renderEquipScreen(){
-  const ch = getChar(equipTargetId);
+
+function renderEquipScreen(){
+  const ch=getChar(equipTargetId);
   if(!ch) return;
-
-  document.getElementById("equipTitle").textContent = `${ch.name} の装備技`;
-  document.getElementById("equipCharInfo").textContent =
-    `固定特性\n${ch.passive}\n\n現在装備：${getEquippedSkill(ch.id).name}`;
-
-  const list = document.getElementById("skillList");
-  list.innerHTML = "";
-
-  ch.skills.forEach(skill => {
-    const active = equippedSkills[ch.id] === skill.id;
-    const div = document.createElement("div");
-    div.className = "skillCard" + (active ? " active" : "");
-    div.innerHTML = `
-      <div class="skillName">${skill.name}</div>
-      <div class="skillDesc">${skill.desc}</div>
-      <div class="skillBtns">
-        ${active
-          ? `<button class="btn">装備中</button>`
-          : `<button class="btn" onclick="equipSkill('${ch.id}','${skill.id}')">これを装備</button>`
-        }
-      </div>
-    `;
+  document.getElementById("equipTitle").textContent=`${ch.name} の装備技`;
+  document.getElementById("equipCharInfo").textContent=`固定特性\n${ch.passive}\n\n現在装備：${getEquippedSkill(ch.id).name}`;
+  const list=document.getElementById("skillList");
+  list.innerHTML="";
+  ch.skills.forEach(skill=>{
+    const active=equippedSkills[ch.id]===skill.id;
+    const div=document.createElement("div");
+    div.style.cssText=`background:#171717;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px;margin-top:10px;${active ? "outline:2px solid rgba(255,255,255,.55);" : ""}`;
+    div.innerHTML=`<div style="font-size:15px;font-weight:900;">${skill.name}</div><div style="font-size:12px;line-height:1.55;color:#ddd;margin-top:6px;">${skill.desc}</div><div style="display:flex;gap:8px;margin-top:10px;">${active ? `<button class="btn">装備中</button>` : `<button class="btn" onclick="equipSkill('${ch.id}','${skill.id}')">これを装備</button>`}</div>`;
     list.appendChild(div);
   });
 }
 
-function equipSkill(charId, skillId){
-  equippedSkills[charId] = skillId;
-  renderEquipScreen();
-  renderAll();
-}
+function equipSkill(charId, skillId){ equippedSkills[charId]=skillId; renderEquipScreen(); renderAll(); }
 
 function renderTestSelectScreen(){
-  const player = getChar(testPlayerId);
+  const player=getChar(testPlayerId);
   if(!player) return;
-
-  document.getElementById("testSelectTitle").textContent = `${player.name} の対戦相手を選んでください`;
-  document.getElementById("testSelectHint").textContent =
-    `お試しキャラ：${player.name}\n装備技：${getEquippedSkill(player.id).name}`;
-
-  const grid = document.getElementById("testEnemyGrid");
-  grid.innerHTML = "";
-
-  characters
-    .filter(c => c.id !== player.id)
-    .forEach(c => {
-      const div = document.createElement("div");
-      div.className = "testEnemyCard";
-      div.innerHTML = `
-        <img src="${c.img}" alt="${c.name}" onerror="this.style.opacity='.15'">
-        <div class="testEnemyName">${c.name}</div>
-        <div class="testEnemyAttr">${attrLabel(c.attr)}</div>
-        <button class="testEnemyBtn" onclick="goTestBattle('${c.id}')">この相手で試す</button>
-      `;
-      grid.appendChild(div);
-    });
+  document.getElementById("testSelectTitle").textContent=`${player.name} の対戦相手を選んでください`;
+  document.getElementById("testSelectHint").textContent=`お試しキャラ：${player.name}\n装備技：${getEquippedSkill(player.id).name}`;
+  const grid=document.getElementById("testEnemyGrid");
+  grid.innerHTML="";
+  characters.filter(c=>c.id!==player.id).forEach(c=>{
+    const div=document.createElement("div");
+    div.style.cssText="background:#161616;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;text-align:center;";
+    div.innerHTML=`<img src="${c.img}" alt="${c.name}" style="width:100%;aspect-ratio:1/1;object-fit:contain;border-radius:12px;background:#0d0d0d;border:1px solid rgba(255,255,255,.12);" onerror="this.style.opacity='.15'"><div style="font-size:14px;font-weight:900;margin-top:8px;">${c.name}</div><div style="font-size:12px;color:#ddd;margin-top:2px;">${attrLabel(c.attr)}</div><button class="btn" style="margin-top:10px;font-size:13px;padding:12px 8px;" onclick="goTestBattle('${c.id}')">この相手で試す</button>`;
+    grid.appendChild(div);
+  });
 }
 
-function applySkillToClone(fighter){
-  const skill = getEquippedSkill(fighter.id);
-  if(!skill) return fighter;
-
-  fighter.equippedSkill = skill;
-  const ef = skill.effect || {};
-
-  if(ef.hp) fighter.hp += ef.hp;
-  if(ef.atk) fighter.atk += ef.atk;
-  if(ef.def) fighter.def += ef.def;
-  if(ef.spd) fighter.spd += ef.spd;
-
-  fighter.maxHp = fighter.hp;
-  fighter.currentHp = fighter.hp;
-  return fighter;
+function applySkillToClone(f){
+  const skill=getEquippedSkill(f.id);
+  if(!skill) return f;
+  f.equippedSkill=skill;
+  const ef=skill.effect||{};
+  if(ef.hp) f.hp+=ef.hp;
+  if(ef.atk) f.atk+=ef.atk;
+  if(ef.def) f.def+=ef.def;
+  if(ef.spd) f.spd+=ef.spd;
+  f.maxHp=f.hp;
+  f.currentHp=f.hp;
+  return f;
 }
 
 function cloneFighter(char, side, orderIndex){
-  const base = {
-    ...JSON.parse(JSON.stringify(char)),
-    side,
-    orderIndex,
-    maxHp: char.hp,
-    currentHp: char.hp,
-    alive: true,
-    wins: 0,
-    damageDealt: 0,
-    damageTaken: 0,
-    turns: 0,
-    matchWin: 0,
-    flags: {
-      firstAttackDone: false,
-      firstHitTaken: false,
-      aniBoost: 0,
-      counterReady: false,
-      isFirstThisTurn: false,
-      firstEvadeUsed: false,
-      evadeBuff: false
-    }
-  };
+  const base={...JSON.parse(JSON.stringify(char)),side,orderIndex,maxHp:char.hp,currentHp:char.hp,alive:true,wins:0,damageDealt:0,damageTaken:0,turns:0,matchWin:0,flags:{firstAttackDone:false,firstHitTaken:false,aniBoost:0,counterReady:false,isFirstThisTurn:false,firstEvadeUsed:false,evadeBuff:false}};
   return applySkillToClone(base);
 }
 
-function shuffle(arr){
-  const a = [...arr];
-  for(let i=a.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
 function scoreForAI(char){
-  let score = 0;
-  score += char.hp * 0.7;
-  score += char.atk * 1.15;
-  score += char.def * 0.8;
-  score += char.spd * 0.65;
-  if(char.id === "ratel") score += 18;
-  if(char.id === "kanemon") score += 10;
-  if(char.id === "namaken") score += 10;
-  if(char.id === "ani") score += 16;
-  if(char.id === "kabao") score += 15;
-  if(char.id === "king") score += 12;
+  let score=0;
+  score+=char.hp*0.7;
+  score+=char.atk*1.15;
+  score+=char.def*0.8;
+  score+=char.spd*0.65;
+  if(char.id==="ratel")score+=18;
+  if(char.id==="kanemon")score+=10;
+  if(char.id==="namaken")score+=10;
+  if(char.id==="ani")score+=16;
+  if(char.id==="kabao")score+=15;
+  if(char.id==="king")score+=12;
   return score;
 }
 
 function makeEnemyTeam(){
-  const pool = characters.map(c => c.id).filter(id => !team.includes(id));
-  let enemyChars = shuffle(pool).slice(0,5).map(id => getChar(id));
-  enemyChars.sort((a,b) => scoreForAI(b) - scoreForAI(a));
-  return enemyChars.map(c => c.id);
+  const pool=characters.map(c=>c.id).filter(id=>!team.includes(id));
+  let enemyChars=shuffle(pool).slice(0,5).map(id=>getChar(id));
+  enemyChars.sort((a,b)=>scoreForAI(b)-scoreForAI(a));
+  return enemyChars.map(c=>c.id);
 }
 
 function effectiveSpeed(f){
-  const fatigueRate = 1 - Math.min(f.wins * 0.05, 0.15);
-  return Math.max(1, Math.round(f.spd * fatigueRate));
+  const fatigueRate=1-Math.min(f.wins*0.05,0.15);
+  return Math.max(1, Math.round(f.spd*fatigueRate));
 }
 
-function decideFirst(a, b){
-  const aSpd = effectiveSpeed(a);
-  const bSpd = effectiveSpeed(b);
-  const diff = aSpd - bSpd;
-  let aRate = 0.5;
-  if(diff >= 12) aRate = 0.75;
-  else if(diff >= 6) aRate = 0.65;
-  else if(diff >= 3) aRate = 0.58;
-  else if(diff <= -12) aRate = 0.25;
-  else if(diff <= -6) aRate = 0.35;
-  else if(diff <= -3) aRate = 0.42;
-  return Math.random() < aRate ? a : b;
+function decideFirst(a,b){
+  const aSpd=effectiveSpeed(a), bSpd=effectiveSpeed(b);
+  const diff=aSpd-bSpd;
+  let aRate=0.5;
+  if(diff>=12)aRate=0.75;
+  else if(diff>=6)aRate=0.65;
+  else if(diff>=3)aRate=0.58;
+  else if(diff<=-12)aRate=0.25;
+  else if(diff<=-6)aRate=0.35;
+  else if(diff<=-3)aRate=0.42;
+  return Math.random()<aRate ? a : b;
 }
 
 function calcDamage(attacker, defender){
-  if(!attacker.alive || !defender.alive) return {damage:0, text:"", isCrit:false, attrRate:1};
+  if(!attacker.alive || !defender.alive) return {damage:0,text:"",isCrit:false,attrRate:1};
 
-  let evadeRate = 0;
-  if(defender.id === "tora") evadeRate += 0.20;
-  if(defender.equippedSkill?.effect?.firstEvadePlus && !defender.flags.firstEvadeUsed){
-    evadeRate += defender.equippedSkill.effect.firstEvadePlus;
+  let evadeRate=0;
+  if(defender.id==="tora") evadeRate+=0.20;
+  if(defender.equippedSkill?.effect?.firstEvadePlus && !defender.flags.firstEvadeUsed) evadeRate+=defender.equippedSkill.effect.firstEvadePlus;
+  if(Math.random()<evadeRate){
+    defender.flags.firstEvadeUsed=true;
+    if(defender.equippedSkill?.effect?.evadeAttackBonus) defender.flags.evadeBuff=true;
+    return {damage:0,text:`${defender.name}は分身した。`,isCrit:false,attrRate:1};
   }
-  if(Math.random() < evadeRate){
-    defender.flags.firstEvadeUsed = true;
-    if(defender.equippedSkill?.effect?.evadeAttackBonus){
-      defender.flags.evadeBuff = true;
+
+  let skillRate=1.0;
+  let extraTexts=[];
+
+  if(attacker.id==="dekabusa" && attacker.currentHp<=attacker.maxHp*0.5){ skillRate*=1.5; extraTexts.push(`${attacker.name}の背水。`); }
+  if(attacker.id==="kanemon" && !attacker.flags.firstAttackDone){ skillRate*=1.4; extraTexts.push(`${attacker.name}の初撃全力。`); }
+  if(attacker.id==="panpan"){
+    let missRate=0.15;
+    if(attacker.equippedSkill?.effect?.missMinus) missRate-=attacker.equippedSkill.effect.missMinus;
+    if(Math.random()<missRate){
+      attacker.flags.firstAttackDone=true;
+      return {damage:0,text:`${attacker.name}は空振りした。`,isCrit:false,attrRate:1};
     }
-    return { damage:0, text:`${defender.name}は分身した。`, isCrit:false, attrRate:1 };
+    let rageRate=0.35;
+    if(attacker.equippedSkill?.effect?.ragePlus) rageRate+=attacker.equippedSkill.effect.ragePlus;
+    if(Math.random()<rageRate){ skillRate*=1.7; extraTexts.push(`${attacker.name}が暴走した。`); }
   }
+  if(attacker.id==="king" && defender.currentHp<=defender.maxHp*0.3){ skillRate*=1.4; extraTexts.push(`${attacker.name}が仕留めに来た。`); }
+  if(attacker.id==="namaken" && defender.currentHp===defender.maxHp){ skillRate*=1.5; extraTexts.push(`${attacker.name}の後出し強襲。`); }
+  if(attacker.id==="ani"){ skillRate*=(1+attacker.flags.aniBoost); if(attacker.flags.aniBoost>0) extraTexts.push(`${attacker.name}の加速装置。`); }
+  if(attacker.id==="juzo" && attacker.flags.counterReady){ skillRate*=1.5; attacker.flags.counterReady=false; extraTexts.push(`${attacker.name}の反撃態勢。`); }
+  if(attacker.id==="ratel" && attacker.flags.isFirstThisTurn){ skillRate*=1.3; extraTexts.push(`${attacker.name}の先手必勝。`); }
+  if(attacker.id==="gori"){ skillRate*=1.1; }
 
-  let skillRate = 1.0;
-  let extraTexts = [];
+  if(attacker.equippedSkill?.effect?.lowHpAtk && attacker.currentHp<=attacker.maxHp*0.5) skillRate*=1+(attacker.equippedSkill.effect.lowHpAtk/Math.max(1,attacker.atk));
+  if(attacker.equippedSkill?.effect?.bonusVsGrass && defender.attr==="grass") skillRate*=1+attacker.equippedSkill.effect.bonusVsGrass;
+  if(attacker.equippedSkill?.effect?.bonusVsWater && defender.attr==="water") skillRate*=1+attacker.equippedSkill.effect.bonusVsWater;
+  if(attacker.equippedSkill?.effect?.chaseBonus && defender.currentHp<=defender.maxHp*0.5) skillRate*=1+attacker.equippedSkill.effect.chaseBonus;
+  if(attacker.equippedSkill?.effect?.midHpBonus && defender.currentHp<=defender.maxHp*0.5) skillRate*=1+attacker.equippedSkill.effect.midHpBonus;
+  if(attacker.equippedSkill?.effect?.slowAttackBonus && effectiveSpeed(attacker)<effectiveSpeed(defender)) skillRate*=1+attacker.equippedSkill.effect.slowAttackBonus;
+  if(attacker.equippedSkill?.effect?.secondAttackBonus && !attacker.flags.isFirstThisTurn) skillRate*=1+attacker.equippedSkill.effect.secondAttackBonus;
+  if(attacker.equippedSkill?.effect?.lateTurnBonus && attacker.turns>=2) skillRate*=1+attacker.equippedSkill.effect.lateTurnBonus;
+  if(attacker.flags.evadeBuff){ skillRate*=1.2; attacker.flags.evadeBuff=false; }
 
-  if(attacker.id === "dekabusa" && attacker.currentHp <= attacker.maxHp * 0.5){
-    skillRate *= 1.5;
-    extraTexts.push(`${attacker.name}の背水。`);
-  }
-  if(attacker.id === "kanemon" && !attacker.flags.firstAttackDone){
-    skillRate *= 1.4;
-    extraTexts.push(`${attacker.name}の初撃全力。`);
-  }
-  if(attacker.id === "panpan"){
-    let missRate = 0.15;
-    if(attacker.equippedSkill?.effect?.missMinus) missRate -= attacker.equippedSkill.effect.missMinus;
-    if(Math.random() < missRate){
-      attacker.flags.firstAttackDone = true;
-      return { damage:0, text:`${attacker.name}は空振りした。`, isCrit:false, attrRate:1 };
-    }
-    let rageRate = 0.35;
-    if(attacker.equippedSkill?.effect?.ragePlus) rageRate += attacker.equippedSkill.effect.ragePlus;
-    if(Math.random() < rageRate){
-      skillRate *= 1.7;
-      extraTexts.push(`${attacker.name}が暴走した。`);
-    }
-  }
-  if(attacker.id === "king" && defender.currentHp <= defender.maxHp * 0.3){
-    skillRate *= 1.4;
-    extraTexts.push(`${attacker.name}が仕留めに来た。`);
-  }
-  if(attacker.id === "namaken" && defender.currentHp === defender.maxHp){
-    skillRate *= 1.5;
-    extraTexts.push(`${attacker.name}の後出し強襲。`);
-  }
-  if(attacker.id === "ani"){
-    skillRate *= (1 + attacker.flags.aniBoost);
-    if(attacker.flags.aniBoost > 0) extraTexts.push(`${attacker.name}の加速装置。`);
-  }
-  if(attacker.id === "juzo" && attacker.flags.counterReady){
-    skillRate *= 1.5;
-    attacker.flags.counterReady = false;
-    extraTexts.push(`${attacker.name}の反撃態勢。`);
-  }
-  if(attacker.id === "ratel" && attacker.flags.isFirstThisTurn){
-    skillRate *= 1.3;
-    extraTexts.push(`${attacker.name}の先手必勝。`);
-  }
-  if(attacker.id === "gori"){
-    skillRate *= 1.1;
-  }
+  let defendRate=1.0;
+  if(defender.id==="gori" && !defender.flags.firstHitTaken){ defendRate*=0.5; extraTexts.push(`${defender.name}の初回ガード。`); }
+  if(defender.id==="nise") defendRate*=0.8;
+  if(defender.equippedSkill?.effect?.firstReduce && !defender.flags.firstHitTaken) defendRate*=1-defender.equippedSkill.effect.firstReduce;
+  if(defender.equippedSkill?.effect?.reduceFromFire && attacker.attr==="fire") defendRate*=1-defender.equippedSkill.effect.reduceFromFire;
+  if(defender.equippedSkill?.effect?.repeatReduce && defender.flags.firstHitTaken) defendRate*=1-defender.equippedSkill.effect.repeatReduce;
+  defender._tempDefBonus = defender.equippedSkill?.effect?.lowHpDef && defender.currentHp<=defender.maxHp*0.5 ? defender.equippedSkill.effect.lowHpDef : 0;
 
-  if(attacker.equippedSkill?.effect?.lowHpAtk && attacker.currentHp <= attacker.maxHp * 0.5){
-    skillRate *= 1 + (attacker.equippedSkill.effect.lowHpAtk / Math.max(1, attacker.atk));
-  }
-  if(attacker.equippedSkill?.effect?.bonusVsGrass && defender.attr === "grass"){
-    skillRate *= 1 + attacker.equippedSkill.effect.bonusVsGrass;
-  }
-  if(attacker.equippedSkill?.effect?.bonusVsWater && defender.attr === "water"){
-    skillRate *= 1 + attacker.equippedSkill.effect.bonusVsWater;
-  }
-  if(attacker.equippedSkill?.effect?.chaseBonus && defender.currentHp <= defender.maxHp * 0.5){
-    skillRate *= 1 + attacker.equippedSkill.effect.chaseBonus;
-  }
-  if(attacker.equippedSkill?.effect?.midHpBonus && defender.currentHp <= defender.maxHp * 0.5){
-    skillRate *= 1 + attacker.equippedSkill.effect.midHpBonus;
-  }
-  if(attacker.equippedSkill?.effect?.slowAttackBonus && effectiveSpeed(attacker) < effectiveSpeed(defender)){
-    skillRate *= 1 + attacker.equippedSkill.effect.slowAttackBonus;
-  }
-  if(attacker.equippedSkill?.effect?.secondAttackBonus && !attacker.flags.isFirstThisTurn){
-    skillRate *= 1 + attacker.equippedSkill.effect.secondAttackBonus;
-  }
-  if(attacker.equippedSkill?.effect?.lateTurnBonus && attacker.turns >= 2){
-    skillRate *= 1 + attacker.equippedSkill.effect.lateTurnBonus;
-  }
-  if(attacker.flags.evadeBuff){
-    skillRate *= 1.2;
-    attacker.flags.evadeBuff = false;
-  }
+  const fatigueAtk=1-Math.min(attacker.wins*0.04,0.12);
+  const armorPen=attacker.equippedSkill?.effect?.armorPen || 0;
+  const effDef=Math.max(0, defender.def + (defender._tempDefBonus||0));
+  const base=Math.max(8, (attacker.atk*fatiqueClamp(fatigueAtk)) - effDef*(0.5-armorPen));
+  const attr=getAttrRate(attacker.attr, defender.attr);
+  const rand=0.92 + Math.random()*0.16;
+  let critRate=0.08;
+  if(attacker.equippedSkill?.effect?.critPlus) critRate+=attacker.equippedSkill.effect.critPlus;
+  const crit=Math.random()<critRate ? 1.5 : 1.0;
 
-  let defendRate = 1.0;
-  if(defender.id === "gori" && !defender.flags.firstHitTaken){
-    defendRate *= 0.5;
-    extraTexts.push(`${defender.name}の初回ガード。`);
-  }
-  if(defender.id === "nise"){
-    defendRate *= 0.8;
-  }
-  if(defender.equippedSkill?.effect?.firstReduce && !defender.flags.firstHitTaken){
-    defendRate *= 1 - defender.equippedSkill.effect.firstReduce;
-  }
-  if(defender.equippedSkill?.effect?.reduceFromFire && attacker.attr === "fire"){
-    defendRate *= 1 - defender.equippedSkill.effect.reduceFromFire;
-  }
-  if(defender.equippedSkill?.effect?.repeatReduce && defender.flags.firstHitTaken){
-    defendRate *= 1 - defender.equippedSkill.effect.repeatReduce;
-  }
-  if(defender.equippedSkill?.effect?.lowHpDef && defender.currentHp <= defender.maxHp * 0.5){
-    defender._tempDefBonus = defender.equippedSkill.effect.lowHpDef;
-  }else{
-    defender._tempDefBonus = 0;
-  }
+  let damage=Math.round(base*attr*skillRate*defendRate*rand*crit);
+  damage=Math.max(8,damage);
 
-  const fatigueAtk = 1 - Math.min(attacker.wins * 0.04, 0.12);
-  const armorPen = attacker.equippedSkill?.effect?.armorPen || 0;
-  const effDef = Math.max(0, defender.def + (defender._tempDefBonus || 0));
-  const base = Math.max(8, (attacker.atk * fatigueAtk) - effDef * (0.5 - armorPen));
-  const attr = getAttrRate(attacker.attr, defender.attr);
-  const rand = 0.92 + Math.random() * 0.16;
+  attacker.flags.firstAttackDone=true;
+  defender.flags.firstHitTaken=true;
+  if(crit>1) extraTexts.push("クリティカル。");
 
-  let critRate = 0.08;
-  if(attacker.equippedSkill?.effect?.critPlus) critRate += attacker.equippedSkill.effect.critPlus;
-  const crit = Math.random() < critRate ? 1.5 : 1.0;
-
-  let damage = Math.round(base * attr * skillRate * defendRate * rand * crit);
-  damage = Math.max(8, damage);
-
-  attacker.flags.firstAttackDone = true;
-  defender.flags.firstHitTaken = true;
-  if(crit > 1) extraTexts.push("クリティカル。");
-
-  return { damage, text: extraTexts.join(" "), isCrit: crit > 1, attrRate: attr };
+  return {damage,text:extraTexts.join(" "),isCrit:crit>1,attrRate:attr};
 }
+function fatiqueClamp(v){ return v<0?0:v; }
 
 function healEndTurn(f){
   if(!f.alive) return null;
-  let heal = 0;
-  if(f.id === "kabao") heal += 8;
-  if(f.equippedSkill?.effect?.healBonus) heal += f.equippedSkill.effect.healBonus;
-  if(heal > 0){
-    const before = f.currentHp;
-    f.currentHp = Math.min(f.maxHp, f.currentHp + heal);
-    if(f.currentHp > before) return `${f.name}は回復した。`;
+  let heal=0;
+  if(f.id==="kabao") heal+=8;
+  if(f.equippedSkill?.effect?.healBonus) heal+=f.equippedSkill.effect.healBonus;
+  if(heal>0){
+    const before=f.currentHp;
+    f.currentHp=Math.min(f.maxHp, f.currentHp+heal);
+    if(f.currentHp>before) return `${f.name}は回復した。`;
   }
   return null;
 }
 
-function teamAliveCount(teamArr){
-  return teamArr.filter(f => f.alive).length;
-}
+function teamAliveCount(teamArr){ return teamArr.filter(f=>f.alive).length; }
 
 function addLog(text){
   if(!battle) return;
   battle.logs.push(text);
-  const ticker = document.getElementById("liveTicker");
-  if(ticker) ticker.textContent = text;
-
-  const panel = document.getElementById("logPanel");
+  const ticker=document.getElementById("liveTicker");
+  if(ticker) ticker.textContent=text;
+  const panel=document.getElementById("logPanel");
   if(panel){
-    const div = document.createElement("div");
-    div.className = "logLine";
-    div.textContent = text;
+    const div=document.createElement("div");
+    div.style.cssText="font-size:13px;line-height:1.65;padding:4px 0;border-bottom:1px dashed rgba(255,255,255,.06);";
+    div.textContent=text;
     panel.appendChild(div);
-    panel.scrollTop = panel.scrollHeight;
+    panel.scrollTop=panel.scrollHeight;
   }
 }
 
 function playAttackMotion(side){
-  const visual = document.querySelector(
-    side === "player"
-      ? "#playerCard .fighterVisual"
-      : "#enemyCard .fighterVisual"
-  );
+  const visual=document.querySelector(side==="player" ? "#playerCard .fighterVisual" : "#enemyCard .fighterVisual");
   if(!visual) return;
-  visual.classList.remove("attackForward");
-  void visual.offsetWidth;
-  visual.classList.add("attackForward");
-  setTimeout(()=>visual.classList.remove("attackForward"), 240);
+  visual.style.transition="transform .22s ease";
+  visual.style.transform = side==="player" ? "translateX(18px) scale(1.04)" : "translateX(-18px) scale(1.04)";
+  setTimeout(()=>{ visual.style.transform="translateX(0) scale(1)"; },220);
 }
-
 function playHitEffect(side){
-  const card = document.getElementById(side === "player" ? "playerCard" : "enemyCard");
+  const card=document.getElementById(side==="player" ? "playerCardBox" : "enemyCardBox");
   if(!card) return;
-  card.classList.remove("hit", "hit-enemy", "flash");
-  void card.offsetWidth;
-  card.classList.add(side === "player" ? "hit" : "hit-enemy");
-  card.classList.add("flash");
-  setTimeout(() => card.classList.remove("hit", "hit-enemy", "flash"), 260);
+  card.animate([
+    {transform:"translateX(0)"},
+    {transform:side==="player"?"translateX(-8px)":"translateX(8px)"},
+    {transform:side==="player"?"translateX(7px)":"translateX(-7px)"},
+    {transform:"translateX(0)"}
+  ],{duration:220,easing:"ease"});
 }
-
-function playHpBarEffect(side){
-  const bar = document.getElementById(side === "player" ? "playerHpFill" : "enemyHpFill");
-  if(!bar) return;
-  const wrap = bar.parentElement;
-  wrap.classList.remove("hitbar");
-  void wrap.offsetWidth;
-  wrap.classList.add("hitbar");
-  setTimeout(() => wrap.classList.remove("hitbar"), 220);
-}
-
 function playKoFade(side){
-  const card = document.getElementById(side === "player" ? "playerCard" : "enemyCard");
+  const card=document.getElementById(side==="player" ? "playerCardBox" : "enemyCardBox");
   if(!card) return;
-  card.classList.add("koFaded");
-  setTimeout(() => card.classList.remove("koFaded"), 700);
+  card.style.opacity=".58";
+  card.style.filter="grayscale(.35)";
+  setTimeout(()=>{ card.style.opacity="1"; card.style.filter="none"; },700);
 }
 
-function showBubble(side, text){
-  const el = document.getElementById(side === "player" ? "playerBubble" : "enemyBubble");
+function showBubble(side,text){
+  const el=document.getElementById(side==="player"?"playerBubble":"enemyBubble");
   if(!el) return;
-  el.hidden = false;
-  el.textContent = text;
+  el.hidden=false;
+  el.textContent=text;
   clearTimeout(el._timer);
-  el._timer = setTimeout(() => { el.hidden = true; }, speedMap[speedMode].bubble);
+  el._timer=setTimeout(()=>{ el.hidden=true; }, speedMap[speedMode].bubble);
 }
 
-function showDamage(side, value, isCrit, attrRate){
-  const card = document.getElementById(side === "player" ? "playerCard" : "enemyCard");
+function showDamage(side,value,isCrit,attrRate){
+  const card=document.getElementById(side==="player"?"playerCardBox":"enemyCardBox");
   if(!card) return;
-  const div = document.createElement("div");
-  div.className = "damageText" + (isCrit ? " crit" : "");
-  if(attrRate > 1) div.classList.add("adv");
-  else if(attrRate < 1) div.classList.add("dis");
-  div.textContent = value;
+  const div=document.createElement("div");
+  div.style.cssText=`position:absolute;top:18px;left:50%;transform:translateX(-50%);font-size:24px;font-weight:900;color:${isCrit?"#ffd95e":"#fff"};text-shadow:0 2px 10px rgba(0,0,0,.6);pointer-events:none;z-index:4;`;
+  if(attrRate>1) div.style.color="#ff7b7b";
+  else if(attrRate<1) div.style.color="#6db5ff";
+  div.textContent=value;
   card.appendChild(div);
-  setTimeout(() => div.remove(), 700);
+  div.animate([{opacity:0,transform:"translateX(-50%) translateY(10px) scale(.7)"},{opacity:1,transform:"translateX(-50%) translateY(0) scale(1)"},{opacity:0,transform:"translateX(-50%) translateY(-24px) scale(1.05)"}],{duration:700,easing:"ease",fill:"forwards"});
+  setTimeout(()=>div.remove(),700);
 }
 
-function updateHpBar(fillEl, textEl, fighter){
-  if(!fighter){
-    fillEl.style.width = "0%";
-    textEl.textContent = "-";
-    return;
-  }
-  const pct = Math.max(0, fighter.currentHp / fighter.maxHp * 100);
-  fillEl.style.width = pct + "%";
-  fillEl.className = "hpFill " + (pct <= 30 ? "low" : pct <= 60 ? "mid" : "high");
-  textEl.textContent = `${Math.max(0, fighter.currentHp)} / ${fighter.maxHp}`;
+function updateHpBar(fillEl,textEl,fighter){
+  if(!fighter){ fillEl.style.width="0%"; textEl.textContent="-"; return; }
+  const pct=Math.max(0, fighter.currentHp/fighter.maxHp*100);
+  fillEl.style.width=pct+"%";
+  fillEl.style.background = pct<=30 ? "#ff7b7b" : pct<=60 ? "#ffd24d" : "#77e0a0";
+  textEl.textContent=`${Math.max(0,fighter.currentHp)} / ${fighter.maxHp}`;
 }
 
-function setImg(el, fighter){
-  if(!fighter){
-    el.src = "";
-    return;
-  }
-  el.src = fighter.img;
-  el.onerror = function(){ this.style.opacity='.15'; };
-  el.style.opacity = "1";
+function setImg(el,fighter){
+  if(!fighter){ el.src=""; return; }
+  el.src=fighter.img;
+  el.onerror=function(){ this.style.opacity=".15"; };
+  el.style.opacity="1";
 }
 
 function renderBadges(targetEl, fighter, matchup){
-  if(!targetEl) return;
-  if(!fighter){
-    targetEl.innerHTML = "";
-    return;
-  }
-  const attrBadgeClass = fighter.attr === "fire" ? "badge-attr-fire" : fighter.attr === "water" ? "badge-attr-water" : "badge-attr-grass";
-  targetEl.innerHTML = `
-    <span class="infoBadge">${orderLabel(fighter.orderIndex)}</span>
-    <span class="infoBadge ${attrBadgeClass}">${attrLabel(fighter.attr)}</span>
-    <span class="infoBadge ${matchup.cls}">${matchup.text}</span>
+  if(!targetEl){ return; }
+  if(!fighter){ targetEl.innerHTML=""; return; }
+  const attrBg = fighter.attr==="fire" ? "rgba(255,123,123,.12)" : fighter.attr==="water" ? "rgba(115,169,255,.12)" : "rgba(100,220,130,.12)";
+  const matchBg = matchup.cls==="good" ? "rgba(120,225,160,.16)" : matchup.cls==="bad" ? "rgba(255,127,127,.16)" : "rgba(255,255,255,.08)";
+  const matchColor = matchup.cls==="good" ? "#b8ffd1" : matchup.cls==="bad" ? "#ffc1c1" : "#eee";
+  targetEl.innerHTML=`
+    <span style="display:inline-flex;align-items:center;justify-content:center;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);font-size:11px;font-weight:900;">${orderLabel(fighter.orderIndex)}</span>
+    <span style="display:inline-flex;align-items:center;justify-content:center;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:${attrBg};font-size:11px;font-weight:900;">${attrLabel(fighter.attr)}</span>
+    <span style="display:inline-flex;align-items:center;justify-content:center;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:${matchBg};color:${matchColor};font-size:11px;font-weight:900;">${matchup.text}</span>
   `;
 }
 
-function renderStatusBoard(){
-  const rows = document.getElementById("statusRows");
-  if(!rows || !battle) return;
-  rows.innerHTML = "";
+function getDisplayPlayer(){ if(!battle) return null; if(battle.resultView && battle.lastPlayerFighter) return battle.lastPlayerFighter; return battle.playerTeam[battle.playerActiveIndex]; }
+function getDisplayEnemy(){ if(!battle) return null; if(battle.resultView && battle.lastEnemyFighter) return battle.lastEnemyFighter; return battle.enemyTeam[battle.enemyActiveIndex]; }
 
-  const labels = ["先鋒","次鋒","中堅","副将","大将"];
+function renderStatusBoard(){
+  const rows=document.getElementById("statusRows");
+  if(!rows || !battle) return;
+  rows.innerHTML="";
+  const labels=["先鋒","次鋒","中堅","副将","大将"];
 
   for(let i=0;i<5;i++){
-    const pf = battle.playerTeam[i];
-    const ef = battle.enemyTeam[i];
-    const row = document.createElement("div");
-    row.className = "statusRow";
-
-    const pActive = i === battle.playerActiveIndex;
-    const eActive = i === battle.enemyActiveIndex;
-
-    row.innerHTML = `
-      <div class="miniSideCard playerSide ${pf && !pf.alive ? "dead" : ""} ${pActive ? "active" : ""}" data-side="player" data-idx="${i}">
-        <img src="${pf ? pf.img : ""}" alt="" onerror="this.style.opacity='.15'">
-        <div class="miniSideMain">
-          <div class="miniSideName">${labels[i]} ${pf ? pf.name : "-"}</div>
-          <div class="miniSideMeta">${pf ? `${attrLabel(pf.attr)} / HP ${Math.max(0,pf.currentHp)}` : "-"}</div>
+    const pf=battle.playerTeam[i], ef=battle.enemyTeam[i];
+    const pActive=i===battle.playerActiveIndex, eActive=i===battle.enemyActiveIndex;
+    const row=document.createElement("div");
+    row.style.cssText="display:grid;grid-template-columns:1fr 44px 1fr;gap:8px;align-items:center;";
+    row.innerHTML=`
+      <div data-side="player" data-idx="${i}" style="background:#1a1a1a;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:8px;min-height:58px;display:grid;grid-template-columns:40px 1fr auto;gap:8px;align-items:center;position:relative;${pf&&!pf.alive?"opacity:.25;filter:grayscale(1);":""}${pActive?"outline:2px solid rgba(255,255,255,.55);box-shadow:0 0 0 3px rgba(255,255,255,.08);":""}">
+        <img src="${pf?pf.img:""}" alt="" style="width:40px;height:40px;border-radius:10px;object-fit:cover;background:#0d0d0d;border:1px solid rgba(255,255,255,.12);transform:scaleX(-1)" onerror="this.style.opacity='.15'">
+        <div style="min-width:0">
+          <div style="font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${labels[i]} ${pf?pf.name:"-"}</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.68);margin-top:2px;">${pf?`${attrLabel(pf.attr)} / HP ${Math.max(0,pf.currentHp)}`:"-"}</div>
         </div>
-        <div class="miniSideBadge">${pf ? (pf.alive ? (pActive ? "★" : "○") : "×") : ""}</div>
+        <div style="font-size:11px;font-weight:900;color:#fff;">${pf?(pf.alive?(pActive?"★":"○"):"×"):""}</div>
       </div>
-
-      <div class="boardVs">
-        <div class="boardLink ${pActive && eActive ? "active" : ""}"></div>
-      </div>
-
-      <div class="miniSideCard right enemySide ${ef && !ef.alive ? "dead" : ""} ${eActive ? "active" : ""}" data-side="enemy" data-idx="${i}">
-        <div class="miniSideBadge">${ef ? (ef.alive ? (eActive ? "★" : "○") : "×") : ""}</div>
-        <div class="miniSideMain" style="text-align:right">
-          <div class="miniSideName">${ef ? ef.name : "-"} ${labels[i]}</div>
-          <div class="miniSideMeta">${ef ? `${attrLabel(ef.attr)} / HP ${Math.max(0,ef.currentHp)}` : "-"}</div>
+      <div style="display:flex;align-items:center;justify-content:center;"><div style="width:100%;height:2px;${pActive&&eActive?"background:rgba(255,255,255,.75);box-shadow:0 0 10px rgba(255,255,255,.22);":"background:rgba(255,255,255,.18);"}"></div></div>
+      <div data-side="enemy" data-idx="${i}" style="background:#1a1a1a;border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:8px;min-height:58px;display:grid;grid-template-columns:auto 1fr 40px;gap:8px;align-items:center;position:relative;${ef&&!ef.alive?"opacity:.25;filter:grayscale(1);":""}${eActive?"outline:2px solid rgba(255,255,255,.55);box-shadow:0 0 0 3px rgba(255,255,255,.08);":""}">
+        <div style="font-size:11px;font-weight:900;color:#fff;">${ef?(ef.alive?(eActive?"★":"○"):"×"):""}</div>
+        <div style="min-width:0;text-align:right">
+          <div style="font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${ef?ef.name:"-"} ${labels[i]}</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.68);margin-top:2px;">${ef?`${attrLabel(ef.attr)} / HP ${Math.max(0,ef.currentHp)}`:"-"}</div>
         </div>
-        <img src="${ef ? ef.img : ""}" alt="" onerror="this.style.opacity='.15'">
-      </div>
-    `;
+        <img src="${ef?ef.img:""}" alt="" style="width:40px;height:40px;border-radius:10px;object-fit:cover;background:#0d0d0d;border:1px solid rgba(255,255,255,.12);" onerror="this.style.opacity='.15'">
+      </div>`;
     rows.appendChild(row);
   }
-
   drawStatusLines();
 }
 
 function drawStatusLines(){
-  const svg = document.getElementById("statusLines");
-  const wrapEl = document.querySelector(".statusBoardWrap");
+  const svg=document.getElementById("statusLines");
+  const wrapEl=svg?.parentElement;
   if(!svg || !wrapEl || !battle) return;
-
-  svg.innerHTML = "";
-  const wrap = wrapEl.getBoundingClientRect();
-
-  battle.lineHistory.forEach(item => {
-    const from = document.querySelector(`.miniSideCard[data-side="player"][data-idx="${item.playerIdx}"]`);
-    const to = document.querySelector(`.miniSideCard[data-side="enemy"][data-idx="${item.enemyIdx}"]`);
+  svg.innerHTML="";
+  const wrap=wrapEl.getBoundingClientRect();
+  battle.lineHistory.forEach(item=>{
+    const from=document.querySelector(`[data-side="player"][data-idx="${item.playerIdx}"]`);
+    const to=document.querySelector(`[data-side="enemy"][data-idx="${item.enemyIdx}"]`);
     if(!from || !to) return;
-
-    const fr = from.getBoundingClientRect();
-    const tr = to.getBoundingClientRect();
-
-    const x1 = fr.right - wrap.left;
-    const y1 = fr.top + fr.height / 2 - wrap.top;
-    const x2 = tr.left - wrap.left;
-    const y2 = tr.top + tr.height / 2 - wrap.top;
-
-    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", x1);
-    line.setAttribute("y1", y1);
-    line.setAttribute("x2", x2);
-    line.setAttribute("y2", y2);
+    const fr=from.getBoundingClientRect();
+    const tr=to.getBoundingClientRect();
+    const x1=fr.right-wrap.left;
+    const y1=fr.top+fr.height/2-wrap.top;
+    const x2=tr.left-wrap.left;
+    const y2=tr.top+tr.height/2-wrap.top;
+    const line=document.createElementNS("http://www.w3.org/2000/svg","line");
+    line.setAttribute("x1",x1); line.setAttribute("y1",y1);
+    line.setAttribute("x2",x2); line.setAttribute("y2",y2);
     line.setAttribute("stroke", item.active ? "rgba(255,255,255,.95)" : "rgba(255,255,255,.35)");
     line.setAttribute("stroke-width", item.active ? "3" : "2");
-    line.setAttribute("stroke-linecap", "round");
-    if(!item.active) line.setAttribute("stroke-dasharray", "6 4");
+    line.setAttribute("stroke-linecap","round");
+    if(!item.active) line.setAttribute("stroke-dasharray","6 4");
     svg.appendChild(line);
   });
 }
@@ -2343,83 +1286,106 @@ function drawStatusLines(){
 function getActivePlayer(){ return battle.playerTeam[battle.playerActiveIndex]; }
 function getActiveEnemy(){ return battle.enemyTeam[battle.enemyActiveIndex]; }
 
+function fighterCardHtml(fighter, side){
+  const gradient = fighter ? attrCardClass(fighter.attr) : "linear-gradient(180deg,#171717,#101010)";
+  const match = fighter && side==="player" && getDisplayEnemy() ? matchupText(fighter, getDisplayEnemy()) : fighter && side==="enemy" && getDisplayPlayer() ? matchupText(fighter, getDisplayPlayer()) : {text:"-",cls:"even"};
+  const badgeWrapId = side==="player" ? "playerBadges" : "enemyBadges";
+  const nameId = side==="player" ? "playerFighterName" : "enemyFighterName";
+  const roleId = side==="player" ? "playerFighterRole" : "enemyFighterRole";
+  const equipId = side==="player" ? "playerFighterEquip" : "enemyFighterEquip";
+  const bubbleId = side==="player" ? "playerBubble" : "enemyBubble";
+  const imgId = side==="player" ? "playerFighterImg" : "enemyFighterImg";
+  const hpTextId = side==="player" ? "playerHpText" : "enemyHpText";
+  const hpFillId = side==="player" ? "playerHpFill" : "enemyHpFill";
+  const cardBoxId = side==="player" ? "playerCardBox" : "enemyCardBox";
+  return `
+    <div id="${cardBoxId}" style="border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;min-height:286px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 24px rgba(0,0,0,.35);position:relative;overflow:hidden;background:${gradient};">
+      <div style="display:flex;flex-direction:column;gap:6px;min-width:0;${side==='player'?'padding-left:8px;':'padding-right:8px;'}">
+        <div id="${badgeWrapId}" style="display:flex;gap:6px;flex-wrap:wrap;${side==='enemy'?'justify-content:flex-end;':''}"></div>
+        <div id="${nameId}" style="font-size:20px;font-weight:900;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;${side==='enemy'?'text-align:right;':''}">-</div>
+        <div id="${roleId}" style="font-size:14px;color:#b8c8ff;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;${side==='enemy'?'text-align:right;':''}">-</div>
+        <div id="${equipId}" style="font-size:11px;color:#d7e6ff;line-height:1.35;${side==='enemy'?'text-align:right;':''}">-</div>
+      </div>
+      <div class="fighterBody" style="flex:1;display:flex;align-items:flex-end;justify-content:center;position:relative;min-height:140px;padding-bottom:6px;">
+        <div class="fighterVisual ${side}" style="width:150px;height:140px;display:flex;align-items:flex-end;justify-content:center;position:relative;">
+          <div id="${bubbleId}" hidden style="position:absolute;top:-4px;max-width:120px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.96);color:#111;font-size:12px;font-weight:900;line-height:1.35;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:3;${side==='player'?'left:-2px;':'right:-2px;'}"></div>
+          <img id="${imgId}" src="" alt="" style="max-width:100%;max-height:140px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.45));${side==='player'?'transform:scaleX(-1);':''}">
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span>HP</span><span id="${hpTextId}">-</span></div>
+        <div style="width:100%;height:12px;background:#292929;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.08);"><div id="${hpFillId}" style="height:100%;width:100%;background:#77e0a0;transition:width .28s ease;"></div></div>
+      </div>
+    </div>`;
+}
+
 function renderBattleHeader(){
-  const p = getActivePlayer();
-  const e = getActiveEnemy();
+  const p=getDisplayPlayer();
+  const e=getDisplayEnemy();
 
-  document.getElementById("battleModeText").textContent = battleMode === "survival" ? "MODE 勝ち抜き" : "MODE 対面固定";
+  document.getElementById("battleModeText").textContent = battleMode==="survival" ? "MODE 勝ち抜き" : "MODE 対面固定";
+  document.getElementById("battleTurnText").textContent = `TURN ${battle?battle.turn:"-"}`;
+  document.getElementById("battleRoundText").textContent = `MATCH ${battle?battle.matchCount:"-"}`;
+  document.getElementById("playerAliveText").textContent = `あなた 残り${battle?teamAliveCount(battle.playerTeam):"-"}`;
+  document.getElementById("enemyAliveText").textContent = `敵 残り${battle?teamAliveCount(battle.enemyTeam):"-"}`;
 
-  document.getElementById("playerFighterName").textContent = p ? p.name : "全滅";
+  document.getElementById("playerCard").innerHTML = fighterCardHtml(p,"player");
+  document.getElementById("enemyCard").innerHTML = fighterCardHtml(e,"enemy");
+
+  let playerNameText = p ? p.name : "-";
+  let enemyNameText = e ? e.name : "-";
+  if(battle && battle.resultView){
+    playerNameText = `${battle.playerWon ? "勝ち " : "負け "}${p ? p.name : "-"}`;
+    enemyNameText = `${battle.playerWon ? "負け " : "勝ち "}${e ? e.name : "-"}`;
+  }
+
+  document.getElementById("playerFighterName").textContent = playerNameText;
+  document.getElementById("enemyFighterName").textContent = enemyNameText;
   document.getElementById("playerFighterRole").textContent = p ? p.role : "-";
-  document.getElementById("playerFighterEquip").textContent = p?.equippedSkill ? `装備技：${p.equippedSkill.name}` : "-";
-
-  document.getElementById("enemyFighterName").textContent = e ? e.name : "全滅";
   document.getElementById("enemyFighterRole").textContent = e ? e.role : "-";
+  document.getElementById("playerFighterEquip").textContent = p?.equippedSkill ? `装備技：${p.equippedSkill.name}` : "-";
   document.getElementById("enemyFighterEquip").textContent = e?.equippedSkill ? `装備技：${e.equippedSkill.name}` : "-";
 
   setImg(document.getElementById("playerFighterImg"), p);
   setImg(document.getElementById("enemyFighterImg"), e);
-
   updateHpBar(document.getElementById("playerHpFill"), document.getElementById("playerHpText"), p);
   updateHpBar(document.getElementById("enemyHpFill"), document.getElementById("enemyHpText"), e);
 
-  document.getElementById("playerCard").className = "fighterCard " + (p ? attrCardClass(p.attr) : "none");
-  document.getElementById("enemyCard").className = "fighterCard " + (e ? attrCardClass(e.attr) : "none");
-
   if(p && e){
-    renderBadges(document.getElementById("playerBadges"), p, matchupText(p, e));
-    renderBadges(document.getElementById("enemyBadges"), e, matchupText(e, p));
-  } else {
-    renderBadges(document.getElementById("playerBadges"), null, null);
-    renderBadges(document.getElementById("enemyBadges"), null, null);
+    renderBadges(document.getElementById("playerBadges"), p, matchupText(p,e));
+    renderBadges(document.getElementById("enemyBadges"), e, matchupText(e,p));
   }
 
   renderStatusBoard();
-
-  document.getElementById("battleTurnText").textContent = `TURN ${battle.turn}`;
-  document.getElementById("battleRoundText").textContent = `MATCH ${battle.matchCount}`;
-  document.getElementById("playerAliveText").textContent = `あなた 残り${teamAliveCount(battle.playerTeam)}`;
-  document.getElementById("enemyAliveText").textContent = `敵 残り${teamAliveCount(battle.enemyTeam)}`;
 }
 
 function showFlash(text){
-  const el = document.getElementById("flashMsg");
+  const el=document.getElementById("flashMsg");
   if(!el) return;
-  el.textContent = text;
-  el.classList.add("show");
+  el.textContent=text;
+  el.style.opacity="1";
+  el.style.transform="translateY(0) scale(1)";
   clearTimeout(showFlash._t);
-  showFlash._t = setTimeout(() => el.classList.remove("show"), speedMode === "turbo" ? 150 : 700);
+  showFlash._t=setTimeout(()=>{ el.style.opacity="0"; el.style.transform="translateY(-6px) scale(.98)"; }, speedMode==="turbo" ? 150 : 700);
 }
 
 function showKoFlash(text){
-  const el = document.getElementById("flashMsg");
+  const el=document.getElementById("flashMsg");
   if(!el) return;
-  el.textContent = text;
-  el.classList.add("show");
-  el.style.transform = "translateY(0) scale(1.06)";
+  el.textContent=text;
+  el.style.opacity="1";
+  el.style.transform="translateY(0) scale(1.06)";
   clearTimeout(showKoFlash._t);
-  showKoFlash._t = setTimeout(() => {
-    el.classList.remove("show");
-    el.style.transform = "";
-  }, speedMode === "turbo" ? 220 : 520);
+  showKoFlash._t=setTimeout(()=>{ el.style.opacity="0"; el.style.transform="translateY(-6px) scale(.98)"; }, speedMode==="turbo" ? 220 : 520);
 }
 
-function getKoWait(){
-  if(speedMode === "turbo") return 140;
-  if(speedMode === "fast") return 260;
-  return 420;
-}
+function getKoWait(){ if(speedMode==="turbo") return 140; if(speedMode==="fast") return 260; return 420; }
 
 async function attackOnce(attacker, defender){
   playAttackMotion(attacker.side);
-
-  const result = calcDamage(attacker, defender);
+  const result=calcDamage(attacker, defender);
   if(result.text) addLog(result.text);
-
-  if(result.damage <= 0){
-    addLog(`${attacker.name}の攻撃は当たらない。`);
-    return;
-  }
+  if(result.damage<=0){ addLog(`${attacker.name}の攻撃は当たらない。`); return; }
 
   defender.currentHp -= result.damage;
   defender.damageTaken += result.damage;
@@ -2427,94 +1393,84 @@ async function attackOnce(attacker, defender){
   attacker.turns += 1;
 
   playHitEffect(defender.side);
-  playHpBarEffect(defender.side);
   showBubble(defender.side, randomLine(hitLines, defender.id, "いて"));
   showDamage(defender.side, result.damage, result.isCrit, result.attrRate);
 
   if(result.isCrit) showFlash("クリティカル！");
-  if(result.attrRate > 1) addLog("属性有利。");
-  if(result.attrRate < 1) addLog("属性不利。");
-
+  if(result.attrRate>1) addLog("属性有利。");
+  if(result.attrRate<1) addLog("属性不利。");
   addLog(`${attacker.name}の攻撃。${defender.name}に ${result.damage} ダメージ。`);
 
-  if(defender.id === "juzo" && defender.alive){
-    defender.flags.counterReady = true;
-  }
+  if(defender.id==="juzo" && defender.alive) defender.flags.counterReady=true;
 
-  if(defender.currentHp <= 0){
-    defender.currentHp = 0;
-    defender.alive = false;
+  renderBattleHeader();
+
+  if(defender.currentHp<=0){
+    defender.currentHp=0;
+    defender.alive=false;
     attacker.wins += 1;
-
     showBubble(defender.side, randomLine(koLines, defender.id, "負けた"));
     showKoFlash("K.O.");
     playKoFade(defender.side);
     renderBattleHeader();
-
     await wait(getKoWait());
-
     addLog(`${defender.name}は倒れた。`);
     showFlash(`${attacker.name} 勝利`);
-    addLog(attacker.name + "が勝った。");
-
+    addLog(`${attacker.name}が勝った。`);
     renderBattleHeader();
     await wait(speedMap[speedMode].ko);
   }
 }
 
 async function processTurn(){
-  const p = getActivePlayer();
-  const e = getActiveEnemy();
+  const p=getActivePlayer();
+  const e=getActiveEnemy();
   if(!p || !e) return;
+
+  battle.lastPlayerFighter = p;
+  battle.lastEnemyFighter = e;
 
   battle.turn += 1;
   renderBattleHeader();
 
-  const first = decideFirst(p, e);
-  const second = first === p ? e : p;
+  const first=decideFirst(p,e);
+  const second=first===p ? e : p;
 
-  p.flags.isFirstThisTurn = (first === p);
-  e.flags.isFirstThisTurn = (first === e);
+  p.flags.isFirstThisTurn=(first===p);
+  e.flags.isFirstThisTurn=(first===e);
 
   showBubble(first.side, randomLine(attackLines, first.id, "いくぞ"));
   await wait(speedMap[speedMode].talk);
 
   await attackOnce(first, second);
-  renderBattleHeader();
   await wait(speedMap[speedMode].afterHit);
 
   if(second.alive){
     showBubble(second.side, randomLine(attackLines, second.id, "やるぞ"));
     await wait(speedMap[speedMode].talk);
-
     await attackOnce(second, first);
-    renderBattleHeader();
     await wait(speedMap[speedMode].afterHit);
   }
 
-  p.flags.isFirstThisTurn = false;
-  e.flags.isFirstThisTurn = false;
+  p.flags.isFirstThisTurn=false;
+  e.flags.isFirstThisTurn=false;
 
   if(p.alive){
-    if(p.id === "ani") p.flags.aniBoost = Math.min(0.3, p.flags.aniBoost + 0.1);
-    const healText = healEndTurn(p);
+    if(p.id==="ani") p.flags.aniBoost=Math.min(0.3,p.flags.aniBoost+0.1);
+    const healText=healEndTurn(p);
     if(healText) addLog(healText);
   }
   if(e.alive){
-    if(e.id === "ani") e.flags.aniBoost = Math.min(0.3, e.flags.aniBoost + 0.1);
-    const healText = healEndTurn(e);
+    if(e.id==="ani") e.flags.aniBoost=Math.min(0.3,e.flags.aniBoost+0.1);
+    const healText=healEndTurn(e);
     if(healText) addLog(healText);
   }
 
-  if(battleSource === "story" && currentStoryStage && Math.random() < 0.22){
-    const lines = storyCommentary[currentStoryStage.girl] || [];
+  if(battleSource==="story" && currentStoryStage && Math.random()<0.22){
+    const lines=storyCommentary[currentStoryStage.girl]||[];
     if(lines.length){
-      const text = lines[Math.floor(Math.random() * lines.length)];
-      const talkEl = document.getElementById("storyTalkBox");
-      if(talkEl){
-        talkEl.hidden = false;
-        talkEl.textContent = `${currentStoryStage.girlName}「${text}」`;
-      }
+      const text=lines[Math.floor(Math.random()*lines.length)];
+      setStoryTalk(text);
     }
   }
 
@@ -2523,80 +1479,74 @@ async function processTurn(){
 }
 
 function calcMvpScore(f){
-  const hpRate = f.maxHp > 0 ? (Math.max(0,f.currentHp) / f.maxHp) : 0;
-  return f.wins * 100 + f.damageDealt + hpRate * 50 + f.matchWin * 120 + f.wins * 80;
+  const hpRate=f.maxHp>0 ? (Math.max(0,f.currentHp)/f.maxHp) : 0;
+  return f.wins*100 + f.damageDealt + hpRate*50 + f.matchWin*120 + f.wins*80;
 }
-
 function calcMvp(teamArr){
-  let best = teamArr[0];
-  let bestScore = -999999;
+  let best=teamArr[0], bestScore=-999999;
   for(const f of teamArr){
-    const s = calcMvpScore(f);
-    if(s > bestScore){
-      bestScore = s;
-      best = f;
-    }
+    const s=calcMvpScore(f);
+    if(s>bestScore){ bestScore=s; best=f; }
   }
-  best.mvpScore = bestScore;
+  best.mvpScore=bestScore;
   return best;
 }
-
 function calcWorst(teamArr){
-  let worst = teamArr[0];
+  let worst=teamArr[0];
   for(const f of teamArr){
-    const score = f.wins * 1000 + f.damageDealt - f.damageTaken * 0.1 + f.matchWin * 300;
-    const worstScore = worst.wins * 1000 + worst.damageDealt - worst.damageTaken * 0.1 + worst.matchWin * 300;
-    if(score < worstScore) worst = f;
+    const score=f.wins*1000+f.damageDealt-f.damageTaken*0.1+f.matchWin*300;
+    const worstScore=worst.wins*1000+worst.damageDealt-worst.damageTaken*0.1+worst.matchWin*300;
+    if(score<worstScore) worst=f;
   }
   return worst;
 }
 
 function renderMvpPanel(mvp){
-  const panel = document.getElementById("mvpPanel");
-  const img = document.getElementById("mvpImg");
-  const name = document.getElementById("mvpName");
-  const stats = document.getElementById("mvpStats");
-  const line = document.getElementById("mvpLine");
-
-  img.src = mvp.img;
-  img.alt = mvp.name;
-  img.onerror = function(){ this.style.opacity='.15'; };
-
-  name.textContent = mvp.name;
-  stats.textContent = `勝利本数 ${mvp.matchWin} / 撃破 ${mvp.wins}\n与ダメ ${mvp.damageDealt} / 残HP ${Math.max(0,mvp.currentHp)}`;
-  line.textContent = mvp.mvpLine || "勝った。";
-
-  panel.hidden = false;
-  panel.classList.remove("show");
-  void panel.offsetWidth;
-  panel.classList.add("show");
+  const panel=document.getElementById("mvpPanel");
+  document.getElementById("mvpImg").src=mvp.img;
+  document.getElementById("mvpImg").onerror=function(){ this.style.opacity=".15"; };
+  document.getElementById("mvpName").textContent=mvp.name;
+  document.getElementById("mvpStats").textContent=`勝利本数 ${mvp.matchWin} / 撃破 ${mvp.wins}\n与ダメ ${mvp.damageDealt} / 残HP ${Math.max(0,mvp.currentHp)}`;
+  document.getElementById("mvpLine").textContent=mvp.mvpLine || "勝った。";
+  panel.hidden=false;
 }
 
+function renderMvpModal(mvp){
+  document.getElementById("mvpModalImg").src=mvp.img;
+  document.getElementById("mvpModalImg").onerror=function(){ this.style.opacity=".15"; };
+  document.getElementById("mvpModalName").textContent=mvp.name;
+  document.getElementById("mvpModalStats").textContent=`勝利本数 ${mvp.matchWin} / 撃破 ${mvp.wins}\n与ダメ ${mvp.damageDealt} / 残HP ${Math.max(0,mvp.currentHp)}`;
+  document.getElementById("mvpModalLine").textContent=mvp.mvpLine || "勝った。";
+}
+function openMvpModal(){ document.getElementById("mvpModal").hidden=false; }
+function closeMvpModal(){ document.getElementById("mvpModal").hidden=true; }
+
 function buildSummary(){
-  const playerAlive = teamAliveCount(battle.playerTeam);
-  const enemyAlive = teamAliveCount(battle.enemyTeam);
+  const playerAlive=teamAliveCount(battle.playerTeam);
+  const enemyAlive=teamAliveCount(battle.enemyTeam);
 
   let playerWon;
-  if(battleMode === "fixed"){
-    const playerMatches = battle.playerTeam.reduce((s,f)=>s+f.matchWin,0);
-    const enemyMatches = battle.enemyTeam.reduce((s,f)=>s+f.matchWin,0);
-    playerWon = playerMatches >= enemyMatches;
+  if(battleMode==="fixed"){
+    const playerMatches=battle.playerTeam.reduce((s,f)=>s+f.matchWin,0);
+    const enemyMatches=battle.enemyTeam.reduce((s,f)=>s+f.matchWin,0);
+    playerWon=playerMatches>=enemyMatches;
   }else{
-    playerWon = enemyAlive === 0;
+    playerWon=enemyAlive===0;
   }
 
-  const mvp = playerWon ? calcMvp(battle.playerTeam) : calcMvp(battle.enemyTeam);
-  const side = playerWon ? "あなた" : "敵";
-  const yourMvp = calcMvp(battle.playerTeam);
-  const yourWorst = calcWorst(battle.playerTeam);
+  const mvp=playerWon ? calcMvp(battle.playerTeam) : calcMvp(battle.enemyTeam);
+  const side=playerWon ? "あなた" : "敵";
+  const yourMvp=calcMvp(battle.playerTeam);
+  const yourWorst=calcWorst(battle.playerTeam);
 
   renderMvpPanel(mvp);
+  renderMvpModal(mvp);
 
-  const lines = [];
+  const lines=[];
   lines.push(`${playerWon ? "勝ったな。" : "並びだな。"}`);
   lines.push("");
-  lines.push(`モード：${battleMode === "survival" ? "勝ち抜き" : "対面固定"}`);
-  lines.push(`ゲーム：${battleSource === "story" ? "ストーリー" : "通常対戦"}`);
+  lines.push(`モード：${battleMode==="survival"?"勝ち抜き":"対面固定"}`);
+  lines.push(`ゲーム：${battleSource==="story"?"ストーリー":"通常対戦"}`);
   lines.push(`残り人数`);
   lines.push(`あなた：${playerAlive}`);
   lines.push(`敵：${enemyAlive}`);
@@ -2612,27 +1562,18 @@ function buildSummary(){
   lines.push(`あなた側で一番早く帰った：${yourWorst.name}`);
   lines.push("");
   lines.push(`あなたの結果`);
-  battle.playerTeam.forEach(f => {
-    lines.push(`${f.name}：本勝利${f.matchWin} / 撃破${f.wins} / 与${f.damageDealt} / 被${f.damageTaken}`);
-  });
+  battle.playerTeam.forEach(f=>{ lines.push(`${f.name}：本勝利${f.matchWin} / 撃破${f.wins} / 与${f.damageDealt} / 被${f.damageTaken}`); });
 
-  return {
-    title: playerWon ? "WIN" : "LOSE",
-    sub: playerWon ? getVictoryLine(yourMvp.name) : getLoseLine(yourWorst.name),
-    text: lines.join("\n")
-  };
+  return { title:playerWon?"WIN":"LOSE", sub:playerWon?getVictoryLine(yourMvp.name):getLoseLine(yourWorst.name), text:lines.join("\n"), playerWon };
 }
 
 function buildReplayText(){
   if(!battle.lineHistory.length) return "特に見どころはなかった。";
-  return battle.lineHistory.map((v,i)=>
-    `${i+1}. ${orderLabel(v.playerIdx)} ${battle.playerTeam[v.playerIdx].name} vs ${orderLabel(v.enemyIdx)} ${battle.enemyTeam[v.enemyIdx].name}`
-  ).join("\n");
+  return battle.lineHistory.map((v,i)=>`${i+1}. ${orderLabel(v.playerIdx)} ${battle.playerTeam[v.playerIdx].name} vs ${orderLabel(v.enemyIdx)} ${battle.enemyTeam[v.enemyIdx].name}`).join("\n");
 }
-  function aliveNext(teamArr, startIndex){
-  for(let i=startIndex;i<teamArr.length;i++){
-    if(teamArr[i].alive) return i;
-  }
+
+function aliveNext(teamArr,startIndex){
+  for(let i=startIndex;i<teamArr.length;i++){ if(teamArr[i].alive) return i; }
   return -1;
 }
 
@@ -2642,19 +1583,15 @@ async function battleLoopSurvival(){
   await wait(speedMap[speedMode].intro);
 
   while(battleRunning){
-    const p = getActivePlayer();
-    const e = getActiveEnemy();
+    const p=getActivePlayer();
+    const e=getActiveEnemy();
     if(!p || !e) break;
 
     battle.matchCount += 1;
     battle.turn = 0;
 
-    battle.lineHistory = battle.lineHistory.map(v => ({...v, active:false}));
-    battle.lineHistory.push({
-      playerIdx: battle.playerActiveIndex,
-      enemyIdx: battle.enemyActiveIndex,
-      active: true
-    });
+    battle.lineHistory = battle.lineHistory.map(v=>({...v,active:false}));
+    battle.lineHistory.push({playerIdx:battle.playerActiveIndex,enemyIdx:battle.enemyActiveIndex,active:true});
 
     renderBattleHeader();
     addLog(`${orderLabel(p.orderIndex)} ${p.name} と ${orderLabel(e.orderIndex)} ${e.name} が向かい合った。`);
@@ -2664,30 +1601,27 @@ async function battleLoopSurvival(){
     while(battleRunning && p.alive && e.alive){
       await processTurn();
     }
-
     if(!battleRunning) break;
 
-    const winner = p.alive ? p : e;
+    const winner=p.alive ? p : e;
     winner.matchWin += 1;
 
-    const nextP = aliveNext(battle.playerTeam, battle.playerActiveIndex);
-    const nextE = aliveNext(battle.enemyTeam, battle.enemyActiveIndex);
+    const nextP=aliveNext(battle.playerTeam,battle.playerActiveIndex+ (p.alive?0:1));
+    const nextE=aliveNext(battle.enemyTeam,battle.enemyActiveIndex+ (e.alive?0:1));
+    battle.playerActiveIndex=nextP;
+    battle.enemyActiveIndex=nextE;
 
-    battle.playerActiveIndex = nextP;
-    battle.enemyActiveIndex = nextE;
-
-    battle.lineHistory = battle.lineHistory.map(v => ({...v, active:false}));
+    battle.lineHistory = battle.lineHistory.map(v=>({...v,active:false}));
     renderBattleHeader();
 
-    if(nextP !== -1 && nextE !== -1){
+    if(nextP!==-1 && nextE!==-1){
       addLog(`${orderLabel(nextP)} ${battle.playerTeam[nextP].name} / ${orderLabel(nextE)} ${battle.enemyTeam[nextE].name} 登場。`);
       await wait(speedMap[speedMode].enter);
     }
 
-    if(nextP === -1 || nextE === -1) break;
+    if(nextP===-1 || nextE===-1) break;
   }
-
-  finishBattle();
+  await finishBattle();
 }
 
 async function battleLoopFixed(){
@@ -2696,21 +1630,20 @@ async function battleLoopFixed(){
   await wait(speedMap[speedMode].intro);
 
   for(let i=0;i<5 && battleRunning;i++){
-    const p = battle.playerTeam[i];
-    const e = battle.enemyTeam[i];
+    const p=battle.playerTeam[i];
+    const e=battle.enemyTeam[i];
     if(!p || !e) continue;
 
-    battle.playerActiveIndex = i;
-    battle.enemyActiveIndex = i;
-    battle.turn = 0;
+    battle.playerActiveIndex=i;
+    battle.enemyActiveIndex=i;
+    battle.turn=0;
     battle.matchCount += 1;
 
-    battle.lineHistory = battle.lineHistory.map(v => ({...v, active:false}));
-    battle.lineHistory.push({
-      playerIdx: i,
-      enemyIdx: i,
-      active: true
-    });
+    battle.lastPlayerFighter=p;
+    battle.lastEnemyFighter=e;
+
+    battle.lineHistory = battle.lineHistory.map(v=>({...v,active:false}));
+    battle.lineHistory.push({playerIdx:i,enemyIdx:i,active:true});
 
     renderBattleHeader();
     addLog(`${orderLabel(i)}同士の対戦。 ${p.name} vs ${e.name}`);
@@ -2720,393 +1653,266 @@ async function battleLoopFixed(){
     while(battleRunning && p.alive && e.alive){
       await processTurn();
     }
-
     if(!battleRunning) break;
 
-    if(p.alive && !e.alive){
-      p.matchWin += 1;
-      addLog(`${p.name} がこの本戦を取った。`);
-    }else if(e.alive && !p.alive){
-      e.matchWin += 1;
-      addLog(`${e.name} がこの本戦を取った。`);
-    }else{
-      addLog(`引き分け扱い。`);
-    }
+    if(p.alive && !e.alive){ p.matchWin += 1; addLog(`${p.name} がこの本戦を取った。`); }
+    else if(e.alive && !p.alive){ e.matchWin += 1; addLog(`${e.name} がこの本戦を取った。`); }
+    else addLog("引き分け扱い。");
 
-    battle.lineHistory = battle.lineHistory.map(v => ({...v, active:false}));
+    battle.lineHistory = battle.lineHistory.map(v=>({...v,active:false}));
     renderBattleHeader();
     await wait(speedMap[speedMode].enter);
   }
-
-  finishBattle();
+  await finishBattle();
 }
 
 async function finishBattle(){
-  battleRunning = false;
+  battleRunning=false;
 
-  battle.playerActiveIndex = -1;
-  battle.enemyActiveIndex = -1;
-  battle.lineHistory = battle.lineHistory.map(v => ({...v, active:false}));
-  renderBattleHeader();
-
-  const playerAlive = teamAliveCount(battle.playerTeam);
-  const enemyAlive = teamAliveCount(battle.enemyTeam);
+  const playerAlive=teamAliveCount(battle.playerTeam);
+  const enemyAlive=teamAliveCount(battle.enemyTeam);
 
   let playerWon;
-  if(battleMode === "fixed"){
-    const playerMatches = battle.playerTeam.reduce((s,f)=>s+f.matchWin,0);
-    const enemyMatches = battle.enemyTeam.reduce((s,f)=>s+f.matchWin,0);
-    playerWon = playerMatches >= enemyMatches;
+  if(battleMode==="fixed"){
+    const playerMatches=battle.playerTeam.reduce((s,f)=>s+f.matchWin,0);
+    const enemyMatches=battle.enemyTeam.reduce((s,f)=>s+f.matchWin,0);
+    playerWon=playerMatches>=enemyMatches;
   }else{
-    playerWon = enemyAlive === 0;
+    playerWon=enemyAlive===0;
   }
 
-  const summary = buildSummary();
-  document.getElementById("resultTitle").textContent = summary.title;
-  document.getElementById("resultSub").textContent = summary.sub;
-  document.getElementById("summaryCard").textContent = summary.text;
-  document.getElementById("replayPanel").textContent = buildReplayText();
-  document.getElementById("battleActions").hidden = false;
+  battle.playerWon=playerWon;
+  battle.resultView=true;
 
-  if(battleSource === "story" && currentStoryStage){
-    const talkEl = document.getElementById("storyTalkBox");
-    talkEl.hidden = false;
+  if(!battle.lastPlayerFighter) battle.lastPlayerFighter = battle.playerTeam[battle.playerTeam.length-1];
+  if(!battle.lastEnemyFighter) battle.lastEnemyFighter = battle.enemyTeam[battle.enemyTeam.length-1];
 
+  battle.playerActiveIndex=-1;
+  battle.enemyActiveIndex=-1;
+  battle.lineHistory = battle.lineHistory.map(v=>({...v,active:false}));
+  renderBattleHeader();
+
+  const summary=buildSummary();
+  document.getElementById("resultTitle").textContent=summary.title;
+  document.getElementById("resultSub").textContent=summary.sub;
+  document.getElementById("summaryCard").textContent=summary.text;
+  document.getElementById("replayPanel").textContent=buildReplayText();
+  document.getElementById("battleActions").hidden=false;
+
+  if(battleSource==="story" && currentStoryStage){
     if(playerWon){
-      talkEl.textContent = `${currentStoryStage.girlName}「${currentStoryStage.winText}」`;
-
-      if(storyProgress < storyStages.length && currentStoryStage.id === storyProgress){
+      setStoryTalk(currentStoryStage.winText);
+      if(storyProgress<storyStages.length && currentStoryStage.id===storyProgress){
         storyProgress++;
         localStorage.setItem("storyProgress_v1", String(storyProgress));
       }
     }else{
-      talkEl.textContent = `${currentStoryStage.girlName}「${currentStoryStage.loseText}」`;
+      setStoryTalk(currentStoryStage.loseText);
     }
-
     updateTitleStoryInfo();
     renderStoryPanel();
+    await showResultCutin(playerWon);
   }
+
+  setTimeout(()=>openMvpModal(),220);
 }
 
 async function startBattle(){
-  if(team.length !== 5){
-    alert("5体必要");
-    return;
-  }
-
-  if(mainMode === "story"){
-    startStoryBattle();
-  }else{
-    startFreeBattle();
-  }
+  if(team.length!==5){ alert("5体必要"); return; }
+  if(mainMode==="story") startStoryBattle();
+  else startFreeBattle();
 }
 
 async function startBattleWithEnemyTeam(enemyIds){
-  battle = {
-    playerTeam: team.map((id,i)=>cloneFighter(getChar(id), "player", i)),
-    enemyTeam: enemyIds.map((id,i)=>cloneFighter(getChar(id), "enemy", i)),
-    playerActiveIndex: 0,
-    enemyActiveIndex: 0,
-    lineHistory: [],
-    logs: [],
-    turn: 0,
-    matchCount: 0
+  battle={
+    playerTeam: team.map((id,i)=>cloneFighter(getChar(id),"player",i)),
+    enemyTeam: enemyIds.map((id,i)=>cloneFighter(getChar(id),"enemy",i)),
+    playerActiveIndex:0,
+    enemyActiveIndex:0,
+    lineHistory:[],
+    logs:[],
+    turn:0,
+    matchCount:0,
+    lastPlayerFighter:null,
+    lastEnemyFighter:null,
+    resultView:false
   };
 
-  battleRunning = true;
-
+  battleRunning=true;
   showOnlyScreen("screenBattle");
-  document.getElementById("logPanel").innerHTML = "";
-  document.getElementById("liveTicker").textContent = "対戦開始。";
-  document.getElementById("battleActions").hidden = true;
-  document.getElementById("mvpPanel").hidden = true;
+  closeMvpModal();
+  document.getElementById("logPanel").innerHTML="";
+  document.getElementById("liveTicker").textContent="対戦開始。";
+  document.getElementById("battleActions").hidden=true;
+  document.getElementById("mvpPanel").hidden=true;
 
-  const titleEl = document.getElementById("battleScreenTitle");
-  const subEl = document.getElementById("battleScreenSub");
-  const talkEl = document.getElementById("storyTalkBox");
-
-  if(battleSource === "story" && currentStoryStage){
-    titleEl.textContent = `ストーリー 第${currentStoryStage.id + 1}話`;
-    subEl.textContent = `${currentStoryStage.girlName}との対戦`;
-    talkEl.hidden = false;
-    talkEl.textContent = `${currentStoryStage.girlName}「${currentStoryStage.text}」`;
+  if(battleSource==="story" && currentStoryStage){
+    document.getElementById("battleScreenTitle").textContent=`ストーリー 第${currentStoryStage.id+1}話`;
+    document.getElementById("battleScreenSub").textContent=`${currentStoryStage.girlName}との対戦`;
+    setStoryTalk(currentStoryStage.text);
   }else{
-    titleEl.textContent = "オート対戦";
-    subEl.textContent = "見守るだけ";
-    talkEl.hidden = true;
-    talkEl.textContent = "";
+    document.getElementById("battleScreenTitle").textContent="オート対戦";
+    document.getElementById("battleScreenSub").textContent="見守るだけ";
+    document.getElementById("storyTalkBox").hidden=true;
   }
 
-  battle.lineHistory.push({
-    playerIdx: 0,
-    enemyIdx: 0,
-    active: true
-  });
+  battle.lineHistory.push({playerIdx:0,enemyIdx:0,active:true});
+  battle.lastPlayerFighter=battle.playerTeam[0];
+  battle.lastEnemyFighter=battle.enemyTeam[0];
 
   renderBattleHeader();
   await wait(speedMap[speedMode].start);
 
-  if(battleMode === "fixed"){
-    await battleLoopFixed();
-  }else{
-    await battleLoopSurvival();
+  if(battleSource==="story" && currentStoryStage){
+    await showStoryCutin();
   }
+
+  if(battleMode==="fixed") await battleLoopFixed();
+  else await battleLoopSurvival();
 }
 
 function rematch(){
-  if(team.length !== 5) return;
-
-  if(battleSource === "story" && currentStoryStage){
-    startBattleWithEnemyTeam(currentStoryStage.enemyTeam);
-  }else{
-    startFreeBattle();
-  }
+  if(team.length!==5) return;
+  if(battleSource==="story" && currentStoryStage) startBattleWithEnemyTeam(currentStoryStage.enemyTeam);
+  else startFreeBattle();
 }
 
 function setBattleSpeed(mode, el){
-  speedMode = mode;
-  document.getElementById("battleSpeedText").textContent =
-    `速度：${mode === "normal" ? "普通" : mode === "fast" ? "速い" : "爆速"}`;
-  document.querySelectorAll(".speedBtn").forEach(b => b.classList.remove("active"));
-  if(el) el.classList.add("active");
+  speedMode=mode;
+  document.getElementById("battleSpeedText").textContent=`速度：${mode==="normal"?"普通":mode==="fast"?"速い":"爆速"}`;
+  document.querySelectorAll(".speedBtn").forEach(b=>{ b.style.background="#1f1f1f"; b.style.color="#fff"; });
+  if(el){ el.style.background="#fff"; el.style.color="#000"; }
+}
+
+function testCardHtml(fighter, side){
+  const match = side==="player" ? matchupText(fighter, getChar(testEnemyId)) : matchupText(fighter, getChar(testPlayerId));
+  const attrBg = fighter.attr==="fire" ? "rgba(255,123,123,.12)" : fighter.attr==="water" ? "rgba(115,169,255,.12)" : "rgba(100,220,130,.12)";
+  const matchBg = match.cls==="good" ? "rgba(120,225,160,.16)" : match.cls==="bad" ? "rgba(255,127,127,.16)" : "rgba(255,255,255,.08)";
+  const matchColor = match.cls==="good" ? "#b8ffd1" : match.cls==="bad" ? "#ffc1c1" : "#eee";
+  return `
+    <div style="border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;min-height:286px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 24px rgba(0,0,0,.35);position:relative;overflow:hidden;background:${attrCardClass(fighter.attr)};">
+      <div style="display:flex;flex-direction:column;gap:6px;min-width:0;${side==='player'?'padding-left:8px;':'padding-right:8px;'}">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;${side==='enemy'?'justify-content:flex-end;':''}">
+          <span style="display:inline-flex;align-items:center;justify-content:center;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);font-size:11px;font-weight:900;">試し</span>
+          <span style="display:inline-flex;align-items:center;justify-content:center;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:${attrBg};font-size:11px;font-weight:900;">${attrLabel(fighter.attr)}</span>
+          <span style="display:inline-flex;align-items:center;justify-content:center;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:${matchBg};color:${matchColor};font-size:11px;font-weight:900;">${match.text}</span>
+        </div>
+        <div style="font-size:20px;font-weight:900;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;${side==='enemy'?'text-align:right;':''}">${fighter.name}</div>
+        <div style="font-size:14px;color:#b8c8ff;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;${side==='enemy'?'text-align:right;':''}">${fighter.role}</div>
+        <div style="font-size:11px;color:#d7e6ff;line-height:1.35;${side==='enemy'?'text-align:right;':''}">装備技：${fighter.equippedSkill.name}</div>
+      </div>
+      <div style="flex:1;display:flex;align-items:flex-end;justify-content:center;position:relative;min-height:140px;padding-bottom:6px;">
+        <div style="width:150px;height:140px;display:flex;align-items:flex-end;justify-content:center;position:relative;">
+          <img src="${fighter.img}" alt="${fighter.name}" style="max-width:100%;max-height:140px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.45));${side==='player'?'transform:scaleX(-1);':''}" onerror="this.style.opacity='.15'">
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span>HP</span><span>${Math.max(0,fighter.currentHp)} / ${fighter.maxHp}</span></div>
+        <div style="width:100%;height:12px;background:#292929;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.08);"><div style="height:100%;width:${Math.max(0,fighter.currentHp/fighter.maxHp*100)}%;background:${fighter.currentHp/fighter.maxHp*100<=30?'#ff7b7b':fighter.currentHp/fighter.maxHp*100<=60?'#ffd24d':'#77e0a0'};"></div></div>
+      </div>
+    </div>`;
 }
 
 function renderTestBattleScreen(){
-  const p = cloneFighter(getChar(testPlayerId), "player", 0);
-  const e = cloneFighter(getChar(testEnemyId), "enemy", 0);
-
-  document.getElementById("testBattleTitle").textContent = `${p.name} vs ${e.name}`;
-
-  document.getElementById("testPlayerCardBox").className = "fighterCard " + attrCardClass(p.attr);
-  document.getElementById("testEnemyCardBox").className = "fighterCard " + attrCardClass(e.attr);
-
-  const pAttrClass = p.attr === "fire" ? "badge-attr-fire" : p.attr === "water" ? "badge-attr-water" : "badge-attr-grass";
-  const eAttrClass = e.attr === "fire" ? "badge-attr-fire" : e.attr === "water" ? "badge-attr-water" : "badge-attr-grass";
-  const mp = matchupText(p,e);
-  const me = matchupText(e,p);
-
-  document.getElementById("testPlayerBadges").innerHTML = `
-    <span class="infoBadge">試し</span>
-    <span class="infoBadge ${pAttrClass}">${attrLabel(p.attr)}</span>
-    <span class="infoBadge ${mp.cls}">${mp.text}</span>
-  `;
-  document.getElementById("testEnemyBadges").innerHTML = `
-    <span class="infoBadge">試し</span>
-    <span class="infoBadge ${eAttrClass}">${attrLabel(e.attr)}</span>
-    <span class="infoBadge ${me.cls}">${me.text}</span>
-  `;
-
-  document.getElementById("testPlayerName").textContent = p.name;
-  document.getElementById("testPlayerRole").textContent = p.role;
-  document.getElementById("testPlayerEquip").textContent = `装備技：${p.equippedSkill.name}`;
-  document.getElementById("testEnemyName").textContent = e.name;
-  document.getElementById("testEnemyRole").textContent = e.role;
-  document.getElementById("testEnemyEquip").textContent = `装備技：${e.equippedSkill.name}`;
-
-  setImg(document.getElementById("testPlayerImg"), p);
-  setImg(document.getElementById("testEnemyImg"), e);
-
-  const logs = [];
-  let turn = 0;
-  while(p.alive && e.alive && turn < 20){
+  const p=cloneFighter(getChar(testPlayerId),"player",0);
+  const e=cloneFighter(getChar(testEnemyId),"enemy",0);
+  document.getElementById("testBattleTitle").textContent=`${p.name} vs ${e.name}`;
+  const logs=[];
+  let turn=0;
+  while(p.alive && e.alive && turn<20){
     turn++;
-    const first = decideFirst(p, e);
-    const second = first === p ? e : p;
-
-    p.flags.isFirstThisTurn = (first === p);
-    e.flags.isFirstThisTurn = (first === e);
-
-    const r1 = calcDamage(first, second);
+    const first=decideFirst(p,e), second=first===p?e:p;
+    p.flags.isFirstThisTurn=(first===p); e.flags.isFirstThisTurn=(first===e);
+    const r1=calcDamage(first,second);
     if(r1.text) logs.push(r1.text);
-    if(r1.damage > 0){
-      second.currentHp -= r1.damage;
-      logs.push(`${first.name} → ${second.name} ${r1.damage}`);
-    }else{
-      logs.push(`${first.name}の攻撃は当たらない`);
-    }
-    if(second.currentHp <= 0){
-      second.currentHp = 0;
-      second.alive = false;
-      break;
-    }
-
-    const r2 = calcDamage(second, first);
+    if(r1.damage>0){ second.currentHp-=r1.damage; logs.push(`${first.name} → ${second.name} ${r1.damage}`); } else logs.push(`${first.name}の攻撃は当たらない`);
+    if(second.currentHp<=0){ second.currentHp=0; second.alive=false; break; }
+    const r2=calcDamage(second,first);
     if(r2.text) logs.push(r2.text);
-    if(r2.damage > 0){
-      first.currentHp -= r2.damage;
-      logs.push(`${second.name} → ${first.name} ${r2.damage}`);
-    }else{
-      logs.push(`${second.name}の攻撃は当たらない`);
-    }
-    if(first.currentHp <= 0){
-      first.currentHp = 0;
-      first.alive = false;
-      break;
-    }
+    if(r2.damage>0){ first.currentHp-=r2.damage; logs.push(`${second.name} → ${first.name} ${r2.damage}`); } else logs.push(`${second.name}の攻撃は当たらない`);
+    if(first.currentHp<=0){ first.currentHp=0; first.alive=false; break; }
   }
-
-  updateHpBar(document.getElementById("testPlayerHpFill"), document.getElementById("testPlayerHp"), p);
-  updateHpBar(document.getElementById("testEnemyHpFill"), document.getElementById("testEnemyHp"), e);
-
-  let result = "互角";
-  let summaryTone = "";
-
-  if(p.alive && !e.alive){
-    result = `${p.name} が有利`;
-    summaryTone = "相性か特性で押し切りやすい";
-  }else if(!p.alive && e.alive){
-    result = `${e.name} が有利`;
-    summaryTone = "相性か特性で押されやすい";
-  }else{
-    result = p.currentHp >= e.currentHp ? `${p.name} がやや有利` : `${e.name} がやや有利`;
-    summaryTone = "大きな差はない";
-  }
-
-  document.getElementById("testSummary").textContent = `簡易評価\n${result}\n${summaryTone}`;
-  document.getElementById("testLog").textContent = `戦闘ログ\n${logs.slice(0,8).join("\n")}`;
+  document.getElementById("testPlayerCardBox").innerHTML=testCardHtml(p,"player");
+  document.getElementById("testEnemyCardBox").innerHTML=testCardHtml(e,"enemy");
+  let result="互角", tone="";
+  if(p.alive && !e.alive){ result=`${p.name} が有利`; tone="相性か特性で押し切りやすい"; }
+  else if(!p.alive && e.alive){ result=`${e.name} が有利`; tone="相性か特性で押されやすい"; }
+  else { result=p.currentHp>=e.currentHp ? `${p.name} がやや有利` : `${e.name} がやや有利`; tone="大きな差はない"; }
+  document.getElementById("testSummary").textContent=`簡易評価\n${result}\n${tone}`;
+  document.getElementById("testLog").textContent=`戦闘ログ\n${logs.slice(0,8).join("\n")}`;
 }
 
-/* マイデッキ */
-function initDeckUI(){
-  const saved = JSON.parse(localStorage.getItem(DECK_KEY)) || [];
-  renderDeckSlots(saved);
-}
-
+/* デッキ */
+function initDeckUI(){ const saved=JSON.parse(localStorage.getItem(DECK_KEY))||[]; renderDeckSlots(saved); }
 function renderDeckSlots(data){
-  const el = document.getElementById("deckList");
-  if(!el) return;
-  el.innerHTML = "";
-
+  const el=document.getElementById("deckList"); if(!el)return; el.innerHTML="";
   for(let i=0;i<3;i++){
-    const d = data[i];
-    const div = document.createElement("div");
-    div.className = "deckSlot" + (i===selectedSlot ? " active":"");
-    div.innerHTML = d ? d.name : "空";
-    div.onclick = ()=>{
-      selectedSlot = i;
-      renderDeckSlots(data);
-    };
+    const d=data[i];
+    const div=document.createElement("div");
+    div.style.cssText=`flex:1;padding:10px;border-radius:12px;background:#222;text-align:center;cursor:pointer;border:2px solid ${i===selectedSlot?"#fff":"transparent"};font-size:12px;font-weight:900;`;
+    div.textContent=d?d.name:"空";
+    div.onclick=()=>{ selectedSlot=i; renderDeckSlots(data); };
     el.appendChild(div);
   }
 }
-
 function saveDeck(){
-  const name = document.getElementById("deckName").value || "デッキ";
-  let data = JSON.parse(localStorage.getItem(DECK_KEY)) || [];
-
-  data[selectedSlot] = {
-    name,
-    mode: battleMode,
-    team: [...team],
-    skills: {...equippedSkills}
-  };
-
+  const name=document.getElementById("deckName").value || "デッキ";
+  let data=JSON.parse(localStorage.getItem(DECK_KEY))||[];
+  data[selectedSlot]={name,mode:battleMode,team:[...team],skills:{...equippedSkills}};
   localStorage.setItem(DECK_KEY, JSON.stringify(data));
   renderDeckSlots(data);
 }
-
 function loadDeck(){
-  const data = JSON.parse(localStorage.getItem(DECK_KEY)) || [];
+  const data=JSON.parse(localStorage.getItem(DECK_KEY))||[];
   if(!data[selectedSlot]) return alert("空です");
-
-  team = [...data[selectedSlot].team];
-  const skills = data[selectedSlot].skills || {};
-  Object.keys(skills).forEach(id => {
-    equippedSkills[id] = skills[id];
-  });
-
-  if(data[selectedSlot].mode === "survival" || data[selectedSlot].mode === "fixed"){
-    battleMode = data[selectedSlot].mode;
-  }
-
-  renderAll();
-  setBattleMode(battleMode);
+  team=[...data[selectedSlot].team];
+  const skills=data[selectedSlot].skills||{};
+  Object.keys(skills).forEach(id=>{ equippedSkills[id]=skills[id]; });
+  if(data[selectedSlot].mode==="survival" || data[selectedSlot].mode==="fixed") battleMode=data[selectedSlot].mode;
+  renderAll(); setBattleMode(battleMode);
 }
-
 function deleteDeck(){
-  let data = JSON.parse(localStorage.getItem(DECK_KEY)) || [];
-  data[selectedSlot] = null;
+  let data=JSON.parse(localStorage.getItem(DECK_KEY))||[];
+  data[selectedSlot]=null;
   localStorage.setItem(DECK_KEY, JSON.stringify(data));
   renderDeckSlots(data);
 }
-
-/* 共有コード */
 function exportDeckCode(){
-  const payload = {
-    v: 1,
-    mode: battleMode,
-    team: team.map(id => ({
-      id,
-      skill: equippedSkills[id] || null
-    }))
-  };
-  const json = JSON.stringify(payload);
-  const code = btoa(unescape(encodeURIComponent(json)));
-  document.getElementById("deckCode").value = code;
+  const payload={v:1,mode:battleMode,team:team.map(id=>({id,skill:equippedSkills[id]||null}))};
+  const json=JSON.stringify(payload);
+  const code=btoa(unescape(encodeURIComponent(json)));
+  document.getElementById("deckCode").value=code;
 }
-
 async function copyDeckCode(){
-  const el = document.getElementById("deckCode");
+  const el=document.getElementById("deckCode");
   if(!el.value) return alert("先にコード作成してください");
-
-  try{
-    await navigator.clipboard.writeText(el.value);
-    alert("コピーしました");
-  }catch(e){
-    el.select();
-    document.execCommand("copy");
-    alert("コピーしました");
-  }
+  try{ await navigator.clipboard.writeText(el.value); alert("コピーしました"); }
+  catch(e){ el.select(); document.execCommand("copy"); alert("コピーしました"); }
 }
-
 function importDeckCode(){
-  const code = document.getElementById("deckCode").value.trim();
+  const code=document.getElementById("deckCode").value.trim();
   if(!code) return alert("コードを貼ってください");
-
   try{
-    const json = decodeURIComponent(escape(atob(code)));
-    const data = JSON.parse(json);
-
+    const json=decodeURIComponent(escape(atob(code)));
+    const data=JSON.parse(json);
     if(!data.team || !Array.isArray(data.team)) throw new Error("bad");
-
-    const nextTeam = [];
-    const nextSkills = {};
-
+    const nextTeam=[], nextSkills={};
     for(const item of data.team){
       if(!getChar(item.id)) continue;
       nextTeam.push(item.id);
-
-      const ch = getChar(item.id);
-      const hasSkill = ch.skills.some(s => s.id === item.skill);
-      nextSkills[item.id] = hasSkill ? item.skill : ch.skills[0].id;
+      const ch=getChar(item.id);
+      const hasSkill=ch.skills.some(s=>s.id===item.skill);
+      nextSkills[item.id]=hasSkill ? item.skill : ch.skills[0].id;
     }
-
-    if(nextTeam.length !== 5){
-      alert("5体編成のコードではありません");
-      return;
-    }
-
-    team = nextTeam;
-    Object.keys(nextSkills).forEach(id => {
-      equippedSkills[id] = nextSkills[id];
-    });
-
-    if(data.mode === "survival" || data.mode === "fixed"){
-      battleMode = data.mode;
-    }
-
-    renderAll();
-    setBattleMode(battleMode);
-
-    alert("デッキを読み込みました");
-  }catch(e){
-    alert("コードが不正です");
-  }
+    if(nextTeam.length!==5){ alert("5体編成のコードではありません"); return; }
+    team=nextTeam;
+    Object.keys(nextSkills).forEach(id=>{ equippedSkills[id]=nextSkills[id]; });
+    if(data.mode==="survival" || data.mode==="fixed") battleMode=data.mode;
+    renderAll(); setBattleMode(battleMode); alert("デッキを読み込みました");
+  }catch(e){ alert("コードが不正です"); }
 }
 
-window.addEventListener("resize",()=>{
-  if(battle) drawStatusLines();
-});
+window.addEventListener("resize",()=>{ if(battle) drawStatusLines(); });
 
 setBattleMode("survival");
 setMainMode("free");
