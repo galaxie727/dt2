@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>デカブサ大戦 - チー娘メイン化強化版</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif}
+body{min-height:100svh}
+.app{max-width:560px;margin:0 auto;padding:12px 12px 24px}
+.card{background:linear-gradient(180deg,#151515,#101010);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.title{font-size:30px;font-weight:900;text-align:center;letter-spacing:.06em;margin:8px 0 4px}
+.sub{text-align:center;font-size:13px;color:rgba(255,255,255,.7);margin-bottom:14px}
+.btn{width:100%;border:none;border-radius:14px;padding:15px 14px;font-size:18px;font-weight:900;background:#fff;color:#000}
+.btnGhost{width:100%;border:none;border-radius:14px;padding:14px;font-size:16px;font-weight:900;background:#1d1d1d;color:#fff;border:1px solid rgba(255,255,255,.12)}
+.row{display:grid;grid-template-columns:1fr 56px 1fr;gap:10px;align-items:stretch;margin-top:10px}
+.vs{display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900}
+.fighter{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;min-height:290px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.fighter.player{background:
+radial-gradient(circle at 30% 20%, rgba(90,220,130,.18), transparent 42%),
+linear-gradient(180deg,#102316,#0b120d)}
+.fighter.enemy{background:
+radial-gradient(circle at 30% 20%, rgba(90,150,255,.22), transparent 42%),
+linear-gradient(180deg,#101a2a,#0c1018)}
+.name{font-size:26px;font-weight:900;line-height:1.1}
+.role{font-size:14px;color:#b8c8ff;margin-top:4px}
+.spriteWrap{flex:1;display:flex;align-items:flex-end;justify-content:center;position:relative;min-height:150px;padding:6px 0}
+.sprite{max-width:100%;max-height:150px;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.45))}
+.player .sprite{transform:scaleX(-1)}
+.hpRow{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.hpBar{height:12px;background:#2a2a2a;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.hpFill{height:100%;width:100%;background:#77e0a0;transition:width .35s ease}
+.hpFill.enemyFill{background:#6db5ff}
+.live{margin:10px 0;padding:12px;border-radius:14px;background:linear-gradient(180deg,#181818,#111);border:1px solid rgba(255,255,255,.12);font-size:18px;font-weight:900;min-height:56px;display:flex;align-items:center;justify-content:center;text-align:center}
+.flash{margin:6px 0 12px;text-align:center;font-size:18px;font-weight:900;padding:10px;border-radius:14px;opacity:0;transform:translateY(-6px) scale(.98);transition:.18s ease}
+.bubble{position:absolute;top:2px;max-width:130px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.96);color:#111;font-size:12px;font-weight:900;line-height:1.35;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:3}
+.bubble.left{left:0}
+.bubble.right{right:0}
+.bubble.left:after{content:"";position:absolute;left:18px;bottom:-8px;border-width:8px 7px 0 7px;border-style:solid;border-color:rgba(255,255,255,.96) transparent transparent transparent}
+.bubble.right:after{content:"";position:absolute;right:18px;bottom:-8px;border-width:8px 7px 0 7px;border-style:solid;border-color:rgba(255,255,255,.96) transparent transparent transparent}
+.controls{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.result{margin-top:12px}
+.hidden{display:none!important}
+.overlay{position:fixed;inset:0;background:#000;display:flex;align-items:stretch;justify-content:center;z-index:1000}
+.fullCutin{width:100%;height:100%;position:relative;overflow:hidden;background:#000}
+.fullCutinBg{position:absolute;inset:0;object-fit:cover;width:100%;height:100%}
+.fullShade{position:absolute;inset:0;background:
+linear-gradient(180deg, rgba(0,0,0,.22) 0%, rgba(0,0,0,.08) 28%, rgba(0,0,0,.18) 58%, rgba(0,0,0,.70) 100%)}
+.fullTop{
+  position:absolute;top:max(18px, env(safe-area-inset-top));left:0;right:0;
+  text-align:center;font-size:14px;font-weight:900;color:#ffd95e;letter-spacing:.08em;z-index:2
+}
+.dialogWrap{
+  position:absolute;left:14px;right:14px;bottom:92px;z-index:2
+}
+.dialogBox{
+  border-radius:24px;padding:16px 16px 14px;
+  background:rgba(0,0,0,.56);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 18px 48px rgba(0,0,0,.28)
+}
+.fullBadge{
+  display:inline-flex;align-items:center;justify-content:center;min-height:40px;
+  padding:8px 16px;border-radius:999px;background:rgba(0,0,0,.62);color:#fff;
+  font-size:18px;font-weight:900
+}
+.fullText{
+  margin-top:14px;font-size:18px;line-height:1.78;white-space:pre-line;color:#fff;
+  text-shadow:0 2px 10px rgba(0,0,0,.26)
+}
+.systemPrompt{
+  margin-top:14px;font-size:14px;line-height:1.55;color:rgba(255,255,255,.76)
+}
+.systemUI{
+  position:absolute;left:0;right:0;bottom:max(12px, env(safe-area-inset-bottom));z-index:2;
+  padding:0 14px 4px;
+  display:flex;gap:10px;
+}
+.systemUI button{flex:1;height:54px;border-radius:16px;font-size:18px;font-weight:900;border:none}
+.systemCancel{background:#1c1c1f;color:#fff;border:1px solid rgba(255,255,255,.14)}
+.systemOk{background:#fff;color:#000}
+.overlayCard{width:min(94vw,520px);max-height:92svh;overflow:auto;border-radius:24px;background:
+radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 38%),
+linear-gradient(180deg,#1b1b1d,#111113);
+border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);padding:18px;text-align:center}
+.cutTop{font-size:14px;font-weight:900;color:#ffd95e;letter-spacing:.08em}
+.cutName{font-size:34px;font-weight:900;margin-top:4px}
+.cutText{margin-top:12px;font-size:18px;line-height:1.8;white-space:pre-line}
+.cutImgWrap{min-height:300px;display:flex;align-items:center;justify-content:center;margin-top:6px}
+.cutImg{max-width:100%;max-height:46svh;object-fit:contain;filter:drop-shadow(0 18px 36px rgba(0,0,0,.45));animation:chiZoom 7s ease-in-out infinite alternate}
+.miniBtns{display:flex;gap:10px;margin-top:18px}
+.miniBtns button{flex:1}
+.mvpStats{font-size:15px;line-height:1.7;color:#ddd;white-space:pre-line;margin-top:10px}
+#commentaryBox{display:flex;gap:12px;align-items:center;margin-top:10px}
+#commentaryImg{width:82px;height:82px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.35));animation:chiZoom 7s ease-in-out infinite alternate}
+#commentaryText{font-size:14px;line-height:1.7;white-space:pre-line}
+.damageText{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-size:24px;font-weight:900;text-shadow:0 2px 10px rgba(0,0,0,.6);pointer-events:none;z-index:4}
+@keyframes chiZoom{from{transform:scale(1)}to{transform:scale(1.045)}}
+@keyframes hitLeft{0%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}100%{transform:translateX(0)}}
+@keyframes hitRight{0%{transform:translateX(0)}20%{transform:translateX(10px)}40%{transform:translateX(-8px)}60%{transform:translateX(5px)}80%{transform:translateX(-3px)}100%{transform:translateX(0)}}
+@keyframes atkPlayer{0%{transform:translateX(0) scaleX(-1)}50%{transform:translateX(24px) scale(1.05) scaleX(-1)}100%{transform:translateX(0) scaleX(-1)}}
+@keyframes atkEnemy{0%{transform:translateX(0)}50%{transform:translateX(-24px) scale(1.05)}100%{transform:translateX(0)}}
+@keyframes damagePop{0%{opacity:0;transform:translateX(-50%) translateY(10px) scale(.7)}25%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}100%{opacity:0;transform:translateX(-50%) translateY(-24px) scale(1.05)}}
+.hitL{animation:hitLeft .22s ease}
+.hitR{animation:hitRight .22s ease}
+.atkP{animation:atkPlayer .24s ease}
+.atkE{animation:atkEnemy .24s ease}
+.damageAnim{animation:damagePop .7s ease forwards}
+@media (max-width:520px){
+  .row{grid-template-columns:1fr 44px 1fr;gap:8px}
+  .vs{font-size:24px}
+  .fighter{min-height:254px;padding:12px}
+  .name{font-size:20px}
+  .cutName{font-size:28px}
+  .cutText{font-size:16px}
+  .fullBadge{font-size:16px}
+  .fullText{font-size:16px}
+  .systemPrompt{font-size:13px}
+  .dialogWrap{bottom:88px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="title">デカブサ大戦</div>
+  <div class="sub">チー娘メイン化 強化版</div>
+
+  <div id="commentaryBox" class="card">
+    <img id="commentaryImg" src="girlA_top.png" alt="">
+    <div id="commentaryText">チー娘A「今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？」</div>
+  </div>
+
+  <div id="flash" class="flash"></div>
+
+  <div class="row">
+    <div id="playerCard" class="fighter player">
+      <div>
+        <div class="name" id="playerName">トラさん</div>
+        <div class="role" id="playerRole">先手・分身</div>
+      </div>
+      <div class="spriteWrap">
+        <div id="playerBubble" class="bubble left hidden"></div>
+        <img id="playerImg" class="sprite" src="tora.png" alt="">
+      </div>
+      <div>
+        <div class="hpRow"><span>HP</span><span id="playerHpText">120 / 120</span></div>
+        <div class="hpBar"><div id="playerHpFill" class="hpFill"></div></div>
+      </div>
+    </div>
+
+    <div class="vs">VS</div>
+
+    <div id="enemyCard" class="fighter enemy">
+      <div>
+        <div class="name" id="enemyName">カバオ</div>
+        <div class="role" id="enemyRole">耐久・回復</div>
+      </div>
+      <div class="spriteWrap">
+        <div id="enemyBubble" class="bubble right hidden"></div>
+        <img id="enemyImg" class="sprite" src="kabao.png" alt="">
+      </div>
+      <div>
+        <div class="hpRow"><span>HP</span><span id="enemyHpText">120 / 120</span></div>
+        <div class="hpBar"><div id="enemyHpFill" class="hpFill enemyFill"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="live" class="live">準備完了。</div>
+
+  <div class="controls">
+    <button id="startBtn" class="btn">ストーリー戦を始める</button>
+    <button id="restartBtn" class="btnGhost hidden">もう一度やる</button>
+  </div>
+
+  <div id="result" class="card result hidden"></div>
+</div>
+
+<div id="cutin" class="overlay hidden">
+  <div class="fullCutin">
+    <img id="cutinImg" class="fullCutinBg" src="girlA_top.png" alt="">
+    <div class="fullShade"></div>
+    <div id="cutinTop" class="fullTop">第1話</div>
+
+    <div class="dialogWrap">
+      <div class="dialogBox">
+        <div id="cutinName" class="fullBadge">チー娘A</div>
+        <div id="cutinText" class="fullText">今日は軽く試すだけ。</div>
+        <div id="systemPrompt" class="systemPrompt hidden">この相手と戦いますか？</div>
+      </div>
+    </div>
+
+    <div class="systemUI">
+      <button id="cutinCancel" class="systemCancel hidden">キャンセル</button>
+      <button id="cutinOk" class="systemOk">OK</button>
+    </div>
+  </div>
+</div>
+
+<div id="mvpModal" class="overlay hidden">
+  <div class="overlayCard">
+    <div class="cutTop">MVP</div>
+    <div class="cutImgWrap"><img id="mvpImg" class="cutImg" src="tora.png" alt=""></div>
+    <div id="mvpName" class="cutName">トラさん</div>
+    <div id="mvpStats" class="mvpStats">-</div>
+    <div id="mvpGirlLine" class="cutText" style="font-size:16px">チー娘A「今回はその子なんだ。」</div>
+    <div class="miniBtns">
+      <button id="mvpClose" class="btn">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const GIRLS = {
+  A: {
+    name: "チー娘A",
+    img: "girlA_top.png",
+    intro: "今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？",
+    systemAsk: "この相手と戦いますか？",
+    win: "ふーん……最初にしては悪くないかも。",
+    lose: "その並び、まだ固まってない感じするね。",
+    commentary: {
+      normal: ["その並びで来たんだ。", "前が崩れるときついよ。", "まだ様子見かな。"],
+      crit: ["今の大きいね。", "それ、かなり痛いよ。"],
+      danger: ["残り少ないね。ここからだよ。", "次で決まりそう。"],
+      finish: ["勝負あり、かな。", "そこを取るんだ。"]
+    },
+    mvp: "今回はその子なんだ。"
+  }
+};
+
+let state = {
+  running: false,
+  turn: 0,
+  player: null,
+  enemy: null,
+  mvp: null,
+  girl: GIRLS.A
+};
+
+const basePlayer = {
+  name: "トラさん",
+  role: "先手・分身",
+  img: "tora.png",
+  hp: 120,
+  max: 120,
+  atkMin: 18,
+  atkMax: 28
+};
+
+const baseEnemy = {
+  name: "カバオ",
+  role: "耐久・回復",
+  img: "kabao.png",
+  hp: 145,
+  max: 145,
+  atkMin: 14,
+  atkMax: 24
+};
+
+const el = {
+  playerCard: document.getElementById("playerCard"),
+  enemyCard: document.getElementById("enemyCard"),
+  playerName: document.getElementById("playerName"),
+  enemyName: document.getElementById("enemyName"),
+  playerRole: document.getElementById("playerRole"),
+  enemyRole: document.getElementById("enemyRole"),
+  playerImg: document.getElementById("playerImg"),
+  enemyImg: document.getElementById("enemyImg"),
+  playerHpText: document.getElementById("playerHpText"),
+  enemyHpText: document.getElementById("enemyHpText"),
+  playerHpFill: document.getElementById("playerHpFill"),
+  enemyHpFill: document.getElementById("enemyHpFill"),
+  playerBubble: document.getElementById("playerBubble"),
+  enemyBubble: document.getElementById("enemyBubble"),
+  flash: document.getElementById("flash"),
+  live: document.getElementById("live"),
+  result: document.getElementById("result"),
+  commentaryImg: document.getElementById("commentaryImg"),
+  commentaryText: document.getElementById("commentaryText"),
+  cutin: document.getElementById("cutin"),
+  cutinTop: document.getElementById("cutinTop"),
+  cutinImg: document.getElementById("cutinImg"),
+  cutinName: document.getElementById("cutinName"),
+  cutinText: document.getElementById("cutinText"),
+  systemPrompt: document.getElementById("systemPrompt"),
+  cutinOk: document.getElementById("cutinOk"),
+  cutinCancel: document.getElementById("cutinCancel"),
+  mvpModal: document.getElementById("mvpModal"),
+  mvpImg: document.getElementById("mvpImg"),
+  mvpName: document.getElementById("mvpName"),
+  mvpStats: document.getElementById("mvpStats"),
+  mvpGirlLine: document.getElementById("mvpGirlLine"),
+  mvpClose: document.getElementById("mvpClose"),
+  startBtn: document.getElementById("startBtn"),
+  restartBtn: document.getElementById("restartBtn")
+};
+
+function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
+function rand(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+function resetBattle() {
+  state.running = false;
+  state.turn = 0;
+  state.player = clone(basePlayer);
+  state.enemy = clone(baseEnemy);
+  state.mvp = null;
+  renderFighters();
+  el.result.classList.add("hidden");
+  el.result.textContent = "";
+  el.restartBtn.classList.add("hidden");
+  setCommentary(state.girl.intro);
+  setLive("準備完了。");
+}
+
+function renderFighters() {
+  el.playerName.textContent = state.player.name;
+  el.enemyName.textContent = state.enemy.name;
+  el.playerRole.textContent = state.player.role;
+  el.enemyRole.textContent = state.enemy.role;
+  el.playerImg.src = state.player.img;
+  el.enemyImg.src = state.enemy.img;
+  el.playerHpText.textContent = `${Math.max(0,state.player.hp)} / ${state.player.max}`;
+  el.enemyHpText.textContent = `${Math.max(0,state.enemy.hp)} / ${state.enemy.max}`;
+  el.playerHpFill.style.width = `${Math.max(0,state.player.hp/state.player.max*100)}%`;
+  el.enemyHpFill.style.width = `${Math.max(0,state.enemy.hp/state.enemy.max*100)}%`;
+}
+
+function setLive(text) {
+  el.live.textContent = text;
+}
+
+function setCommentary(text) {
+  el.commentaryImg.src = state.girl.img;
+  el.commentaryText.textContent = `${state.girl.name}「${text}」`;
+}
+
+function showFlash(text, type="normal") {
+  el.flash.textContent = text;
+  if (type === "ko") {
+    el.flash.style.background = "linear-gradient(180deg,rgba(255,215,90,.22),rgba(255,140,0,.10))";
+    el.flash.style.border = "1px solid rgba(255,215,90,.35)";
+  } else if (type === "crit") {
+    el.flash.style.background = "linear-gradient(180deg,rgba(255,110,110,.22),rgba(255,255,255,.06))";
+    el.flash.style.border = "1px solid rgba(255,150,150,.3)";
+  } else {
+    el.flash.style.background = "linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.06))";
+    el.flash.style.border = "1px solid rgba(255,255,255,.2)";
+  }
+  el.flash.style.opacity = "1";
+  el.flash.style.transform = "translateY(0) scale(1)";
+  clearTimeout(showFlash._timer);
+  showFlash._timer = setTimeout(() => {
+    el.flash.style.opacity = "0";
+    el.flash.style.transform = "translateY(-6px) scale(.98)";
+  }, 700);
+}
+
+function showBubble(side, text) {
+  const target = side === "player" ? el.playerBubble : el.enemyBubble;
+  target.textContent = text;
+  target.classList.remove("hidden");
+  clearTimeout(target._timer);
+  target._timer = setTimeout(() => target.classList.add("hidden"), 850);
+}
+
+function animateAttack(side) {
+  const card = side === "player" ? el.playerCard : el.enemyCard;
+  const klass = side === "player" ? "atkP" : "atkE";
+  card.classList.remove(klass);
+  void card.offsetWidth;
+  card.classList.add(klass);
+  setTimeout(() => card.classList.remove(klass), 260);
+}
+
+function animateHit(side) {
+  const card = side === "player" ? el.playerCard : el.enemyCard;
+  const klass = side === "player" ? "hitL" : "hitR";
+  card.classList.remove(klass);
+  void card.offsetWidth;
+  card.classList.add(klass);
+  setTimeout(() => card.classList.remove(klass), 240);
+}
+
+function showDamage(side, damage, crit=false) {
+  const card = side === "player" ? el.playerCard : el.enemyCard;
+  const div = document.createElement("div");
+  div.className = "damageText damageAnim";
+  div.style.color = crit ? "#ffd95e" : "#fff";
+  div.textContent = damage;
+  card.appendChild(div);
+  setTimeout(() => div.remove(), 700);
+}
+
+function openCutin({top,name,img,text,systemText="",showCancel=false,onOk=null,onCancel=null}) {
+  el.cutinTop.textContent = top;
+  el.cutinName.textContent = name;
+  el.cutinImg.src = img;
+  el.cutinText.textContent = text;
+  el.systemPrompt.textContent = systemText;
+  el.systemPrompt.classList.toggle("hidden", !systemText);
+  el.cutin.classList.remove("hidden");
+  el.cutinCancel.classList.toggle("hidden", !showCancel);
+
+  el.cutinOk.onclick = () => {
+    el.cutin.classList.add("hidden");
+    if (onOk) onOk();
+  };
+  el.cutinCancel.onclick = () => {
+    el.cutin.classList.add("hidden");
+    if (onCancel) onCancel();
+  };
+}
+
+function openMvp(name, img, stats, girlLine) {
+  el.mvpName.textContent = name;
+  el.mvpImg.src = img;
+  el.mvpStats.textContent = stats;
+  el.mvpGirlLine.textContent = `${state.girl.name}「${girlLine}」`;
+  el.mvpModal.classList.remove("hidden");
+}
+
+el.mvpClose.onclick = () => el.mvpModal.classList.add("hidden");
+
+function calcPlayerDamage() {
+  let dmg = rand(state.player.atkMin, state.player.atkMax);
+  let crit = false;
+  if (Math.random() < 0.22) {
+    dmg *= 2;
+    crit = true;
+  }
+  return {dmg, crit};
+}
+
+function calcEnemyDamage() {
+  return rand(state.enemy.atkMin, state.enemy.atkMax);
+}
+
+function chooseCommentary(kind) {
+  const list = state.girl.commentary[kind] || state.girl.commentary.normal;
+  return list[rand(0, list.length-1)];
+}
+
+async function battleLoop() {
+  state.running = true;
+  state.turn = 0;
+  while (state.running) {
+    state.turn++;
+
+    showBubble("player", "いくぞ");
+    animateAttack("player");
+    setLive(`${state.player.name}の攻撃。`);
+    await wait(220);
+
+    const {dmg, crit} = calcPlayerDamage();
+    state.enemy.hp -= dmg;
+    animateHit("enemy");
+    showDamage("enemy", dmg, crit);
+    renderFighters();
+
+    if (crit) {
+      showFlash("クリティカル！", "crit");
+      setCommentary(chooseCommentary("crit"));
+    } else {
+      setCommentary(chooseCommentary("normal"));
+    }
+
+    if (state.enemy.hp <= 0) {
+      state.enemy.hp = 0;
+      renderFighters();
+      showFlash("K.O.", "ko");
+      setLive(`${state.player.name}が勝った。`);
+      setCommentary(chooseCommentary("finish"));
+      state.mvp = state.player;
+      await wait(700);
+      finishBattle(true);
+      return;
+    }
+
+    if (state.enemy.hp <= state.enemy.max * 0.35 || state.player.hp <= state.player.max * 0.35) {
+      setCommentary(chooseCommentary("danger"));
+    }
+
+    await wait(420);
+
+    showBubble("enemy", "まだまだ");
+    animateAttack("enemy");
+    setLive(`${state.enemy.name}の攻撃。`);
+    await wait(220);
+
+    const enemyDmg = calcEnemyDamage();
+    state.player.hp -= enemyDmg;
+    animateHit("player");
+    showDamage("player", enemyDmg, false);
+    renderFighters();
+
+    if (state.player.hp <= 0) {
+      state.player.hp = 0;
+      renderFighters();
+      showFlash("K.O.", "ko");
+      setLive(`${state.enemy.name}が勝った。`);
+      setCommentary(chooseCommentary("finish"));
+      state.mvp = state.enemy;
+      await wait(700);
+      finishBattle(false);
+      return;
+    }
+
+    if (state.enemy.hp <= state.enemy.max * 0.35 || state.player.hp <= state.player.max * 0.35) {
+      setCommentary(chooseCommentary("danger"));
+    }
+
+    await wait(480);
+  }
+}
+
+function finishBattle(playerWon) {
+  state.running = false;
+  const text = playerWon ? "WIN\nトラさんが勝った。" : "LOSE\nカバオが勝った。";
+  el.result.textContent = text;
+  el.result.classList.remove("hidden");
+  el.restartBtn.classList.remove("hidden");
+
+  openCutin({
+    top: playerWon ? "WIN" : "LOSE",
+    name: state.girl.name,
+    img: state.girl.img,
+    text: playerWon ? state.girl.win : state.girl.lose,
+    systemText: "",
+    showCancel: false,
+    onOk: () => {
+      const hp = state.mvp.hp > 0 ? state.mvp.hp : 0;
+      openMvp(
+        state.mvp.name,
+        state.mvp.img,
+        `残HP ${hp}\n総ターン ${state.turn}`,
+        state.girl.mvp
+      );
+    }
+  });
+}
+
+el.startBtn.onclick = () => {
+  resetBattle();
+  openCutin({
+    top: "第1話",
+    name: state.girl.name,
+    img: state.girl.img,
+    text: state.girl.intro,
+    systemText: state.girl.systemAsk,
+    showCancel: true,
+    onOk: () => battleLoop(),
+    onCancel: () => setLive("キャンセルした。")
+  });
+};
+
+el.restartBtn.onclick = () => {
+  resetBattle();
+  battleLoop();
+};
+
+resetBattle();
+</script>
+</body>
+</html>
