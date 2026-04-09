@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>デカブサ大戦 - チー娘強化版</title>
+<title>デカブサ大戦 - チー娘メイン化強化版</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif}
@@ -43,7 +43,77 @@ linear-gradient(180deg,#101a2a,#0c1018)}
 .result{margin-top:12px}
 .muted{color:rgba(255,255,255,.72)}
 .hidden{display:none!important}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:18px;z-index:1000}
+.overlay{position:fixed;inset:0;background:#000;display:flex;align-items:stretch;justify-content:center;z-index:1000}
+.fullCutin{
+  width:100%;
+  height:100%;
+  position:relative;
+  overflow:hidden;
+  background:#000;
+}
+.fullCutinBg{
+  position:absolute;
+  inset:0;
+  object-fit:cover;
+  width:100%;
+  height:100%;
+}
+.fullShade{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.28) 0%, rgba(0,0,0,.05) 24%, rgba(0,0,0,.1) 50%, rgba(0,0,0,.52) 100%);
+}
+.fullTop{
+  position:absolute;
+  top:max(18px, env(safe-area-inset-top));
+  left:0; right:0;
+  text-align:center;
+  font-size:14px;
+  font-weight:900;
+  color:#ffd95e;
+  letter-spacing:.08em;
+  z-index:2;
+}
+.fullCard{
+  position:absolute;
+  left:14px;
+  right:14px;
+  bottom:max(16px, env(safe-area-inset-bottom));
+  z-index:2;
+  border-radius:24px;
+  padding:16px 16px 14px;
+  background:rgba(255,255,255,.16);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 18px 48px rgba(0,0,0,.28);
+}
+.fullBadge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:40px;
+  padding:8px 16px;
+  border-radius:999px;
+  background:rgba(0,0,0,.6);
+  color:#fff;
+  font-size:18px;
+  font-weight:900;
+}
+.fullText{
+  margin-top:14px;
+  font-size:18px;
+  line-height:1.75;
+  white-space:pre-line;
+  text-shadow:0 2px 10px rgba(0,0,0,.22);
+}
+.fullBtns{
+  display:flex;
+  gap:10px;
+  margin-top:16px;
+}
+.fullBtns button{flex:1}
 .overlayCard{width:min(94vw,520px);max-height:92svh;overflow:auto;border-radius:24px;background:
 radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 38%),
 linear-gradient(180deg,#1b1b1d,#111113);
@@ -78,6 +148,8 @@ border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);pa
   .name{font-size:20px}
   .cutName{font-size:28px}
   .cutText{font-size:16px}
+  .fullBadge{font-size:16px}
+  .fullText{font-size:16px}
 }
 </style>
 </head>
@@ -91,7 +163,7 @@ border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);pa
     <div id="commentaryText">チー娘A「今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？」</div>
   </div>
 
-  <div id="flash"></div>
+  <div id="flash" class="flash"></div>
 
   <div class="row">
     <div id="playerCard" class="fighter player">
@@ -138,14 +210,17 @@ border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);pa
 </div>
 
 <div id="cutin" class="overlay hidden">
-  <div class="overlayCard">
-    <div id="cutinTop" class="cutTop">第1話</div>
-    <div class="cutImgWrap"><img id="cutinImg" class="cutImg" src="girlA_top.png" alt=""></div>
-    <div id="cutinName" class="cutName">チー娘A</div>
-    <div id="cutinText" class="cutText">今日は軽く試すだけ。</div>
-    <div class="miniBtns">
-      <button id="cutinCancel" class="btnGhost hidden">キャンセル</button>
-      <button id="cutinOk" class="btn">OK</button>
+  <div class="fullCutin">
+    <img id="cutinImg" class="fullCutinBg" src="girlA_top.png" alt="">
+    <div class="fullShade"></div>
+    <div id="cutinTop" class="fullTop">第1話</div>
+    <div class="fullCard">
+      <div id="cutinName" class="fullBadge">チー娘A</div>
+      <div id="cutinText" class="fullText">今日は軽く試すだけ。</div>
+      <div class="fullBtns">
+        <button id="cutinCancel" class="btnGhost hidden">キャンセル</button>
+        <button id="cutinOk" class="btn">OK</button>
+      </div>
     </div>
   </div>
 </div>
