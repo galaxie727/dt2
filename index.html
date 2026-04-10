@@ -379,7 +379,6 @@ for(let i=0;i<5;i++){
   E.brows.appendChild(r);
 }
 }
-}
 function cutin({top,text,prompt="",showCancel=false,okText="OK",cancelText="戻る",ok=null,cancel=null}){E.cutin.hidden=false;E.cutinImg.src=g().img;E.ctop.textContent=top;E.cname.textContent=g().name;E.ctext.textContent=text;E.sprompt.textContent=prompt;E.sprompt.hidden=!prompt;E.ccancel.hidden=!showCancel;E.ccancel.textContent=cancelText;E.cok.textContent=okText;E.cok.onclick=()=>{E.cutin.hidden=true;if(ok)ok()};E.ccancel.onclick=()=>{E.cutin.hidden=true;if(cancel)cancel()}}
 function openMvp(){let m=S.battle.mvp;E.mvpImg.src=m.img;E.mvpName.textContent=m.name;E.mvpStats.textContent=`勝利本数 ${m.matchWin}\n撃破数 ${m.wins}\n残HP ${Math.max(0,m.currentHp)}\n総ダメ ${m.damageDealt}`;E.mvpLine.textContent=`${g().name}「${g().mvp}」`;E.mvpModal.hidden=false}
 E.mvpClose.onclick=()=>E.mvpModal.hidden=true
