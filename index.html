@@ -3,80 +3,271 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>デカブサ大戦 - チー娘メイン化強化版</title>
+<title>デカブサ大戦 - チー娘背景版</title>
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif}
-body{min-height:100svh}
-.app{max-width:560px;margin:0 auto;padding:12px 12px 24px}
-.card{background:linear-gradient(180deg,#151515,#101010);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;box-shadow:0 8px 24px rgba(0,0,0,.35)}
-.title{font-size:30px;font-weight:900;text-align:center;letter-spacing:.06em;margin:8px 0 4px}
-.sub{text-align:center;font-size:13px;color:rgba(255,255,255,.7);margin-bottom:14px}
-.btn{width:100%;border:none;border-radius:14px;padding:15px 14px;font-size:18px;font-weight:900;background:#fff;color:#000}
-.btnGhost{width:100%;border:none;border-radius:14px;padding:14px;font-size:16px;font-weight:900;background:#1d1d1d;color:#fff;border:1px solid rgba(255,255,255,.12)}
-.row{display:grid;grid-template-columns:1fr 56px 1fr;gap:10px;align-items:stretch;margin-top:10px}
-.vs{display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900}
-.fighter{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;min-height:290px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-.fighter.player{background:
-radial-gradient(circle at 30% 20%, rgba(90,220,130,.18), transparent 42%),
-linear-gradient(180deg,#102316,#0b120d)}
-.fighter.enemy{background:
-radial-gradient(circle at 30% 20%, rgba(90,150,255,.22), transparent 42%),
-linear-gradient(180deg,#101a2a,#0c1018)}
+html,body{margin:0;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;background:#000}
+body{min-height:100svh;overflow-x:hidden}
+.hidden{display:none!important}
+
+.battleBg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  background-size:cover;
+  background-position:center;
+  filter:blur(18px) brightness(.42);
+  transform:scale(1.1);
+}
+.battleShade{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.08), transparent 35%),
+    linear-gradient(180deg, rgba(0,0,0,.20) 0%, rgba(0,0,0,.28) 30%, rgba(0,0,0,.42) 65%, rgba(0,0,0,.58) 100%);
+}
+.app{
+  position:relative;
+  z-index:1;
+  max-width:560px;
+  margin:0 auto;
+  padding:12px 12px 24px;
+}
+.card{
+  background:linear-gradient(180deg,rgba(20,20,20,.76),rgba(12,12,12,.72));
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  padding:14px;
+  box-shadow:0 8px 24px rgba(0,0,0,.35);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.title{
+  font-size:30px;
+  font-weight:900;
+  text-align:center;
+  letter-spacing:.06em;
+  margin:8px 0 4px;
+  text-shadow:0 4px 18px rgba(0,0,0,.35);
+}
+.sub{
+  text-align:center;
+  font-size:13px;
+  color:rgba(255,255,255,.78);
+  margin-bottom:14px;
+}
+.btn{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:15px 14px;
+  font-size:18px;
+  font-weight:900;
+  background:#fff;
+  color:#000;
+}
+.btnGhost{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:14px;
+  font-size:16px;
+  font-weight:900;
+  background:rgba(20,20,24,.84);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.12);
+}
+.row{
+  display:grid;
+  grid-template-columns:1fr 56px 1fr;
+  gap:10px;
+  align-items:stretch;
+  margin-top:10px;
+}
+.vs{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  font-weight:900;
+  text-shadow:0 6px 18px rgba(0,0,0,.45);
+}
+.fighter{
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  padding:14px;
+  min-height:290px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  position:relative;
+  overflow:hidden;
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+.fighter.player{
+  background:
+  radial-gradient(circle at 30% 20%, rgba(90,220,130,.20), transparent 42%),
+  linear-gradient(180deg,rgba(12,45,27,.74),rgba(8,20,12,.78));
+}
+.fighter.enemy{
+  background:
+  radial-gradient(circle at 30% 20%, rgba(90,150,255,.22), transparent 42%),
+  linear-gradient(180deg,rgba(10,28,56,.76),rgba(8,16,28,.8));
+}
 .name{font-size:26px;font-weight:900;line-height:1.1}
-.role{font-size:14px;color:#b8c8ff;margin-top:4px}
-.spriteWrap{flex:1;display:flex;align-items:flex-end;justify-content:center;position:relative;min-height:150px;padding:6px 0}
-.sprite{max-width:100%;max-height:150px;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.45))}
+.role{font-size:14px;color:#c9d8ff;margin-top:4px}
+.spriteWrap{
+  flex:1;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  position:relative;
+  min-height:150px;
+  padding:6px 0;
+}
+.sprite{
+  max-width:100%;
+  max-height:150px;
+  object-fit:contain;
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,.45));
+}
 .player .sprite{transform:scaleX(-1)}
 .hpRow{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
-.hpBar{height:12px;background:#2a2a2a;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
-.hpFill{height:100%;width:100%;background:#77e0a0;transition:width .35s ease}
+.hpBar{
+  height:12px;
+  background:#2a2a2a;
+  border-radius:999px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+}
+.hpFill{
+  height:100%;
+  width:100%;
+  background:#77e0a0;
+  transition:width .35s ease;
+}
 .hpFill.enemyFill{background:#6db5ff}
-.live{margin:10px 0;padding:12px;border-radius:14px;background:linear-gradient(180deg,#181818,#111);border:1px solid rgba(255,255,255,.12);font-size:18px;font-weight:900;min-height:56px;display:flex;align-items:center;justify-content:center;text-align:center}
-.flash{margin:6px 0 12px;text-align:center;font-size:18px;font-weight:900;padding:10px;border-radius:14px;opacity:0;transform:translateY(-6px) scale(.98);transition:.18s ease}
-.bubble{position:absolute;top:2px;max-width:130px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.96);color:#111;font-size:12px;font-weight:900;line-height:1.35;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:3}
+.live{
+  margin:10px 0;
+  padding:12px;
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(24,24,24,.76),rgba(10,10,10,.70));
+  border:1px solid rgba(255,255,255,.12);
+  font-size:18px;
+  font-weight:900;
+  min-height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.flash{
+  margin:6px 0 12px;
+  text-align:center;
+  font-size:18px;
+  font-weight:900;
+  padding:10px;
+  border-radius:14px;
+  opacity:0;
+  transform:translateY(-6px) scale(.98);
+  transition:.18s ease;
+}
+.bubble{
+  position:absolute;
+  top:2px;
+  max-width:130px;
+  padding:8px 10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.96);
+  color:#111;
+  font-size:12px;
+  font-weight:900;
+  line-height:1.35;
+  box-shadow:0 6px 18px rgba(0,0,0,.28);
+  z-index:3;
+}
 .bubble.left{left:0}
 .bubble.right{right:0}
-.bubble.left:after{content:"";position:absolute;left:18px;bottom:-8px;border-width:8px 7px 0 7px;border-style:solid;border-color:rgba(255,255,255,.96) transparent transparent transparent}
-.bubble.right:after{content:"";position:absolute;right:18px;bottom:-8px;border-width:8px 7px 0 7px;border-style:solid;border-color:rgba(255,255,255,.96) transparent transparent transparent}
+.bubble.left:after{
+  content:"";
+  position:absolute;
+  left:18px;
+  bottom:-8px;
+  border-width:8px 7px 0 7px;
+  border-style:solid;
+  border-color:rgba(255,255,255,.96) transparent transparent transparent;
+}
+.bubble.right:after{
+  content:"";
+  position:absolute;
+  right:18px;
+  bottom:-8px;
+  border-width:8px 7px 0 7px;
+  border-style:solid;
+  border-color:rgba(255,255,255,.96) transparent transparent transparent;
+}
 .controls{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-.result{margin-top:12px}
-.hidden{display:none!important}
+.result{margin-top:12px;white-space:pre-line}
 .overlay{position:fixed;inset:0;background:#000;display:flex;align-items:stretch;justify-content:center;z-index:1000}
 .fullCutin{width:100%;height:100%;position:relative;overflow:hidden;background:#000}
 .fullCutinBg{position:absolute;inset:0;object-fit:cover;width:100%;height:100%}
-.fullShade{position:absolute;inset:0;background:
-linear-gradient(180deg, rgba(0,0,0,.22) 0%, rgba(0,0,0,.08) 28%, rgba(0,0,0,.18) 58%, rgba(0,0,0,.70) 100%)}
+.fullShade{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.22) 0%, rgba(0,0,0,.08) 28%, rgba(0,0,0,.18) 58%, rgba(0,0,0,.70) 100%);
+}
 .fullTop{
-  position:absolute;top:max(18px, env(safe-area-inset-top));left:0;right:0;
-  text-align:center;font-size:14px;font-weight:900;color:#ffd95e;letter-spacing:.08em;z-index:2
+  position:absolute;
+  top:max(18px, env(safe-area-inset-top));
+  left:0;right:0;
+  text-align:center;
+  font-size:14px;
+  font-weight:900;
+  color:#ffd95e;
+  letter-spacing:.08em;
+  z-index:2;
 }
-.dialogWrap{
-  position:absolute;left:14px;right:14px;bottom:92px;z-index:2
-}
+.dialogWrap{position:absolute;left:14px;right:14px;bottom:136px;z-index:2}
 .dialogBox{
-  border-radius:24px;padding:16px 16px 14px;
+  border-radius:24px;
+  padding:16px 16px 14px;
   background:rgba(0,0,0,.56);
-  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
   border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 18px 48px rgba(0,0,0,.28)
+  box-shadow:0 18px 48px rgba(0,0,0,.28);
 }
 .fullBadge{
-  display:inline-flex;align-items:center;justify-content:center;min-height:40px;
-  padding:8px 16px;border-radius:999px;background:rgba(0,0,0,.62);color:#fff;
-  font-size:18px;font-weight:900
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:40px;
+  padding:8px 16px;
+  border-radius:999px;
+  background:rgba(0,0,0,.62);
+  color:#fff;
+  font-size:18px;
+  font-weight:900;
 }
 .fullText{
-  margin-top:14px;font-size:18px;line-height:1.78;white-space:pre-line;color:#fff;
-  text-shadow:0 2px 10px rgba(0,0,0,.26)
+  margin-top:14px;
+  font-size:18px;
+  line-height:1.78;
+  white-space:pre-line;
+  color:#fff;
+  text-shadow:0 2px 10px rgba(0,0,0,.26);
 }
 .systemPromptBar{
   position:absolute;
   left:14px;
   right:14px;
-  bottom:76px;
+  bottom:74px;
   z-index:2;
-  padding:0;
 }
 .systemPromptText{
   border-radius:14px;
@@ -90,17 +281,37 @@ linear-gradient(180deg, rgba(0,0,0,.22) 0%, rgba(0,0,0,.08) 28%, rgba(0,0,0,.18)
   box-shadow:0 10px 28px rgba(0,0,0,.24);
 }
 .systemUI{
-  position:absolute;left:0;right:0;bottom:max(12px, env(safe-area-inset-bottom));z-index:2;
+  position:absolute;
+  left:0;right:0;
+  bottom:max(12px, env(safe-area-inset-bottom));
+  z-index:2;
   padding:0 14px 4px;
-  display:flex;gap:10px;
+  display:flex;
+  gap:10px;
 }
-.systemUI button{flex:1;height:54px;border-radius:16px;font-size:18px;font-weight:900;border:none}
+.systemUI button{
+  flex:1;
+  height:54px;
+  border-radius:16px;
+  font-size:18px;
+  font-weight:900;
+  border:none;
+}
 .systemCancel{background:#1c1c1f;color:#fff;border:1px solid rgba(255,255,255,.14)}
 .systemOk{background:#fff;color:#000}
-.overlayCard{width:min(94vw,520px);max-height:92svh;overflow:auto;border-radius:24px;background:
-radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 38%),
-linear-gradient(180deg,#1b1b1d,#111113);
-border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);padding:18px;text-align:center}
+.overlayCard{
+  width:min(94vw,520px);
+  max-height:92svh;
+  overflow:auto;
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 38%),
+    linear-gradient(180deg,#1b1b1d,#111113);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 18px 48px rgba(0,0,0,.45);
+  padding:18px;
+  text-align:center;
+}
 .cutTop{font-size:14px;font-weight:900;color:#ffd95e;letter-spacing:.08em}
 .cutName{font-size:34px;font-weight:900;margin-top:4px}
 .cutText{margin-top:12px;font-size:18px;line-height:1.8;white-space:pre-line}
@@ -109,10 +320,31 @@ border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);pa
 .miniBtns{display:flex;gap:10px;margin-top:18px}
 .miniBtns button{flex:1}
 .mvpStats{font-size:15px;line-height:1.7;color:#ddd;white-space:pre-line;margin-top:10px}
-#commentaryBox{display:flex;gap:12px;align-items:center;margin-top:10px}
-#commentaryImg{width:82px;height:82px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.35));animation:chiZoom 7s ease-in-out infinite alternate}
+#commentaryBox{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  margin-top:10px;
+}
+#commentaryImg{
+  width:82px;
+  height:82px;
+  object-fit:contain;
+  filter:drop-shadow(0 8px 18px rgba(0,0,0,.35));
+  animation:chiZoom 7s ease-in-out infinite alternate;
+}
 #commentaryText{font-size:14px;line-height:1.7;white-space:pre-line}
-.damageText{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-size:24px;font-weight:900;text-shadow:0 2px 10px rgba(0,0,0,.6);pointer-events:none;z-index:4}
+.damageText{
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:24px;
+  font-weight:900;
+  text-shadow:0 2px 10px rgba(0,0,0,.6);
+  pointer-events:none;
+  z-index:4;
+}
 @keyframes chiZoom{from{transform:scale(1)}to{transform:scale(1.045)}}
 @keyframes hitLeft{0%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}100%{transform:translateX(0)}}
 @keyframes hitRight{0%{transform:translateX(0)}20%{transform:translateX(10px)}40%{transform:translateX(-8px)}60%{transform:translateX(5px)}80%{transform:translateX(-3px)}100%{transform:translateX(0)}}
@@ -140,6 +372,9 @@ border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);pa
 </style>
 </head>
 <body>
+<div id="battleBg" class="battleBg"></div>
+<div class="battleShade"></div>
+
 <div class="app">
   <div class="title">デカブサ大戦</div>
   <div class="sub">チー娘メイン化 強化版</div>
@@ -210,7 +445,6 @@ border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);pa
 
     <div id="systemPromptBar" class="systemPromptBar hidden">
       <div id="systemPrompt" class="systemPromptText">この相手と戦いますか？</div>
-      </div>
     </div>
 
     <div class="systemUI">
@@ -282,6 +516,7 @@ const baseEnemy = {
 };
 
 const el = {
+  battleBg: document.getElementById("battleBg"),
   playerCard: document.getElementById("playerCard"),
   enemyCard: document.getElementById("enemyCard"),
   playerName: document.getElementById("playerName"),
@@ -324,6 +559,10 @@ function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
 function rand(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
 function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
+function setBattleBg() {
+  el.battleBg.style.backgroundImage = `url(${state.girl.img})`;
+}
+
 function resetBattle() {
   state.running = false;
   state.turn = 0;
@@ -336,6 +575,7 @@ function resetBattle() {
   el.restartBtn.classList.add("hidden");
   setCommentary(state.girl.intro);
   setLive("準備完了。");
+  setBattleBg();
 }
 
 function renderFighters() {
