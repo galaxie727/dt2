@@ -3,446 +3,277 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>デカブサ大戦 - チー娘背景版</title>
+<title>デカブサ大戦 5対5版</title>
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;background:#000}
+html,body{margin:0;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif}
 body{min-height:100svh;overflow-x:hidden}
-.hidden{display:none!important}
-
-.battleBg{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  background-size:cover;
-  background-position:center;
-  filter:blur(18px) brightness(.42);
-  transform:scale(1.1);
-}
-.battleShade{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(255,255,255,.08), transparent 35%),
-    linear-gradient(180deg, rgba(0,0,0,.20) 0%, rgba(0,0,0,.28) 30%, rgba(0,0,0,.42) 65%, rgba(0,0,0,.58) 100%);
-}
-.app{
-  position:relative;
-  z-index:1;
-  max-width:560px;
-  margin:0 auto;
-  padding:12px 12px 24px;
-}
-.card{
-  background:linear-gradient(180deg,rgba(20,20,20,.76),rgba(12,12,12,.72));
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:18px;
-  padding:14px;
-  box-shadow:0 8px 24px rgba(0,0,0,.35);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-}
-.title{
-  font-size:30px;
-  font-weight:900;
-  text-align:center;
-  letter-spacing:.06em;
-  margin:8px 0 4px;
-  text-shadow:0 4px 18px rgba(0,0,0,.35);
-}
-.sub{
-  text-align:center;
-  font-size:13px;
-  color:rgba(255,255,255,.78);
-  margin-bottom:14px;
-}
-.btn{
-  width:100%;
-  border:none;
-  border-radius:14px;
-  padding:15px 14px;
-  font-size:18px;
-  font-weight:900;
-  background:#fff;
-  color:#000;
-}
-.btnGhost{
-  width:100%;
-  border:none;
-  border-radius:14px;
-  padding:14px;
-  font-size:16px;
-  font-weight:900;
-  background:rgba(20,20,24,.84);
-  color:#fff;
-  border:1px solid rgba(255,255,255,.12);
-}
-.row{
-  display:grid;
-  grid-template-columns:1fr 56px 1fr;
-  gap:10px;
-  align-items:stretch;
-  margin-top:10px;
-}
-.vs{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:32px;
-  font-weight:900;
-  text-shadow:0 6px 18px rgba(0,0,0,.45);
-}
-.fighter{
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:18px;
-  padding:14px;
-  min-height:290px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  position:relative;
-  overflow:hidden;
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
-}
-.fighter.player{
-  background:
-  radial-gradient(circle at 30% 20%, rgba(90,220,130,.20), transparent 42%),
-  linear-gradient(180deg,rgba(12,45,27,.74),rgba(8,20,12,.78));
-}
-.fighter.enemy{
-  background:
-  radial-gradient(circle at 30% 20%, rgba(90,150,255,.22), transparent 42%),
-  linear-gradient(180deg,rgba(10,28,56,.76),rgba(8,16,28,.8));
-}
-.name{font-size:26px;font-weight:900;line-height:1.1}
-.role{font-size:14px;color:#c9d8ff;margin-top:4px}
-.spriteWrap{
-  flex:1;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  position:relative;
-  min-height:150px;
-  padding:6px 0;
-}
-.sprite{
-  max-width:100%;
-  max-height:150px;
-  object-fit:contain;
-  filter:drop-shadow(0 10px 18px rgba(0,0,0,.45));
-}
-.player .sprite{transform:scaleX(-1)}
+[hidden]{display:none!important}
+.bg{position:fixed;inset:0;z-index:0;background:#000 center/cover no-repeat;filter:blur(18px) brightness(.42);transform:scale(1.08)}
+.bgShade{position:fixed;inset:0;z-index:0;background:radial-gradient(circle at 50% 8%, rgba(255,255,255,.08), transparent 28%),linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.36) 45%, rgba(0,0,0,.62))}
+.app{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:12px 12px 28px}
+.card{background:linear-gradient(180deg,rgba(18,18,18,.78),rgba(10,10,10,.74));border:1px solid rgba(255,255,255,.12);border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.title{font-size:30px;font-weight:900;text-align:center;margin:8px 0 4px;letter-spacing:.06em;text-shadow:0 4px 16px rgba(0,0,0,.38)}
+.sub{text-align:center;font-size:13px;color:rgba(255,255,255,.78);margin-bottom:14px}
+.btn{width:100%;border:none;border-radius:14px;padding:15px 14px;font-size:18px;font-weight:900;background:#fff;color:#000}
+.btnGhost{width:100%;border:none;border-radius:14px;padding:14px;font-size:16px;font-weight:900;background:rgba(22,22,25,.84);color:#fff;border:1px solid rgba(255,255,255,.12)}
+.topBtns{display:flex;gap:10px}
+.section{padding:14px;margin-bottom:12px}
+.sectionTitle{font-size:18px;font-weight:900;margin-bottom:10px}
+.muted{color:rgba(255,255,255,.72)}
+.modeRow,.girlRow{display:flex;gap:8px;flex-wrap:wrap}
+.modeBtn,.girlBtn,.speedBtn{flex:1;min-width:90px;border:none;border-radius:12px;padding:12px 10px;background:#262626;color:#fff;border:1px solid rgba(255,255,255,.12);font-size:13px;font-weight:900}
+.modeBtn.active,.girlBtn.active,.speedBtn.active{background:#fff;color:#000}
+.pickGrid{display:grid;grid-template-columns:1fr;gap:10px}
+.pickCard{padding:10px;display:grid;grid-template-columns:88px 1fr;gap:10px;align-items:stretch;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(10,10,10,.4)}
+.pickCard.selected{outline:2px solid rgba(255,255,255,.72)}
+.pickImgWrap{display:flex;align-items:flex-end;justify-content:center;background:rgba(255,255,255,.03);border-radius:12px}
+.pickImg{width:100%;height:112px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.45))}
+.pickName{font-size:20px;font-weight:900}
+.pickMeta{font-size:12px;color:#cbd7ff;margin-top:2px}
+.pickStats{font-size:12px;color:#ddd;line-height:1.45;margin-top:5px}
+.pickPassive{font-size:12px;line-height:1.45;margin-top:6px;color:#eee}
+.pickActions{display:flex;gap:6px;margin-top:8px}
+.pickActions button{flex:1;border:none;border-radius:10px;padding:9px 6px;font-weight:900;font-size:12px}
+.pickMain{background:#fff;color:#000}
+.pickSub{background:#333;color:#fff}
+.teamList{display:flex;flex-direction:column;gap:8px}
+.teamSlot{display:grid;grid-template-columns:54px 1fr 64px;gap:10px;align-items:center;padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.03)}
+.slotThumb{width:54px;height:54px;border-radius:12px;object-fit:contain;background:rgba(0,0,0,.2)}
+.slotName{font-size:15px;font-weight:900}
+.slotMeta{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px}
+.slotBtns{display:flex;flex-direction:column;gap:6px}
+.slotBtns button{border:none;border-radius:10px;padding:7px 0;background:#2b2b2b;color:#fff;font-weight:900;font-size:12px}
+.slotBtns button:disabled{opacity:.28}
+.girlPreview{display:flex;gap:12px;align-items:center}
+.girlPreview img{width:78px;height:78px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.35))}
+.girlPreviewText{font-size:14px;line-height:1.7;white-space:pre-line}
+.boardWrap{position:relative;margin-bottom:12px}
+.board{padding:12px}
+.boardHead,.boardRow{display:grid;grid-template-columns:1fr 42px 1fr;gap:8px;align-items:center}
+.boardHead{margin-bottom:8px}
+.boardRows{display:flex;flex-direction:column;gap:6px}
+.mini{min-height:58px;padding:8px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.04);display:grid;grid-template-columns:40px 1fr auto;gap:8px;align-items:center}
+.mini.right{grid-template-columns:auto 1fr 40px}
+.mini img{width:40px;height:40px;border-radius:10px;object-fit:contain;background:rgba(0,0,0,.18)}
+.mini.player img{transform:scaleX(-1)}
+.mini.dead{opacity:.24;filter:grayscale(1)}
+.mini.active{outline:2px solid rgba(255,255,255,.72)}
+.miniName{font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.miniMeta{font-size:10px;color:rgba(255,255,255,.68)}
+.boardLink{height:2px;background:rgba(255,255,255,.18);border-radius:999px}
+.boardLink.active{background:rgba(255,255,255,.86)}
+.flash{margin:6px 0 12px;text-align:center;font-size:18px;font-weight:900;padding:10px;border-radius:14px;opacity:0;transform:translateY(-6px) scale(.98);transition:.18s ease}
+.rowBattle{display:grid;grid-template-columns:1fr 56px 1fr;gap:10px;align-items:stretch}
+.vs{display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900}
+.fighter{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;min-height:286px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.fighter.player{background:radial-gradient(circle at 30% 20%, rgba(90,220,130,.18), transparent 42%), linear-gradient(180deg,rgba(15,52,30,.74),rgba(8,18,12,.8))}
+.fighter.enemy{background:radial-gradient(circle at 30% 20%, rgba(90,150,255,.18), transparent 42%), linear-gradient(180deg,rgba(12,31,60,.76),rgba(8,14,26,.82))}
+.fName{font-size:24px;font-weight:900}
+.fRole{font-size:14px;color:#cbd7ff;margin-top:4px}
+.fBody{flex:1;display:flex;align-items:flex-end;justify-content:center;position:relative;min-height:148px;padding:6px 0}
+.fImg{max-width:100%;max-height:148px;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.45))}
+.player .fImg{transform:scaleX(-1)}
 .hpRow{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
-.hpBar{
-  height:12px;
-  background:#2a2a2a;
-  border-radius:999px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
-}
-.hpFill{
-  height:100%;
-  width:100%;
-  background:#77e0a0;
-  transition:width .35s ease;
-}
-.hpFill.enemyFill{background:#6db5ff}
-.live{
-  margin:10px 0;
-  padding:12px;
-  border-radius:14px;
-  background:linear-gradient(180deg,rgba(24,24,24,.76),rgba(10,10,10,.70));
-  border:1px solid rgba(255,255,255,.12);
-  font-size:18px;
-  font-weight:900;
-  min-height:56px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-}
-.flash{
-  margin:6px 0 12px;
-  text-align:center;
-  font-size:18px;
-  font-weight:900;
-  padding:10px;
-  border-radius:14px;
-  opacity:0;
-  transform:translateY(-6px) scale(.98);
-  transition:.18s ease;
-}
-.bubble{
-  position:absolute;
-  top:2px;
-  max-width:130px;
-  padding:8px 10px;
-  border-radius:12px;
-  background:rgba(255,255,255,.96);
-  color:#111;
-  font-size:12px;
-  font-weight:900;
-  line-height:1.35;
-  box-shadow:0 6px 18px rgba(0,0,0,.28);
-  z-index:3;
-}
-.bubble.left{left:0}
-.bubble.right{right:0}
-.bubble.left:after{
-  content:"";
-  position:absolute;
-  left:18px;
-  bottom:-8px;
-  border-width:8px 7px 0 7px;
-  border-style:solid;
-  border-color:rgba(255,255,255,.96) transparent transparent transparent;
-}
-.bubble.right:after{
-  content:"";
-  position:absolute;
-  right:18px;
-  bottom:-8px;
-  border-width:8px 7px 0 7px;
-  border-style:solid;
-  border-color:rgba(255,255,255,.96) transparent transparent transparent;
-}
-.controls{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-.result{margin-top:12px;white-space:pre-line}
+.hpBar{height:12px;background:#2a2a2a;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.hpFill{height:100%;width:100%;background:#77e0a0;transition:width .35s ease}
+.enemyFill{background:#6db5ff}
+.live{margin:10px 0;padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(20,20,20,.76),rgba(10,10,10,.72));border:1px solid rgba(255,255,255,.12);font-size:18px;font-weight:900;min-height:56px;display:flex;align-items:center;justify-content:center;text-align:center}
+.log{max-height:28svh;overflow:auto;padding:12px}
+.logLine{font-size:13px;line-height:1.6;padding:4px 0;border-bottom:1px dashed rgba(255,255,255,.06)}
+.bubble{position:absolute;top:2px;max-width:128px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.96);color:#111;font-size:12px;font-weight:900;line-height:1.35;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:3}
+.bubble.left{left:0}.bubble.right{right:0}
+.bubble.left:after{content:"";position:absolute;left:18px;bottom:-8px;border-width:8px 7px 0 7px;border-style:solid;border-color:rgba(255,255,255,.96) transparent transparent transparent}
+.bubble.right:after{content:"";position:absolute;right:18px;bottom:-8px;border-width:8px 7px 0 7px;border-style:solid;border-color:rgba(255,255,255,.96) transparent transparent transparent}
+.damageText{position:absolute;top:18px;left:50%;transform:translateX(-50%);font-size:24px;font-weight:900;text-shadow:0 2px 10px rgba(0,0,0,.6);z-index:4;pointer-events:none}
+.commentary{display:flex;gap:12px;align-items:center;padding:12px}
+.commentary img{width:82px;height:82px;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(0,0,0,.35))}
+.commentaryText{font-size:14px;line-height:1.7;white-space:pre-line}
 .overlay{position:fixed;inset:0;background:#000;display:flex;align-items:stretch;justify-content:center;z-index:1000}
 .fullCutin{width:100%;height:100%;position:relative;overflow:hidden;background:#000}
-.fullCutinBg{position:absolute;inset:0;object-fit:cover;width:100%;height:100%}
-.fullShade{
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.22) 0%, rgba(0,0,0,.08) 28%, rgba(0,0,0,.18) 58%, rgba(0,0,0,.70) 100%);
-}
-.fullTop{
-  position:absolute;
-  top:max(18px, env(safe-area-inset-top));
-  left:0;right:0;
-  text-align:center;
-  font-size:14px;
-  font-weight:900;
-  color:#ffd95e;
-  letter-spacing:.08em;
-  z-index:2;
-}
-.dialogWrap{position:absolute;left:14px;right:14px;bottom:136px;z-index:2}
-.dialogBox{
-  border-radius:24px;
-  padding:16px 16px 14px;
-  background:rgba(0,0,0,.56);
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 18px 48px rgba(0,0,0,.28);
-}
-.fullBadge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:40px;
-  padding:8px 16px;
-  border-radius:999px;
-  background:rgba(0,0,0,.62);
-  color:#fff;
-  font-size:18px;
-  font-weight:900;
-}
-.fullText{
-  margin-top:14px;
-  font-size:18px;
-  line-height:1.78;
-  white-space:pre-line;
-  color:#fff;
-  text-shadow:0 2px 10px rgba(0,0,0,.26);
-}
-.systemBox{
-  position:absolute;
-  left:14px;
-  right:14px;
-  bottom:max(12px, env(safe-area-inset-bottom));
-  z-index:2;
-  border-radius:18px;
-  padding:14px;
-  background:rgba(10,10,12,.82);
-  border:1px solid rgba(255,255,255,.14);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  box-shadow:0 12px 30px rgba(0,0,0,.35);
-}
-.systemPromptText{
-  font-size:15px;
-  line-height:1.45;
-  text-align:center;
-  color:rgba(255,255,255,.92);
-  margin-bottom:12px;
-}
-.systemBtns{
-  display:flex;
-  gap:10px;
-}
-.systemBtns button{
-  flex:1;
-  height:54px;
-  border-radius:16px;
-  font-size:18px;
-  font-weight:900;
-  border:none;
-}
+.fullCutinBg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fullShade{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.10) 30%, rgba(0,0,0,.22) 58%, rgba(0,0,0,.72))}
+.fullTop{position:absolute;top:max(18px, env(safe-area-inset-top));left:0;right:0;text-align:center;font-size:14px;font-weight:900;color:#ffd95e;letter-spacing:.08em;z-index:2}
+.dialogWrap{position:absolute;left:14px;right:14px;bottom:152px;z-index:2}
+.dialogBox{border-radius:24px;padding:16px 16px 14px;background:rgba(0,0,0,.56);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.28)}
+.fullBadge{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 16px;border-radius:999px;background:rgba(0,0,0,.62);font-size:18px;font-weight:900}
+.fullText{margin-top:14px;font-size:18px;line-height:1.78;white-space:pre-line;text-shadow:0 2px 10px rgba(0,0,0,.26)}
+.systemBox{position:absolute;left:14px;right:14px;bottom:max(12px, env(safe-area-inset-bottom));z-index:2;border-radius:18px;padding:14px;background:rgba(10,10,12,.82);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.systemPromptText{font-size:15px;line-height:1.45;text-align:center;color:rgba(255,255,255,.92);margin-bottom:12px}
+.systemBtns{display:flex;gap:10px}
+.systemBtns button{flex:1;height:54px;border-radius:16px;font-size:18px;font-weight:900;border:none}
 .systemCancel{background:#1c1c1f;color:#fff;border:1px solid rgba(255,255,255,.14)}
 .systemOk{background:#fff;color:#000}
-.overlayCard{
-  width:min(94vw,520px);
-  max-height:92svh;
-  overflow:auto;
-  border-radius:24px;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 38%),
-    linear-gradient(180deg,#1b1b1d,#111113);
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 18px 48px rgba(0,0,0,.45);
-  padding:18px;
-  text-align:center;
-}
+.mvpCard{width:min(94vw,520px);max-height:92svh;overflow:auto;border-radius:24px;background:radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 38%), linear-gradient(180deg,#1b1b1d,#111113);border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 48px rgba(0,0,0,.45);padding:18px;text-align:center}
 .cutTop{font-size:14px;font-weight:900;color:#ffd95e;letter-spacing:.08em}
+.cutImgWrap{min-height:300px;display:flex;align-items:center;justify-content:center;margin-top:6px}
+.cutImg{max-width:100%;max-height:46svh;object-fit:contain;filter:drop-shadow(0 18px 36px rgba(0,0,0,.45))}
 .cutName{font-size:34px;font-weight:900;margin-top:4px}
 .cutText{margin-top:12px;font-size:18px;line-height:1.8;white-space:pre-line}
-.cutImgWrap{min-height:300px;display:flex;align-items:center;justify-content:center;margin-top:6px}
-.cutImg{max-width:100%;max-height:46svh;object-fit:contain;filter:drop-shadow(0 18px 36px rgba(0,0,0,.45));animation:chiZoom 7s ease-in-out infinite alternate}
-.miniBtns{display:flex;gap:10px;margin-top:18px}
-.miniBtns button{flex:1}
 .mvpStats{font-size:15px;line-height:1.7;color:#ddd;white-space:pre-line;margin-top:10px}
-#commentaryBox{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  margin-top:10px;
-}
-#commentaryImg{
-  width:82px;
-  height:82px;
-  object-fit:contain;
-  filter:drop-shadow(0 8px 18px rgba(0,0,0,.35));
-  animation:chiZoom 7s ease-in-out infinite alternate;
-}
-#commentaryText{font-size:14px;line-height:1.7;white-space:pre-line}
-.damageText{
-  position:absolute;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:24px;
-  font-weight:900;
-  text-shadow:0 2px 10px rgba(0,0,0,.6);
-  pointer-events:none;
-  z-index:4;
-}
-@keyframes chiZoom{from{transform:scale(1)}to{transform:scale(1.045)}}
 @keyframes hitLeft{0%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}100%{transform:translateX(0)}}
 @keyframes hitRight{0%{transform:translateX(0)}20%{transform:translateX(10px)}40%{transform:translateX(-8px)}60%{transform:translateX(5px)}80%{transform:translateX(-3px)}100%{transform:translateX(0)}}
 @keyframes atkPlayer{0%{transform:translateX(0) scaleX(-1)}50%{transform:translateX(24px) scale(1.05) scaleX(-1)}100%{transform:translateX(0) scaleX(-1)}}
 @keyframes atkEnemy{0%{transform:translateX(0)}50%{transform:translateX(-24px) scale(1.05)}100%{transform:translateX(0)}}
 @keyframes damagePop{0%{opacity:0;transform:translateX(-50%) translateY(10px) scale(.7)}25%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}100%{opacity:0;transform:translateX(-50%) translateY(-24px) scale(1.05)}}
-.hitL{animation:hitLeft .22s ease}
-.hitR{animation:hitRight .22s ease}
-.atkP{animation:atkPlayer .24s ease}
-.atkE{animation:atkEnemy .24s ease}
-.damageAnim{animation:damagePop .7s ease forwards}
+.hitL{animation:hitLeft .22s ease}.hitR{animation:hitRight .22s ease}.atkP{animation:atkPlayer .24s ease}.atkE{animation:atkEnemy .24s ease}.damageAnim{animation:damagePop .7s ease forwards}
 @media (max-width:520px){
-  .row{grid-template-columns:1fr 44px 1fr;gap:8px}
+  .rowBattle,.row{grid-template-columns:1fr 44px 1fr;gap:8px}
   .vs{font-size:24px}
-  .fighter{min-height:254px;padding:12px}
-  .name{font-size:20px}
-  .cutName{font-size:28px}
-  .cutText{font-size:16px}
-  .fullBadge{font-size:16px}
-  .fullText{font-size:16px}
-  .systemBox{bottom:max(12px, env(safe-area-inset-bottom))}
-  .systemPromptText{font-size:14px}
+  .fighter{min-height:252px;padding:12px}
+  .fName,.name{font-size:20px}
   .dialogWrap{bottom:150px}
+  .fullBadge{font-size:16px}
+  .fullText,.cutText{font-size:16px}
+  .systemPromptText{font-size:14px}
 }
 </style>
 </head>
 <body>
-<div id="battleBg" class="battleBg"></div>
-<div class="battleShade"></div>
+<div id="bg" class="bg"></div>
+<div class="bgShade"></div>
 
 <div class="app">
-  <div class="title">デカブサ大戦</div>
-  <div class="sub">チー娘メイン化 強化版</div>
+  <section id="screenBuild">
+    <div class="title">デカブサ大戦</div>
+    <div class="sub">5対5 / 12体 / チー娘4人</div>
 
-  <div id="commentaryBox" class="card">
-    <img id="commentaryImg" src="girlA_top.png" alt="">
-    <div id="commentaryText">チー娘A「今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？」</div>
-  </div>
-
-  <div id="flash" class="flash"></div>
-
-  <div class="row">
-    <div id="playerCard" class="fighter player">
-      <div>
-        <div class="name" id="playerName">トラさん</div>
-        <div class="role" id="playerRole">先手・分身</div>
-      </div>
-      <div class="spriteWrap">
-        <div id="playerBubble" class="bubble left hidden"></div>
-        <img id="playerImg" class="sprite" src="tora.png" alt="">
-      </div>
-      <div>
-        <div class="hpRow"><span>HP</span><span id="playerHpText">120 / 120</span></div>
-        <div class="hpBar"><div id="playerHpFill" class="hpFill"></div></div>
+    <div class="card section">
+      <div class="sectionTitle">チー娘選択</div>
+      <div id="girlRow" class="girlRow"></div>
+      <div class="girlPreview" style="margin-top:12px">
+        <img id="girlPreviewImg" src="" alt="">
+        <div id="girlPreviewText" class="girlPreviewText"></div>
       </div>
     </div>
 
-    <div class="vs">VS</div>
+    <div class="card section">
+      <div class="sectionTitle">ゲームモード</div>
+      <div class="modeRow">
+        <button id="modeFreeBtn" class="modeBtn active">通常対戦</button>
+        <button id="modeStoryBtn" class="modeBtn">ストーリー</button>
+      </div>
+      <div class="muted" id="modeHint" style="font-size:12px;margin-top:8px">ランダム敵チームと戦う</div>
+    </div>
 
-    <div id="enemyCard" class="fighter enemy">
-      <div>
-        <div class="name" id="enemyName">カバオ</div>
-        <div class="role" id="enemyRole">耐久・回復</div>
+    <div class="card section">
+      <div class="sectionTitle">バトルモード</div>
+      <div class="modeRow">
+        <button id="battleSurvivalBtn" class="modeBtn active">勝ち抜き</button>
+        <button id="battleFixedBtn" class="modeBtn">対面固定</button>
       </div>
-      <div class="spriteWrap">
-        <div id="enemyBubble" class="bubble right hidden"></div>
-        <img id="enemyImg" class="sprite" src="kabao.png" alt="">
-      </div>
-      <div>
-        <div class="hpRow"><span>HP</span><span id="enemyHpText">120 / 120</span></div>
-        <div class="hpBar"><div id="enemyHpFill" class="hpFill enemyFill"></div></div>
+      <div class="muted" id="battleHint" style="font-size:12px;margin-top:8px">勝ったキャラが残って次と戦う</div>
+    </div>
+
+    <div class="card section">
+      <div class="sectionTitle">チーム編成</div>
+      <div class="muted" style="font-size:12px;margin-bottom:10px">先鋒 → 次鋒 → 中堅 → 副将 → 大将</div>
+      <div id="teamList" class="teamList"></div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button id="randomBtn" class="btnGhost" style="flex:1">ランダム</button>
+        <button id="clearBtn" class="btnGhost" style="flex:1">全て外す</button>
       </div>
     </div>
-  </div>
 
-  <div id="live" class="live">準備完了。</div>
+    <div class="card section">
+      <div class="sectionTitle">候補キャラ</div>
+      <div id="pickGrid" class="pickGrid"></div>
+    </div>
 
-  <div class="controls">
-    <button id="startBtn" class="btn">ストーリー戦を始める</button>
-    <button id="restartBtn" class="btnGhost hidden">もう一度やる</button>
-  </div>
+    <div class="topBtns">
+      <button id="startBtn" class="btn">この並びで始める</button>
+    </div>
+  </section>
 
-  <div id="result" class="card result hidden"></div>
+  <section id="screenBattle" hidden>
+    <div class="title">デカブサ大戦</div>
+    <div class="sub" id="battleSub">オート対戦</div>
+
+    <div id="commentaryBox" class="card commentary">
+      <img id="commentaryImg" src="" alt="">
+      <div id="commentaryText" class="commentaryText"></div>
+    </div>
+
+    <div class="card section" style="padding:12px">
+      <div class="sectionTitle" style="margin-bottom:8px">対戦速度</div>
+      <div class="modeRow">
+        <button class="speedBtn active" data-speed="normal">普通</button>
+        <button class="speedBtn" data-speed="fast">速い</button>
+        <button class="speedBtn" data-speed="turbo">爆速</button>
+      </div>
+    </div>
+
+    <div class="boardWrap">
+      <div class="card board">
+        <div class="boardHead">
+          <div style="font-size:13px;font-weight:900">あなた</div><div></div><div style="font-size:13px;font-weight:900;text-align:right">敵</div>
+        </div>
+        <div id="boardRows" class="boardRows"></div>
+      </div>
+    </div>
+
+    <div id="flash" class="flash"></div>
+
+    <div class="rowBattle">
+      <div id="playerCard" class="fighter player">
+        <div>
+          <div id="playerFName" class="fName">-</div>
+          <div id="playerFRole" class="fRole">-</div>
+        </div>
+        <div class="fBody">
+          <div id="playerBubble" class="bubble left" hidden></div>
+          <img id="playerFImg" class="fImg" src="" alt="">
+        </div>
+        <div>
+          <div class="hpRow"><span>HP</span><span id="playerFHp">-</span></div>
+          <div class="hpBar"><div id="playerFHpFill" class="hpFill"></div></div>
+        </div>
+      </div>
+
+      <div class="vs">VS</div>
+
+      <div id="enemyCard" class="fighter enemy">
+        <div>
+          <div id="enemyFName" class="fName">-</div>
+          <div id="enemyFRole" class="fRole">-</div>
+        </div>
+        <div class="fBody">
+          <div id="enemyBubble" class="bubble right" hidden></div>
+          <img id="enemyFImg" class="fImg" src="" alt="">
+        </div>
+        <div>
+          <div class="hpRow"><span>HP</span><span id="enemyFHp">-</span></div>
+          <div class="hpBar"><div id="enemyFHpFill" class="hpFill enemyFill"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="live" class="live">準備完了。</div>
+
+    <div id="log" class="card log"></div>
+
+    <div id="battleActions" class="topBtns" style="margin-top:10px" hidden>
+      <button id="rematchBtn" class="btnGhost">もう一度やる</button>
+      <button id="backBtn" class="btn">編成に戻る</button>
+    </div>
+  </section>
 </div>
 
-<div id="cutin" class="overlay hidden">
+<div id="cutin" class="overlay" hidden>
   <div class="fullCutin">
-    <img id="cutinImg" class="fullCutinBg" src="girlA_top.png" alt="">
+    <img id="cutinImg" class="fullCutinBg" src="" alt="">
     <div class="fullShade"></div>
     <div id="cutinTop" class="fullTop">第1話</div>
 
     <div class="dialogWrap">
       <div class="dialogBox">
         <div id="cutinName" class="fullBadge">チー娘A</div>
-        <div id="cutinText" class="fullText">今日は軽く試すだけ。</div>
+        <div id="cutinText" class="fullText"></div>
       </div>
     </div>
 
     <div id="systemBox" class="systemBox">
-      <div id="systemPrompt" class="systemPromptText hidden">この相手と戦いますか？</div>
+      <div id="systemPrompt" class="systemPromptText hidden"></div>
       <div class="systemBtns">
         <button id="cutinCancel" class="systemCancel hidden">戻る</button>
         <button id="cutinOk" class="systemOk">OK</button>
@@ -451,382 +282,129 @@ body{min-height:100svh;overflow-x:hidden}
   </div>
 </div>
 
-<div id="mvpModal" class="overlay hidden">
-  <div class="overlayCard">
+<div id="mvpModal" class="overlay" hidden>
+  <div class="mvpCard">
     <div class="cutTop">MVP</div>
-    <div class="cutImgWrap"><img id="mvpImg" class="cutImg" src="tora.png" alt=""></div>
-    <div id="mvpName" class="cutName">トラさん</div>
-    <div id="mvpStats" class="mvpStats">-</div>
-    <div id="mvpGirlLine" class="cutText" style="font-size:16px">チー娘A「今回はその子なんだ。」</div>
-    <div class="miniBtns">
+    <div class="cutImgWrap"><img id="mvpImg" class="cutImg" src="" alt=""></div>
+    <div id="mvpName" class="cutName">-</div>
+    <div id="mvpStats" class="mvpStats"></div>
+    <div id="mvpGirlLine" class="cutText" style="font-size:16px"></div>
+    <div class="topBtns" style="margin-top:18px">
       <button id="mvpClose" class="btn">閉じる</button>
     </div>
   </div>
 </div>
 
 <script>
+const CHARS = [
+  {id:"dekabusa",name:"デカブサ",role:"安定",attr:"水",hp:130,atk:25,def:22,spd:8,img:"dekabusa.png",passive:"背水：HP50%以下で与ダメージ+50%"},
+  {id:"kabao",name:"カバオ",role:"耐久・回復",attr:"水",hp:145,atk:26,def:28,spd:10,img:"kabao.png",passive:"回復：ターン終了時にHP8回復"},
+  {id:"nise",name:"ニセブサ",role:"バランス",attr:"水",hp:120,atk:28,def:20,spd:12,img:"nise.png",passive:"被ダメージ-20%"},
+  {id:"juzo",name:"ジュウゾウ",role:"反撃型",attr:"水",hp:110,atk:30,def:18,spd:14,img:"juzo.png",passive:"被弾後、次の攻撃ダメージ+50%"},
+  {id:"ratel",name:"ラテロウ",role:"先手特化",attr:"火",hp:95,atk:34,def:14,spd:20,img:"rate.png",passive:"先手時ダメージ+30%"},
+  {id:"kanemon",name:"カンえもん",role:"初撃特化",attr:"火",hp:100,atk:36,def:15,spd:16,img:"kan.png",passive:"最初の攻撃ダメージ+40%"},
+  {id:"namaken",name:"ナマケン",role:"奇襲",attr:"火",hp:105,atk:32,def:16,spd:18,img:"namaken.png",passive:"相手が満HPなら与ダメージ+50%"},
+  {id:"panpan",name:"パンパン",role:"ロマン",attr:"火",hp:100,atk:38,def:12,spd:14,img:"panpan.png",passive:"15%で空振り / 35%で与ダメージ+70%"},
+  {id:"ani",name:"デカブサ兄",role:"連勝型",attr:"草",hp:115,atk:33,def:18,spd:15,img:"ani.png",passive:"ターン経過ごとに与ダメージ上昇"},
+  {id:"tora",name:"トラさん",role:"分身",attr:"草",hp:105,atk:31,def:17,spd:17,img:"tora.png",passive:"20%で攻撃回避"},
+  {id:"gori",name:"ゴリさん",role:"防御",attr:"草",hp:120,atk:27,def:24,spd:9,img:"gori.png",passive:"初回被ダメージ半減"},
+  {id:"king",name:"キング",role:"フィニッシャー",attr:"草",hp:110,atk:36,def:16,spd:13,img:"king.png",passive:"相手HP30%以下なら与ダメージ+40%"}
+];
 const GIRLS = {
-  A: {
-    name: "チー娘A",
-    img: "girlA_top.png",
-    intro: "今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？",
-    systemAsk: "この相手と戦いますか？",
-    win: "ふーん……最初にしては悪くないかも。",
-    lose: "その並び、まだ固まってない感じするね。",
-    commentary: {
-      normal: ["その並びで来たんだ。", "前が崩れるときついよ。", "まだ様子見かな。"],
-      crit: ["今の大きいね。", "それ、かなり痛いよ。"],
-      danger: ["残り少ないね。ここからだよ。", "次で決まりそう。"],
-      finish: ["勝負あり、かな。", "そこを取るんだ。"]
-    },
-    mvp: "今回はその子なんだ。"
-  }
+  A:{name:"チー娘A",img:"girlA_top.png",preview:"今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？",intro:"今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？",systemAsk:"この相手と戦いますか？",win:"ふーん……最初にしては悪くないかも。",lose:"その並び、まだ固まってない感じするね。",mvp:"今回はその子なんだ。",commentary:{normal:["その並びで来たんだ。","前が崩れるときついよ。"],crit:["今の大きいね。","それ、かなり痛いよ。"],danger:["残り少ないね。ここからだよ。"],finish:["勝負あり、かな。"]}},
+  B:{name:"チー娘B",img:"girlB_top.png",preview:"どれを切るかね。速さ、大事だよ？",intro:"どれを切るかね。速さ、大事だよ？",systemAsk:"この相手で試す？",win:"へえ、ちゃんと詰めて来たんだ。",lose:"その順番じゃ、切り返せないよ。",mvp:"そこが軸だったんだね。",commentary:{normal:["その順、面白いね。","速さ負けすると苦しいよ。"],crit:["今の一発、通したね。"],danger:["ここから切り返せる？"],finish:["そこを取るんだ。"]}},
+  C:{name:"チー娘C",img:"girlC_top.png",preview:"焦らなくていいよ。押し切れるか、見てるから。",intro:"焦らなくていいよ。押し切れるか、見てるから。",systemAsk:"この相手と続けますか？",win:"うん、落ち着いてた。悪くない。",lose:"押し切れなかったね。",mvp:"今回はその子が一番だったね。",commentary:{normal:["まだ様子見かな。","じわじわ来るね。"],crit:["今の大きい。"],danger:["残り少ないよ。"],finish:["ここで決まりかな。"]}},
+  D:{name:"チー娘D",img:"girlD_top.png",preview:"……最後まで立っていられる？",intro:"……最後まで立っていられる？",systemAsk:"この相手と戦う？",win:"……やるじゃん。",lose:"……その程度。",mvp:"……そこが要だったんだ。",commentary:{normal:["……見てる。","まだ足りないね。"],crit:["……重い。"],danger:["……終わりが近い。"],finish:["……決まったね。"]}}
 };
-
-let state = {
-  running: false,
-  turn: 0,
-  player: null,
-  enemy: null,
-  mvp: null,
-  girl: GIRLS.A
+const STORY_TEAMS = {
+  A:["nise","kabao","tora","king","kanemon"],
+  B:["ratel","ani","panpan","namaken","king"],
+  C:["kabao","juzo","dekabusa","gori","kanemon"],
+  D:["king","ratel","kabao","ani","juzo"]
 };
-
-const basePlayer = {
-  name: "トラさん",
-  role: "先手・分身",
-  img: "tora.png",
-  hp: 120,
-  max: 120,
-  atkMin: 18,
-  atkMax: 28
-};
-
-const baseEnemy = {
-  name: "カバオ",
-  role: "耐久・回復",
-  img: "kabao.png",
-  hp: 145,
-  max: 145,
-  atkMin: 14,
-  atkMax: 24
-};
+const ATTACK_LINES = {dekabusa:["まあ行くか"],kabao:["まだまだ"],nise:["いくぞ"],juzo:["返す"],ratel:["先に行く"],kanemon:["決める"],namaken:["今だ"],panpan:["暴れる"],ani:["終わりだ"],tora:["いくぞ"],gori:["ふんっ"],king:["仕留める"]};
+const HIT_LINES = {dekabusa:["いて"],kabao:["その程度か"],nise:["効くな"],juzo:["まだだ"],ratel:["効くな"],kanemon:["まだだ"],namaken:["やるな"],panpan:["うわ"],ani:["チッ"],tora:["かすった"],gori:["ふんばる"],king:["浅いな"]};
+const speedMap = {normal:{talk:420,after:320,turn:260,ko:620},fast:{talk:220,after:160,turn:120,ko:320},turbo:{talk:70,after:40,turn:40,ko:110}};
+const state = {girl:"A",gameMode:"free",battleMode:"survival",speed:"normal",team:[],battle:null};
 
 const el = {
-  battleBg: document.getElementById("battleBg"),
-  playerCard: document.getElementById("playerCard"),
-  enemyCard: document.getElementById("enemyCard"),
-  playerName: document.getElementById("playerName"),
-  enemyName: document.getElementById("enemyName"),
-  playerRole: document.getElementById("playerRole"),
-  enemyRole: document.getElementById("enemyRole"),
-  playerImg: document.getElementById("playerImg"),
-  enemyImg: document.getElementById("enemyImg"),
-  playerHpText: document.getElementById("playerHpText"),
-  enemyHpText: document.getElementById("enemyHpText"),
-  playerHpFill: document.getElementById("playerHpFill"),
-  enemyHpFill: document.getElementById("enemyHpFill"),
-  playerBubble: document.getElementById("playerBubble"),
-  enemyBubble: document.getElementById("enemyBubble"),
-  flash: document.getElementById("flash"),
-  live: document.getElementById("live"),
-  result: document.getElementById("result"),
-  commentaryImg: document.getElementById("commentaryImg"),
-  commentaryText: document.getElementById("commentaryText"),
-  cutin: document.getElementById("cutin"),
-  cutinTop: document.getElementById("cutinTop"),
-  cutinImg: document.getElementById("cutinImg"),
-  cutinName: document.getElementById("cutinName"),
-  cutinText: document.getElementById("cutinText"),
-  systemBox: document.getElementById("systemBox"),
-  systemPrompt: document.getElementById("systemPrompt"),
-  cutinOk: document.getElementById("cutinOk"),
-  cutinCancel: document.getElementById("cutinCancel"),
-  mvpModal: document.getElementById("mvpModal"),
-  mvpImg: document.getElementById("mvpImg"),
-  mvpName: document.getElementById("mvpName"),
-  mvpStats: document.getElementById("mvpStats"),
-  mvpGirlLine: document.getElementById("mvpGirlLine"),
-  mvpClose: document.getElementById("mvpClose"),
-  startBtn: document.getElementById("startBtn"),
-  restartBtn: document.getElementById("restartBtn")
+  bg: document.getElementById("bg"), girlRow: document.getElementById("girlRow"), girlPreviewImg: document.getElementById("girlPreviewImg"), girlPreviewText: document.getElementById("girlPreviewText"),
+  modeFreeBtn: document.getElementById("modeFreeBtn"), modeStoryBtn: document.getElementById("modeStoryBtn"), modeHint: document.getElementById("modeHint"),
+  battleSurvivalBtn: document.getElementById("battleSurvivalBtn"), battleFixedBtn: document.getElementById("battleFixedBtn"), battleHint: document.getElementById("battleHint"),
+  teamList: document.getElementById("teamList"), pickGrid: document.getElementById("pickGrid"), randomBtn: document.getElementById("randomBtn"), clearBtn: document.getElementById("clearBtn"), startBtn: document.getElementById("startBtn"),
+  screenBuild: document.getElementById("screenBuild"), screenBattle: document.getElementById("screenBattle"), battleSub: document.getElementById("battleSub"),
+  commentaryImg: document.getElementById("commentaryImg"), commentaryText: document.getElementById("commentaryText"), flash: document.getElementById("flash"), boardRows: document.getElementById("boardRows"),
+  playerCard: document.getElementById("playerCard"), enemyCard: document.getElementById("enemyCard"), playerFName: document.getElementById("playerFName"), playerFRole: document.getElementById("playerFRole"),
+  playerFImg: document.getElementById("playerFImg"), playerFHp: document.getElementById("playerFHp"), playerFHpFill: document.getElementById("playerFHpFill"),
+  enemyFName: document.getElementById("enemyFName"), enemyFRole: document.getElementById("enemyFRole"), enemyFImg: document.getElementById("enemyFImg"), enemyFHp: document.getElementById("enemyFHp"),
+  enemyFHpFill: document.getElementById("enemyFHpFill"), playerBubble: document.getElementById("playerBubble"), enemyBubble: document.getElementById("enemyBubble"), live: document.getElementById("live"),
+  log: document.getElementById("log"), battleActions: document.getElementById("battleActions"), rematchBtn: document.getElementById("rematchBtn"), backBtn: document.getElementById("backBtn"),
+  speedBtns: document.querySelectorAll(".speedBtn"), cutin: document.getElementById("cutin"), cutinImg: document.getElementById("cutinImg"), cutinTop: document.getElementById("cutinTop"),
+  cutinName: document.getElementById("cutinName"), cutinText: document.getElementById("cutinText"), systemPrompt: document.getElementById("systemPrompt"), cutinCancel: document.getElementById("cutinCancel"),
+  cutinOk: document.getElementById("cutinOk"), mvpModal: document.getElementById("mvpModal"), mvpImg: document.getElementById("mvpImg"), mvpName: document.getElementById("mvpName"), mvpStats: document.getElementById("mvpStats"),
+  mvpGirlLine: document.getElementById("mvpGirlLine"), mvpClose: document.getElementById("mvpClose")
 };
-
-function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
-function rand(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
-function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
-
-function setBattleBg() {
-  el.battleBg.style.backgroundImage = `url(${state.girl.img})`;
-}
-
-function resetBattle() {
-  state.running = false;
-  state.turn = 0;
-  state.player = clone(basePlayer);
-  state.enemy = clone(baseEnemy);
-  state.mvp = null;
-  renderFighters();
-  el.result.classList.add("hidden");
-  el.result.textContent = "";
-  el.restartBtn.classList.add("hidden");
-  setCommentary(state.girl.intro);
-  setLive("準備完了。");
-  setBattleBg();
-}
-
-function renderFighters() {
-  el.playerName.textContent = state.player.name;
-  el.enemyName.textContent = state.enemy.name;
-  el.playerRole.textContent = state.player.role;
-  el.enemyRole.textContent = state.enemy.role;
-  el.playerImg.src = state.player.img;
-  el.enemyImg.src = state.enemy.img;
-  el.playerHpText.textContent = `${Math.max(0,state.player.hp)} / ${state.player.max}`;
-  el.enemyHpText.textContent = `${Math.max(0,state.enemy.hp)} / ${state.enemy.max}`;
-  el.playerHpFill.style.width = `${Math.max(0,state.player.hp/state.player.max*100)}%`;
-  el.enemyHpFill.style.width = `${Math.max(0,state.enemy.hp/state.enemy.max*100)}%`;
-}
-
-function setLive(text) {
-  el.live.textContent = text;
-}
-
-function setCommentary(text) {
-  el.commentaryImg.src = state.girl.img;
-  el.commentaryText.textContent = `${state.girl.name}「${text}」`;
-}
-
-function showFlash(text, type="normal") {
-  el.flash.textContent = text;
-  if (type === "ko") {
-    el.flash.style.background = "linear-gradient(180deg,rgba(255,215,90,.22),rgba(255,140,0,.10))";
-    el.flash.style.border = "1px solid rgba(255,215,90,.35)";
-  } else if (type === "crit") {
-    el.flash.style.background = "linear-gradient(180deg,rgba(255,110,110,.22),rgba(255,255,255,.06))";
-    el.flash.style.border = "1px solid rgba(255,150,150,.3)";
-  } else {
-    el.flash.style.background = "linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.06))";
-    el.flash.style.border = "1px solid rgba(255,255,255,.2)";
-  }
-  el.flash.style.opacity = "1";
-  el.flash.style.transform = "translateY(0) scale(1)";
-  clearTimeout(showFlash._timer);
-  showFlash._timer = setTimeout(() => {
-    el.flash.style.opacity = "0";
-    el.flash.style.transform = "translateY(-6px) scale(.98)";
-  }, 700);
-}
-
-function showBubble(side, text) {
-  const target = side === "player" ? el.playerBubble : el.enemyBubble;
-  target.textContent = text;
-  target.classList.remove("hidden");
-  clearTimeout(target._timer);
-  target._timer = setTimeout(() => target.classList.add("hidden"), 850);
-}
-
-function animateAttack(side) {
-  const card = side === "player" ? el.playerCard : el.enemyCard;
-  const klass = side === "player" ? "atkP" : "atkE";
-  card.classList.remove(klass);
-  void card.offsetWidth;
-  card.classList.add(klass);
-  setTimeout(() => card.classList.remove(klass), 260);
-}
-
-function animateHit(side) {
-  const card = side === "player" ? el.playerCard : el.enemyCard;
-  const klass = side === "player" ? "hitL" : "hitR";
-  card.classList.remove(klass);
-  void card.offsetWidth;
-  card.classList.add(klass);
-  setTimeout(() => card.classList.remove(klass), 240);
-}
-
-function showDamage(side, damage, crit=false) {
-  const card = side === "player" ? el.playerCard : el.enemyCard;
-  const div = document.createElement("div");
-  div.className = "damageText damageAnim";
-  div.style.color = crit ? "#ffd95e" : "#fff";
-  div.textContent = damage;
-  card.appendChild(div);
-  setTimeout(() => div.remove(), 700);
-}
-
-function openCutin({top,name,img,text,systemText="",okText="OK",cancelText="戻る",showCancel=false,onOk=null,onCancel=null}) {
-  el.cutinTop.textContent = top;
-  el.cutinName.textContent = name;
-  el.cutinImg.src = img;
-  el.cutinText.textContent = text;
-  el.systemPrompt.textContent = systemText;
-  el.systemPrompt.classList.toggle("hidden", !systemText);
-  el.cutin.classList.remove("hidden");
-  el.cutinCancel.classList.toggle("hidden", !showCancel);
-  el.cutinOk.textContent = okText;
-  el.cutinCancel.textContent = cancelText;
-
-  el.cutinOk.onclick = () => {
-    el.cutin.classList.add("hidden");
-    if (onOk) onOk();
-  };
-  el.cutinCancel.onclick = () => {
-    el.cutin.classList.add("hidden");
-    if (onCancel) onCancel();
-  };
-}
-
-function openMvp(name, img, stats, girlLine) {
-  el.mvpName.textContent = name;
-  el.mvpImg.src = img;
-  el.mvpStats.textContent = stats;
-  el.mvpGirlLine.textContent = `${state.girl.name}「${girlLine}」`;
-  el.mvpModal.classList.remove("hidden");
-}
-
-el.mvpClose.onclick = () => el.mvpModal.classList.add("hidden");
-
-function calcPlayerDamage() {
-  let dmg = rand(state.player.atkMin, state.player.atkMax);
-  let crit = false;
-  if (Math.random() < 0.22) {
-    dmg *= 2;
-    crit = true;
-  }
-  return {dmg, crit};
-}
-
-function calcEnemyDamage() {
-  return rand(state.enemy.atkMin, state.enemy.atkMax);
-}
-
-function chooseCommentary(kind) {
-  const list = state.girl.commentary[kind] || state.girl.commentary.normal;
-  return list[rand(0, list.length-1)];
-}
-
-async function battleLoop() {
-  state.running = true;
-  state.turn = 0;
-  while (state.running) {
-    state.turn++;
-
-    showBubble("player", "いくぞ");
-    animateAttack("player");
-    setLive(`${state.player.name}の攻撃。`);
-    await wait(220);
-
-    const {dmg, crit} = calcPlayerDamage();
-    state.enemy.hp -= dmg;
-    animateHit("enemy");
-    showDamage("enemy", dmg, crit);
-    renderFighters();
-
-    if (crit) {
-      showFlash("クリティカル！", "crit");
-      setCommentary(chooseCommentary("crit"));
-    } else {
-      setCommentary(chooseCommentary("normal"));
-    }
-
-    if (state.enemy.hp <= 0) {
-      state.enemy.hp = 0;
-      renderFighters();
-      showFlash("K.O.", "ko");
-      setLive(`${state.player.name}が勝った。`);
-      setCommentary(chooseCommentary("finish"));
-      state.mvp = state.player;
-      await wait(700);
-      finishBattle(true);
-      return;
-    }
-
-    if (state.enemy.hp <= state.enemy.max * 0.35 || state.player.hp <= state.player.max * 0.35) {
-      setCommentary(chooseCommentary("danger"));
-    }
-
-    await wait(420);
-
-    showBubble("enemy", "まだまだ");
-    animateAttack("enemy");
-    setLive(`${state.enemy.name}の攻撃。`);
-    await wait(220);
-
-    const enemyDmg = calcEnemyDamage();
-    state.player.hp -= enemyDmg;
-    animateHit("player");
-    showDamage("player", enemyDmg, false);
-    renderFighters();
-
-    if (state.player.hp <= 0) {
-      state.player.hp = 0;
-      renderFighters();
-      showFlash("K.O.", "ko");
-      setLive(`${state.enemy.name}が勝った。`);
-      setCommentary(chooseCommentary("finish"));
-      state.mvp = state.enemy;
-      await wait(700);
-      finishBattle(false);
-      return;
-    }
-
-    if (state.enemy.hp <= state.enemy.max * 0.35 || state.player.hp <= state.player.max * 0.35) {
-      setCommentary(chooseCommentary("danger"));
-    }
-
-    await wait(480);
-  }
-}
-
-function finishBattle(playerWon) {
-  state.running = false;
-  const text = playerWon ? "WIN\nトラさんが勝った。" : "LOSE\nカバオが勝った。";
-  el.result.textContent = text;
-  el.result.classList.remove("hidden");
-  el.restartBtn.classList.remove("hidden");
-
-  openCutin({
-    top: playerWon ? "WIN" : "LOSE",
-    name: state.girl.name,
-    img: state.girl.img,
-    text: playerWon ? state.girl.win : state.girl.lose,
-    systemText: "",
-    okText: "MVPへ",
-    showCancel: false,
-    onOk: () => {
-      const hp = state.mvp.hp > 0 ? state.mvp.hp : 0;
-      openMvp(
-        state.mvp.name,
-        state.mvp.img,
-        `残HP ${hp}\n総ターン ${state.turn}`,
-        state.girl.mvp
-      );
-    }
-  });
-}
-
-el.startBtn.onclick = () => {
-  resetBattle();
-  openCutin({
-    top: "第1話",
-    name: state.girl.name,
-    img: state.girl.img,
-    text: state.girl.intro,
-    systemText: state.girl.systemAsk,
-    okText: "戦う",
-    cancelText: "戻る",
-    showCancel: true,
-    onOk: () => battleLoop(),
-    onCancel: () => setLive("キャンセルした。")
-  });
-};
-
-el.restartBtn.onclick = () => {
-  resetBattle();
-  battleLoop();
-};
-
-resetBattle();
+function clone(v){return JSON.parse(JSON.stringify(v))}
+function rand(min,max){return Math.floor(Math.random()*(max-min+1))+min}
+function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+function getChar(id){return CHARS.find(c=>c.id===id)}
+function attrAdv(a,d){if(a==="水"&&d==="火") return 1.2;if(a==="火"&&d==="草") return 1.2;if(a==="草"&&d==="水") return 1.2;if(a==="火"&&d==="水") return 0.8;if(a==="草"&&d==="火") return 0.8;if(a==="水"&&d==="草") return 0.8;return 1;}
+function showOnly(screen){el.screenBuild.hidden = screen !== "build"; el.screenBattle.hidden = screen !== "battle";}
+function shuffle(arr){const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a;}
+function setBg(){el.bg.style.backgroundImage = `url(${GIRLS[state.girl].img})`;}
+function setCommentary(text){const girl = GIRLS[state.girl]; el.commentaryImg.src = girl.img; el.commentaryText.textContent = `${girl.name}「${text}」`;}
+function chooseGirlLine(kind){const arr = GIRLS[state.girl].commentary[kind] || GIRLS[state.girl].commentary.normal; return arr[rand(0, arr.length-1)];}
+function renderGirlRow(){el.girlRow.innerHTML = ""; Object.keys(GIRLS).forEach(k=>{const b=document.createElement("button"); b.className=`girlBtn${state.girl===k?" active":""}`; b.textContent = GIRLS[k].name.replace("チー娘",""); b.onclick=()=>{state.girl=k; renderGirlRow(); renderGirlPreview(); setBg(); setCommentary(GIRLS[state.girl].preview);}; el.girlRow.appendChild(b);});}
+function renderGirlPreview(){const girl = GIRLS[state.girl]; el.girlPreviewImg.src = girl.img; el.girlPreviewText.textContent = `${girl.name}
+${girl.preview}`;}
+function renderModes(){el.modeFreeBtn.classList.toggle("active", state.gameMode==="free"); el.modeStoryBtn.classList.toggle("active", state.gameMode==="story"); el.modeHint.textContent = state.gameMode==="free" ? "ランダム敵チームと戦う" : `${GIRLS[state.girl].name}が組んだ固定チームと戦う`; el.battleSurvivalBtn.classList.toggle("active", state.battleMode==="survival"); el.battleFixedBtn.classList.toggle("active", state.battleMode==="fixed"); el.battleHint.textContent = state.battleMode==="survival" ? "勝ったキャラが残って次と戦う" : "先鋒同士、次鋒同士…の5本勝負";}
+function renderPickGrid(){el.pickGrid.innerHTML=""; CHARS.forEach(ch=>{const selected = state.team.includes(ch.id); const div=document.createElement("div"); div.className=`pickCard${selected?" selected":""}`; div.innerHTML = `<div class="pickImgWrap"><img class="pickImg" src="${ch.img}" alt="${ch.name}" onerror="this.style.opacity='.15'"></div><div><div class="pickName">${ch.name}</div><div class="pickMeta">${ch.attr} / ${ch.role}</div><div class="pickStats">HP ${ch.hp}　攻 ${ch.atk}　防 ${ch.def}　速 ${ch.spd}</div><div class="pickPassive">${ch.passive}</div><div class="pickActions">${selected ? `<button class="pickSub" data-remove="${ch.id}">外す</button>` : `<button class="pickMain" data-add="${ch.id}">選ぶ</button>`}</div></div>`; el.pickGrid.appendChild(div);}); el.pickGrid.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>addToTeam(b.dataset.add)); el.pickGrid.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>removeFromTeam(b.dataset.remove));}
+function renderTeamList(){el.teamList.innerHTML=""; const labels=["先鋒","次鋒","中堅","副将","大将"]; for(let i=0;i<5;i++){const id = state.team[i]; const slot=document.createElement("div"); slot.className="teamSlot"; if(id){const ch=getChar(id); slot.innerHTML = `<img class="slotThumb" src="${ch.img}" alt="${ch.name}" onerror="this.style.opacity='.15'"><div><div class="slotName">${labels[i]} ${ch.name}</div><div class="slotMeta">${ch.attr} / ${ch.role}</div></div><div class="slotBtns"><button data-up="${i}" ${i===0?'disabled':''}>▲</button><button data-down="${i}" ${i===state.team.length-1?'disabled':''}>▼</button></div>`;} else {slot.innerHTML = `<div class="slotThumb" style="opacity:.15"></div><div><div class="slotName">${labels[i]} 未選択</div><div class="slotMeta">ここに入れる</div></div><div class="slotBtns"><button disabled>▲</button><button disabled>▼</button></div>`;} el.teamList.appendChild(slot);} el.teamList.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>moveUp(Number(b.dataset.up))); el.teamList.querySelectorAll("[data-down]").forEach(b=>b.onclick=()=>moveDown(Number(b.dataset.down)));}
+function addToTeam(id){if(state.team.includes(id)) return; if(state.team.length>=5){ alert("5体までです"); return; } state.team.push(id); renderTeamList(); renderPickGrid();}
+function removeFromTeam(id){state.team = state.team.filter(v=>v!==id); renderTeamList(); renderPickGrid();}
+function moveUp(i){ if(i<=0) return; [state.team[i-1],state.team[i]]=[state.team[i],state.team[i-1]]; renderTeamList(); }
+function moveDown(i){ if(i>=state.team.length-1) return; [state.team[i+1],state.team[i]]=[state.team[i],state.team[i+1]]; renderTeamList(); }
+function randomTeam(){ state.team = shuffle(CHARS.map(c=>c.id)).slice(0,5); renderTeamList(); renderPickGrid(); }
+function clearTeam(){ state.team=[]; renderTeamList(); renderPickGrid(); }
+function showFlash(text,type="normal"){el.flash.textContent=text; if(type==="ko"){el.flash.style.background="linear-gradient(180deg,rgba(255,215,90,.22),rgba(255,140,0,.10))"; el.flash.style.border="1px solid rgba(255,215,90,.35)";} else if(type==="crit"){el.flash.style.background="linear-gradient(180deg,rgba(255,110,110,.22),rgba(255,255,255,.06))"; el.flash.style.border="1px solid rgba(255,150,150,.3)";} else {el.flash.style.background="linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.06))"; el.flash.style.border="1px solid rgba(255,255,255,.2)";} el.flash.style.opacity="1"; el.flash.style.transform="translateY(0) scale(1)"; clearTimeout(showFlash._t); showFlash._t = setTimeout(()=>{el.flash.style.opacity="0"; el.flash.style.transform="translateY(-6px) scale(.98)";},700);}
+function addLog(text){const div=document.createElement("div"); div.className="logLine"; div.textContent=text; el.log.appendChild(div); el.log.scrollTop = el.log.scrollHeight; el.live.textContent=text;}
+function showBubble(side,text){const target = side==="player" ? el.playerBubble : el.enemyBubble; target.textContent = text; target.hidden = false; clearTimeout(target._t); target._t = setTimeout(()=>target.hidden=true,850);}
+function animateAttack(side){const card = side==="player" ? el.playerCard : el.enemyCard; const klass = side==="player" ? "atkP" : "atkE"; card.classList.remove(klass); void card.offsetWidth; card.classList.add(klass); setTimeout(()=>card.classList.remove(klass),260);}
+function animateHit(side){const card = side==="player" ? el.playerCard : el.enemyCard; const klass = side==="player" ? "hitL" : "hitR"; card.classList.remove(klass); void card.offsetWidth; card.classList.add(klass); setTimeout(()=>card.classList.remove(klass),240);}
+function showDamage(side, damage, crit=false){const card = side==="player" ? el.playerCard : el.enemyCard; const div=document.createElement("div"); div.className="damageText damageAnim"; div.style.color = crit ? "#ffd95e" : "#fff"; div.textContent = damage; card.appendChild(div); setTimeout(()=>div.remove(),700);}
+function cloneFighter(char, side, orderIndex){return {...clone(char), side, orderIndex, currentHp: char.hp, maxHp: char.hp, alive: true, wins: 0, matchWin: 0, damageDealt: 0, damageTaken: 0, flags: {firstAttackDone:false, firstHitTaken:false, aniBoost:0, counterReady:false}};}
+function makeEnemyTeamIds(){if(state.gameMode==="story") return STORY_TEAMS[state.girl].slice(); const pool = CHARS.map(c=>c.id).filter(id=>!state.team.includes(id)); return shuffle(pool).slice(0,5);}
+function getActivePlayer(){ return state.battle.playerTeam[state.battle.playerIndex]; }
+function getActiveEnemy(){ return state.battle.enemyTeam[state.battle.enemyIndex]; }
+function nextAlive(arr,start){for(let i=start;i<arr.length;i++) if(arr[i].alive) return i; return -1;}
+function chooseFirst(a,b){let ar = a.spd + rand(-2,2), br = b.spd + rand(-2,2); return ar>=br ? a : b;}
+function calcDamage(att, def){ if(!att.alive || !def.alive) return {damage:0, crit:false, text:""}; if(def.id==="tora" && Math.random()<0.2){ return {damage:0, crit:false, text:`${def.name}は分身した。`}; } let rate = attrAdv(att.attr, def.attr); let base = Math.max(8, att.atk - def.def*0.45); let skillRate = 1; let crit = false; let text = ""; if(att.id==="kanemon" && !att.flags.firstAttackDone){ skillRate*=1.4; text="初撃全力。"; } if(att.id==="dekabusa" && att.currentHp<=att.maxHp*0.5){ skillRate*=1.5; text="背水。"; } if(att.id==="namaken" && def.currentHp===def.maxHp){ skillRate*=1.5; text="奇襲。"; } if(att.id==="king" && def.currentHp<=def.maxHp*0.3){ skillRate*=1.4; text="仕留めに来た。"; } if(att.id==="ani"){ skillRate*=1+att.flags.aniBoost; if(att.flags.aniBoost>0) text="加速装置。"; } if(att.id==="juzo" && att.flags.counterReady){ skillRate*=1.5; att.flags.counterReady=false; text="反撃態勢。"; } if(att.id==="ratel" && state.battle.firstActorId===att.id){ skillRate*=1.3; text="先手必勝。"; } if(att.id==="panpan"){ if(Math.random()<0.15) return {damage:0, crit:false, text:`${att.name}は空振りした。`}; if(Math.random()<0.35){ skillRate*=1.7; text="暴走した。"; }} let reduce = 1; if(def.id==="gori" && !def.flags.firstHitTaken){ reduce*=0.5; text = text ? text+" 初回ガード。" : "初回ガード。"; } if(def.id==="nise") reduce*=0.8; if(Math.random()<0.08){ crit=true; skillRate*=1.5; } const dmg = Math.max(8, Math.round(base * rate * skillRate * reduce * (0.92 + Math.random()*0.16))); att.flags.firstAttackDone = true; def.flags.firstHitTaken = true; if(def.id==="juzo" && def.alive) def.flags.counterReady = true; return {damage:dmg, crit, text, rate};}
+function healEndTurn(f){if(!f.alive) return null; if(f.id==="kabao"){const before=f.currentHp; f.currentHp = Math.min(f.maxHp, f.currentHp+8); if(f.currentHp>before) return `${f.name}は回復した。`; } return null;}
+function renderBattleHeader(){const p = state.battle.resultView ? state.battle.lastPlayer : getActivePlayer(); const e = state.battle.resultView ? state.battle.lastEnemy : getActiveEnemy(); el.playerFName.textContent = p ? `${state.battle.resultView ? (state.battle.playerWon ? "勝ち " : "負け ") : ""}${p.name}` : "-"; el.playerFRole.textContent = p ? `${p.attr} / ${p.role}` : "-"; el.playerFImg.src = p ? p.img : ""; el.playerFHp.textContent = p ? `${Math.max(0,p.currentHp)} / ${p.maxHp}` : "-"; el.playerFHpFill.style.width = p ? `${Math.max(0,p.currentHp/p.maxHp*100)}%` : "0%"; el.enemyFName.textContent = e ? `${state.battle.resultView ? (state.battle.playerWon ? "負け " : "勝ち ") : ""}${e.name}` : "-"; el.enemyFRole.textContent = e ? `${e.attr} / ${e.role}` : "-"; el.enemyFImg.src = e ? e.img : ""; el.enemyFHp.textContent = e ? `${Math.max(0,e.currentHp)} / ${e.maxHp}` : "-"; el.enemyFHpFill.style.width = e ? `${Math.max(0,e.currentHp/e.maxHp*100)}%` : "0%"; renderBoard();}
+function renderBoard(){el.boardRows.innerHTML=""; const labels=["先鋒","次鋒","中堅","副将","大将"]; for(let i=0;i<5;i++){const p=state.battle.playerTeam[i], e=state.battle.enemyTeam[i]; const row=document.createElement("div"); row.className="boardRow"; row.innerHTML = `<div class="mini player ${p&&!p.alive?'dead':''} ${state.battle.playerIndex===i&&!state.battle.resultView?'active':''}"><img src="${p?p.img:''}" alt=""><div><div class="miniName">${labels[i]} ${p?p.name:'-'}</div><div class="miniMeta">${p?`${p.attr} / HP ${Math.max(0,p.currentHp)}`:'-'}</div></div><div style="font-size:11px;font-weight:900">${p?(p.alive?'○':'×'):''}</div></div><div><div class="boardLink ${state.battle.playerIndex===i && state.battle.enemyIndex===i && !state.battle.resultView ? 'active':''}"></div></div><div class="mini right ${e&&!e.alive?'dead':''} ${state.battle.enemyIndex===i&&!state.battle.resultView?'active':''}"><div style="font-size:11px;font-weight:900">${e?(e.alive?'○':'×'):''}</div><div style="text-align:right"><div class="miniName">${e?e.name:'-'} ${labels[i]}</div><div class="miniMeta">${e?`${e.attr} / HP ${Math.max(0,e.currentHp)}`:'-'}</div></div><img src="${e?e.img:''}" alt=""></div>`; el.boardRows.appendChild(row);} }
+function openCutin({top,text,systemText="",showCancel=false,okText="OK",cancelText="戻る",onOk=null,onCancel=null}){const girl=GIRLS[state.girl]; el.cutinTop.textContent = top; el.cutinImg.src = girl.img; el.cutinName.textContent = girl.name; el.cutinText.textContent = text; el.systemPrompt.textContent = systemText; el.systemPrompt.hidden = !systemText; el.cutinCancel.hidden = !showCancel; el.cutinCancel.textContent = cancelText; el.cutinOk.textContent = okText; el.cutin.hidden = false; el.cutinOk.onclick = ()=>{ el.cutin.hidden = true; if(onOk) onOk(); }; el.cutinCancel.onclick = ()=>{ el.cutin.hidden = true; if(onCancel) onCancel(); }; }
+function openMvp(){const mvp = state.battle.mvp; const girl = GIRLS[state.girl]; el.mvpImg.src = mvp.img; el.mvpName.textContent = mvp.name; el.mvpStats.textContent = `勝利本数 ${mvp.matchWin}
+撃破数 ${mvp.wins}
+残HP ${Math.max(0,mvp.currentHp)}
+総ダメ ${mvp.damageDealt}`; el.mvpGirlLine.textContent = `${girl.name}「${girl.mvp}」`; el.mvpModal.hidden = false;}
+el.mvpClose.onclick = ()=> el.mvpModal.hidden = true;
+async function attackOnce(att, def){showBubble(att.side, ATTACK_LINES[att.id][0]); animateAttack(att.side); addLog(`${att.name}の攻撃。`); await wait(speedMap[state.speed].talk); const res = calcDamage(att, def); if(res.text) addLog(res.text); if(res.damage<=0){ addLog(`${att.name}の攻撃は当たらない。`); return; } def.currentHp -= res.damage; att.damageDealt += res.damage; def.damageTaken += res.damage; animateHit(def.side); showBubble(def.side, HIT_LINES[def.id][0]); showDamage(def.side, res.damage, res.crit); renderBattleHeader(); if(res.crit){ showFlash("クリティカル！","crit"); setCommentary(chooseGirlLine("crit")); } else { setCommentary(chooseGirlLine("normal")); } if(def.currentHp<=0){ def.currentHp=0; def.alive=false; att.wins += 1; att.matchWin += 1; renderBattleHeader(); showFlash("K.O.","ko"); addLog(`${def.name}は倒れた。`); setCommentary(chooseGirlLine("finish")); await wait(speedMap[state.speed].ko);} }
+async function processMatch(p,e){while(p.alive && e.alive){ state.battle.turn += 1; if(p.currentHp<=p.maxHp*0.35 || e.currentHp<=e.maxHp*0.35) setCommentary(chooseGirlLine("danger")); const first = chooseFirst(p,e); const second = first===p ? e : p; state.battle.firstActorId = first.id; await attackOnce(first, second); if(second.alive) await wait(speedMap[state.speed].after); if(second.alive) await attackOnce(second, first); if(p.id==="ani" && p.alive) p.flags.aniBoost = Math.min(.3, p.flags.aniBoost + .1); if(e.id==="ani" && e.alive) e.flags.aniBoost = Math.min(.3, e.flags.aniBoost + .1); const healP = healEndTurn(p); if(healP) addLog(healP); const healE = healEndTurn(e); if(healE) addLog(healE); renderBattleHeader(); await wait(speedMap[state.speed].turn);} }
+function calcMvp(teamA, teamB){const all=[...teamA,...teamB]; all.sort((a,b)=> (b.matchWin*100 + b.wins*80 + b.damageDealt + Math.max(0,b.currentHp)) - (a.matchWin*100 + a.wins*80 + a.damageDealt + Math.max(0,a.currentHp))); return all[0];}
+async function finishBattle(playerWon){state.battle.playerWon = playerWon; state.battle.resultView = true; state.battle.playerIndex = -1; state.battle.enemyIndex = -1; state.battle.mvp = calcMvp(state.battle.playerTeam, state.battle.enemyTeam); renderBattleHeader(); openCutin({top: playerWon ? "WIN" : "LOSE", text: playerWon ? GIRLS[state.girl].win : GIRLS[state.girl].lose, okText: "MVPへ", onOk: openMvp}); el.battleActions.hidden = false; addLog(playerWon ? "あなたの勝ち。" : "相手の勝ち。");}
+async function startBattleLoop(){state.battle = {playerTeam: state.team.map((id,i)=>cloneFighter(getChar(id),"player",i)), enemyTeam: makeEnemyTeamIds().map((id,i)=>cloneFighter(getChar(id),"enemy",i)), playerIndex: 0, enemyIndex: 0, turn: 0, resultView: false, playerWon: false, lastPlayer: null, lastEnemy: null, mvp: null, firstActorId: null}; el.log.innerHTML=""; el.battleActions.hidden = true; el.battleSub.textContent = `${state.gameMode==="story" ? GIRLS[state.girl].name + "との対戦" : "オート対戦"} / ${state.battleMode==="survival" ? "勝ち抜き" : "対面固定"}`; setCommentary(GIRLS[state.girl].intro); showOnly("battle"); renderBattleHeader(); if(state.battleMode==="fixed"){for(let i=0;i<5;i++){const p=state.battle.playerTeam[i], e=state.battle.enemyTeam[i]; state.battle.playerIndex = i; state.battle.enemyIndex = i; state.battle.lastPlayer = p; state.battle.lastEnemy = e; addLog(`${["先鋒","次鋒","中堅","副将","大将"][i]}同士の対戦。`); await processMatch(p,e);} const pWins = state.battle.playerTeam.reduce((s,v)=>s+v.matchWin,0); const eWins = state.battle.enemyTeam.reduce((s,v)=>s+v.matchWin,0); await finishBattle(pWins>=eWins);} else {while(true){let p = state.battle.playerTeam[state.battle.playerIndex], e = state.battle.enemyTeam[state.battle.enemyIndex]; if(!p || !e) break; state.battle.lastPlayer = p; state.battle.lastEnemy = e; addLog(`${["先鋒","次鋒","中堅","副将","大将"][state.battle.playerIndex]} ${p.name} vs ${["先鋒","次鋒","中堅","副将","大将"][state.battle.enemyIndex]} ${e.name}`); await processMatch(p,e); if(!p.alive) state.battle.playerIndex = nextAlive(state.battle.playerTeam, state.battle.playerIndex+1); if(!e.alive) state.battle.enemyIndex = nextAlive(state.battle.enemyTeam, state.battle.enemyIndex+1); if(state.battle.playerIndex===-1 || state.battle.enemyIndex===-1) break;} await finishBattle(state.battle.enemyIndex===-1);} }
+el.modeFreeBtn.onclick = ()=>{state.gameMode="free";renderModes();};
+el.modeStoryBtn.onclick = ()=>{state.gameMode="story";renderModes();};
+el.battleSurvivalBtn.onclick = ()=>{state.battleMode="survival";renderModes();};
+el.battleFixedBtn.onclick = ()=>{state.battleMode="fixed";renderModes();};
+el.randomBtn.onclick = randomTeam;
+el.clearBtn.onclick = clearTeam;
+el.startBtn.onclick = ()=>{if(state.team.length!==5){ alert("5体必要です"); return; } openCutin({top: state.gameMode==="story" ? `第${["A","B","C","D"].indexOf(state.girl)+1}話` : "通常対戦", text: GIRLS[state.girl].intro, systemText: GIRLS[state.girl].systemAsk, showCancel: true, okText: "戦う", cancelText: "戻る", onOk: startBattleLoop});};
+el.rematchBtn.onclick = ()=> startBattleLoop();
+el.backBtn.onclick = ()=> showOnly("build");
+el.speedBtns.forEach(b=>b.onclick=()=>{state.speed = b.dataset.speed; el.speedBtns.forEach(x=>x.classList.toggle("active", x===b));});
+function init(){state.team = ["tora","kabao","king","ratel","dekabusa"]; renderGirlRow(); renderGirlPreview(); renderModes(); renderTeamList(); renderPickGrid(); setBg(); setCommentary(GIRLS[state.girl].preview); showOnly("build");}
+init();
 </script>
 </body>
 </html>
