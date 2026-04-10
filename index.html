@@ -441,10 +441,10 @@ body{min-height:100svh;overflow-x:hidden}
       </div>
     </div>
 
-    <div id="systemBox" class="systemBox hidden">
-      <div id="systemPrompt" class="systemPromptText">この相手と戦いますか？</div>
+    <div id="systemBox" class="systemBox">
+      <div id="systemPrompt" class="systemPromptText hidden">この相手と戦いますか？</div>
       <div class="systemBtns">
-        <button id="cutinCancel" class="systemCancel hidden">キャンセル</button>
+        <button id="cutinCancel" class="systemCancel hidden">戻る</button>
         <button id="cutinOk" class="systemOk">OK</button>
       </div>
     </div>
@@ -654,15 +654,17 @@ function showDamage(side, damage, crit=false) {
   setTimeout(() => div.remove(), 700);
 }
 
-function openCutin({top,name,img,text,systemText="",showCancel=false,onOk=null,onCancel=null}) {
+function openCutin({top,name,img,text,systemText="",okText="OK",cancelText="戻る",showCancel=false,onOk=null,onCancel=null}) {
   el.cutinTop.textContent = top;
   el.cutinName.textContent = name;
   el.cutinImg.src = img;
   el.cutinText.textContent = text;
   el.systemPrompt.textContent = systemText;
-  el.systemBox.classList.toggle("hidden", !systemText);
+  el.systemPrompt.classList.toggle("hidden", !systemText);
   el.cutin.classList.remove("hidden");
   el.cutinCancel.classList.toggle("hidden", !showCancel);
+  el.cutinOk.textContent = okText;
+  el.cutinCancel.textContent = cancelText;
 
   el.cutinOk.onclick = () => {
     el.cutin.classList.add("hidden");
@@ -789,6 +791,7 @@ function finishBattle(playerWon) {
     img: state.girl.img,
     text: playerWon ? state.girl.win : state.girl.lose,
     systemText: "",
+    okText: "MVPへ",
     showCancel: false,
     onOk: () => {
       const hp = state.mvp.hp > 0 ? state.mvp.hp : 0;
@@ -810,6 +813,8 @@ el.startBtn.onclick = () => {
     img: state.girl.img,
     text: state.girl.intro,
     systemText: state.girl.systemAsk,
+    okText: "戦う",
+    cancelText: "戻る",
     showCancel: true,
     onOk: () => battleLoop(),
     onCancel: () => setLive("キャンセルした。")
