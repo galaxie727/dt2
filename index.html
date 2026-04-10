@@ -64,8 +64,17 @@ body{min-height:100svh;overflow-x:hidden}
 .entry{padding:8px 10px;border-radius:10px;background:rgba(0,0,0,.2);font-size:12px;font-weight:900;min-height:36px;display:flex;align-items:center}
 .entry+.entry{margin-top:6px}
 .entry.you{background:rgba(255,255,255,.12)}.entry.win{background:rgba(120,220,160,.18)}.entry.lose{opacity:.45}
-.connectorCol{display:flex;flex-direction:column;gap:12px;padding-top:18px}
-.connector{height:88px;border-right:2px solid rgba(255,255,255,.18);border-top:2px solid rgba(255,255,255,.18);border-bottom:2px solid rgba(255,255,255,.18);border-radius:0 18px 18px 0}
+.connectorCol{display:flex;flex-direction:column;gap:12px;padding-top:10px}
+.connectorPair{position:relative;height:96px}
+.connectorPair.tall{height:204px}
+.diagLine{position:absolute;height:2px;background:rgba(255,255,255,.32);transform-origin:left center;left:2px;width:34px;top:24px}
+.diagLine.down{transform:rotate(30deg)}
+.diagLine.up{transform:rotate(-30deg);top:68px}
+.connectorPair.tall .diagLine{width:38px}
+.connectorPair.tall .diagLine.down{top:48px}
+.connectorPair.tall .diagLine.up{top:152px}
+.stem{position:absolute;right:0;top:22px;width:18px;height:52px;border-left:2px solid rgba(255,255,255,.32);border-radius:12px}
+.connectorPair.tall .stem{top:46px;height:108px}
 
 .comment{display:flex;gap:12px;align-items:center;padding:12px;margin-bottom:12px}
 .comment img{width:82px;height:82px;object-fit:contain}
@@ -301,7 +310,28 @@ function buildTournament(){const teams=cup().teams.map(t=>({name:t.name,team:t.i
 function roundName(i){return ["準々決勝","準決勝","決勝"][i]||"-"}
 function renderProgress(){E.progress.innerHTML="";["準々決勝","準決勝","決勝"].forEach((n,i)=>{let d=document.createElement("div");d.className="step"+(i<S.tour.round?" done":i===S.tour.round?" active":"");d.textContent=n;E.progress.appendChild(d)})}
 function currentMatchTeams(){const arr=S.tour.rounds[S.tour.round], idx=S.tour.currentMatch*2; return [arr[idx],arr[idx+1]]}
-function renderBracket(){E.bracketTitle.textContent=cup().name;E.tourSub.textContent=`${roundName(S.tour.round)} / 第${S.tour.currentMatch+1}試合`;const r0=S.tour.rounds[0],r1=S.tour.rounds[1],r2=S.tour.rounds[2];const card=(a,b,cur=false)=>`<div class="matchCard ${cur?'current':''}"><div class="entry ${a&&a.isPlayer?'you':''} ${a&&a.won?'win':''} ${a&&a.lost?'lose':''}">${a?a.name:'???'}</div><div class="entry ${b&&b.isPlayer?'you':''} ${b&&b.won?'win':''} ${b&&b.lost?'lose':''}">${b?b.name:'???'}</div></div>`;E.bracketGrid.innerHTML=`<div class="roundCol">${card(r0[0],r0[1],S.tour.round===0&&S.tour.currentMatch===0)}${card(r0[2],r0[3],S.tour.round===0&&S.tour.currentMatch===1)}${card(r0[4],r0[5],S.tour.round===0&&S.tour.currentMatch===2)}${card(r0[6],r0[7],S.tour.round===0&&S.tour.currentMatch===3)}</div><div class="connectorCol"><div class="connector"></div><div class="connector"></div></div><div class="roundCol">${card(r1[0],r1[1],S.tour.round===1&&S.tour.currentMatch===0)}${card(r1[2],r1[3],S.tour.round===1&&S.tour.currentMatch===1)}</div><div class="connectorCol"><div class="connector" style="height:188px"></div></div><div class="roundCol">${card(r2[0],r2[1],S.tour.round===2&&S.tour.currentMatch===0)}${card(S.tour.rounds[3][0],null,false)}</div>`}
+function renderBracket(){E.bracketTitle.textContent=cup().name;E.tourSub.textContent=`${roundName(S.tour.round)} / 第${S.tour.currentMatch+1}試合`;const r0=S.tour.rounds[0],r1=S.tour.rounds[1],r2=S.tour.rounds[2];const card=(a,b,cur=false)=>`<div class="matchCard ${cur?'current':''}"><div class="entry ${a&&a.isPlayer?'you':''} ${a&&a.won?'win':''} ${a&&a.lost?'lose':''}">${a?a.name:'???'}</div><div class="entry ${b&&b.isPlayer?'you':''} ${b&&b.won?'win':''} ${b&&b.lost?'lose':''}">${b?b.name:'???'}</div></div>`;E.bracketGrid.innerHTML=`<div class="roundCol">${card(r0[0],r0[1],S.tour.round===0&&S.tour.currentMatch===0)}${card(r0[2],r0[3],S.tour.round===0&&S.tour.currentMatch===1)}${card(r0[4],r0[5],S.tour.round===0&&S.tour.currentMatch===2)}${card(r0[6],r0[7],S.tour.round===0&&S.tour.currentMatch===3)}</div>
+<div class="connectorCol">
+  <div class="connectorPair">
+    <div class="diagLine down"></div>
+    <div class="diagLine up"></div>
+    <div class="stem"></div>
+  </div>
+  <div class="connectorPair">
+    <div class="diagLine down"></div>
+    <div class="diagLine up"></div>
+    <div class="stem"></div>
+  </div>
+</div>
+<div class="roundCol">${card(r1[0],r1[1],S.tour.round===1&&S.tour.currentMatch===0)}${card(r1[2],r1[3],S.tour.round===1&&S.tour.currentMatch===1)}</div>
+<div class="connectorCol">
+  <div class="connectorPair tall">
+    <div class="diagLine down"></div>
+    <div class="diagLine up"></div>
+    <div class="stem"></div>
+  </div>
+</div>
+<div class="roundCol">${card(r2[0],r2[1],S.tour.round===2&&S.tour.currentMatch===0)}${card(S.tour.rounds[3][0],null,false)}</div>`}
 
 function cloneFighter(char,side,idx){return {...clone(char),side,idx,currentHp:char.hp,maxHp:char.hp,alive:true,wins:0,matchWin:0,damageDealt:0,damageTaken:0,flags:{first:false,hit:false,ani:0,counter:false}}}
 function ap(){return S.battle.playerTeam[S.battle.pi]}
