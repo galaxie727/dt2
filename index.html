@@ -13,11 +13,17 @@ body{min-height:100svh;overflow-x:hidden}[hidden]{display:none!important}
 .card{background:linear-gradient(180deg,rgba(18,18,18,.78),rgba(10,10,10,.74));border:1px solid rgba(255,255,255,.12);border-radius:18px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 8px 24px rgba(0,0,0,.35)}
 .title{font-size:30px;font-weight:900;text-align:center;margin:8px 0 4px}.sub{text-align:center;color:rgba(255,255,255,.78);font-size:13px;margin-bottom:12px}
 .section{padding:14px;margin-bottom:12px}.sectionTitle{font-size:18px;font-weight:900;margin-bottom:10px}.muted{font-size:12px;color:rgba(255,255,255,.72)}
-.row,.girlRow,.modeRow,.topBtns{display:flex;gap:8px;flex-wrap:wrap}
+.row,.modeRow,.topBtns{display:flex;gap:8px;flex-wrap:wrap}
+.girlRow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .btn,.btn2{width:100%;border:none;border-radius:14px;font-size:18px;font-weight:900;padding:15px 14px}
 .btn{background:#fff;color:#000}.btn2{background:rgba(22,22,25,.84);color:#fff;border:1px solid rgba(255,255,255,.12)}
 .smallBtn{flex:1;min-width:90px;border:none;border-radius:12px;padding:12px 10px;background:#262626;color:#fff;border:1px solid rgba(255,255,255,.12);font-size:13px;font-weight:900}
 .smallBtn.active{background:#fff;color:#000}
+.girlThumb{position:relative;border:none;border-radius:16px;overflow:hidden;background:#111;padding:0;border:2px solid transparent;min-height:118px}
+.girlThumb img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1;display:block}
+.girlThumb span{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.62);padding:3px 10px;border-radius:999px;font-size:13px;font-weight:900;color:#fff}
+.girlThumb.active{border-color:#fff;transform:scale(1.03)}
+.girlThumb:active{transform:scale(.985)}
 .girlPrev{display:flex;gap:12px;align-items:center}.girlPrev img{width:78px;height:78px;object-fit:contain}
 .girlPrevText{font-size:14px;line-height:1.7;white-space:pre-line}
 .pickGrid{display:grid;grid-template-columns:1fr;gap:10px}
@@ -118,7 +124,23 @@ function gid(id){return document.getElementById(id)} function g(){return GIRLS[S
 function adv(a,d){if(a==="水"&&d==="火")return 1.2;if(a==="火"&&d==="草")return 1.2;if(a==="草"&&d==="水")return 1.2;if(a==="火"&&d==="水")return .8;if(a==="草"&&d==="火")return .8;if(a==="水"&&d==="草")return .8;return 1}
 function setBg(){E.bg.style.backgroundImage=`url(${g().img})`} function say(t){E.cImg.src=g().img;E.cText.textContent=`${g().name}「${t}」`}
 function gl(kind){let a=g().c[kind]||g().c.normal;return a[rand(0,a.length-1)]}
-function renderGirls(){E.girlRow.innerHTML="";Object.keys(GIRLS).forEach(k=>{let b=document.createElement("button");b.className="smallBtn"+(S.girl===k?" active":"");b.textContent=GIRLS[k].name.replace("チー娘","");b.onclick=()=>{S.girl=k;renderGirls();renderGirlPrev();setBg();say(g().preview);renderModes()};E.girlRow.appendChild(b)})}
+function renderGirls(){
+E.girlRow.innerHTML="";
+Object.keys(GIRLS).forEach(k=>{
+  const b=document.createElement("button");
+  b.className="girlThumb"+(S.girl===k?" active":"");
+  b.innerHTML=`<img src="${GIRLS[k].img}" alt="${GIRLS[k].name}" onerror="this.style.opacity='.15'"><span>${k}</span>`;
+  b.onclick=()=>{
+    S.girl=k;
+    renderGirls();
+    renderGirlPrev();
+    setBg();
+    say(g().preview);
+    renderModes();
+  };
+  E.girlRow.appendChild(b);
+});
+}
 function renderGirlPrev(){E.gPrevImg.src=g().img;E.gPrevText.textContent=`${g().name}\n${g().preview}`}
 function renderModes(){E.freeBtn.classList.toggle("active",S.game==="free");E.storyBtn.classList.toggle("active",S.game==="story");E.modeHint.textContent=S.game==="free"?"ランダム敵チームと戦う":`${g().name}が組んだ固定チームと戦う`;E.survivalBtn.classList.toggle("active",S.battleMode==="survival");E.fixedBtn.classList.toggle("active",S.battleMode==="fixed");E.battleHint.textContent=S.battleMode==="survival"?"勝ったキャラが残って次と戦う":"先鋒同士、次鋒同士…の5本勝負"}
 function renderTeam(){E.teamList.innerHTML="";let labs=["先鋒","次鋒","中堅","副将","大将"];for(let i=0;i<5;i++){let id=S.team[i],d=document.createElement("div");d.className="slot";if(id){let c=ch(id);d.innerHTML=`<img src="${c.img}" onerror="this.style.opacity='.15'"><div><div class="slotName">${labs[i]} ${c.name}</div><div class="slotMeta">${c.attr} / ${c.role}</div></div><div class="mv"><button data-up="${i}" ${i===0?"disabled":""}>▲</button><button data-down="${i}" ${i===S.team.length-1?"disabled":""}>▼</button></div>`}else{d.innerHTML=`<img style="opacity:.15"><div><div class="slotName">${labs[i]} 未選択</div><div class="slotMeta">ここに入れる</div></div><div class="mv"><button disabled>▲</button><button disabled>▼</button></div>`}E.teamList.appendChild(d)}E.teamList.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{let i=+b.dataset.up;[S.team[i-1],S.team[i]]=[S.team[i],S.team[i-1]];renderTeam()});E.teamList.querySelectorAll("[data-down]").forEach(b=>b.onclick=()=>{let i=+b.dataset.down;[S.team[i+1],S.team[i]]=[S.team[i],S.team[i+1]];renderTeam()})}
