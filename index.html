@@ -56,8 +56,8 @@ body{min-height:100svh;overflow-x:hidden}
 .step{flex:1;text-align:center;padding:10px 8px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:12px;font-weight:900}
 .step.active{background:#fff;color:#000}.step.done{background:rgba(120,220,160,.22);color:#d8ffe8}
 
-.bracketWrap{padding:14px}.bracketTitle{font-size:18px;font-weight:900;margin-bottom:12px}
-.bracketGrid{display:grid;grid-template-columns:1fr 54px 1fr 54px 1fr;gap:8px;align-items:start}
+.bracketWrap{padding:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}.bracketTitle{font-size:18px;font-weight:900;margin-bottom:12px}
+.bracketGrid{display:grid;grid-template-columns:1fr 54px 1fr 54px 1fr;gap:8px;align-items:start;min-width:760px}
 .roundCol{display:flex;flex-direction:column;gap:12px}
 .matchCard{border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.03);padding:8px}
 .matchCard.current{outline:2px solid rgba(255,255,255,.72)}
@@ -155,8 +155,6 @@ body{min-height:100svh;overflow-x:hidden}
   .badge{font-size:16px}
   .dtext{font-size:16px}
   .sprompt{font-size:14px}
-  .bracketGrid{grid-template-columns:1fr}
-  .connectorCol{display:none}
 }
 </style>
 </head>
