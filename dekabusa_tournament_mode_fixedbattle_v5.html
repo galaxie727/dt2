@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>デカブサ大戦 - 大会モード修正版</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif}
+body{min-height:100svh;overflow-x:hidden}
+[hidden]{display:none!important}
+.bg{position:fixed;inset:0;z-index:0;background:center/cover no-repeat;filter:blur(18px) brightness(.38);transform:scale(1.08)}
+.shade{position:fixed;inset:0;z-index:0;background:radial-gradient(circle at 50% 8%, rgba(255,255,255,.08), transparent 28%),linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.36) 45%, rgba(0,0,0,.62))}
+.app{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:12px 12px 28px}
+.card{background:linear-gradient(180deg,rgba(18,18,18,.78),rgba(10,10,10,.74));border:1px solid rgba(255,255,255,.12);border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.title{font-size:30px;font-weight:900;text-align:center;margin:8px 0 4px;letter-spacing:.06em}
+.sub{text-align:center;color:rgba(255,255,255,.78);font-size:13px;margin-bottom:12px}
+.section{padding:14px;margin-bottom:12px}
+.sectionTitle{font-size:18px;font-weight:900;margin-bottom:10px}
+.muted{font-size:12px;color:rgba(255,255,255,.72)}
+.row,.topBtns,.modeRow{display:flex;gap:8px;flex-wrap:wrap}
+.btn,.btn2{width:100%;border:none;border-radius:14px;font-size:18px;font-weight:900;padding:15px 14px}
+.btn{background:#fff;color:#000}.btn2{background:rgba(22,22,25,.84);color:#fff;border:1px solid rgba(255,255,255,.12)}
+.smallBtn{flex:1;min-width:90px;border:none;border-radius:12px;padding:12px 10px;background:#262626;color:#fff;border:1px solid rgba(255,255,255,.12);font-size:13px;font-weight:900}
+.smallBtn.active{background:#fff;color:#000}
+
+.girlRow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.girlThumb{position:relative;border:none;border-radius:16px;overflow:hidden;background:#111;padding:0;border:2px solid transparent;min-height:118px}
+.girlThumb img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1;display:block}
+.girlThumb span{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.62);padding:3px 10px;border-radius:999px;font-size:13px;font-weight:900;color:#fff}
+.girlThumb.active{border-color:#fff;transform:scale(1.03)}
+.girlPrev{display:flex;gap:12px;align-items:center}
+.girlPrev img{width:78px;height:78px;object-fit:contain}
+.girlPrevText{font-size:14px;line-height:1.7;white-space:pre-line}
+
+.cupList{display:flex;flex-direction:column;gap:10px}
+.cupCard{display:grid;grid-template-columns:86px 1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.03)}
+.cupThumb{width:86px;height:86px;object-fit:contain;border-radius:12px;background:rgba(255,255,255,.03)}
+.cupName{font-size:18px;font-weight:900}
+.cupMeta{font-size:12px;color:#ddd;line-height:1.55;margin-top:4px}
+
+.teamList{display:flex;flex-direction:column;gap:8px}
+.slot{display:grid;grid-template-columns:54px 1fr 64px;gap:10px;align-items:center;padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.03)}
+.slot img{width:54px;height:54px;object-fit:contain;border-radius:12px;background:rgba(0,0,0,.2)}
+.slotName{font-size:15px;font-weight:900}.slotMeta{font-size:11px;color:rgba(255,255,255,.7)}
+.mv{display:flex;flex-direction:column;gap:6px}.mv button{border:none;border-radius:10px;padding:7px 0;background:#2b2b2b;color:#fff;font-weight:900;font-size:12px}.mv button:disabled{opacity:.28}
+
+.pickGrid{display:grid;grid-template-columns:1fr;gap:10px}
+.pick{display:grid;grid-template-columns:86px 1fr;gap:10px;padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.03)}
+.pick.sel{outline:2px solid rgba(255,255,255,.72)}
+.pick img{width:100%;height:108px;object-fit:contain;background:rgba(255,255,255,.03);border-radius:12px}
+.pname{font-size:20px;font-weight:900}.pmeta,.pstats,.ppass{font-size:12px;line-height:1.45}
+.pmeta{color:#cbd7ff}.pstats{color:#ddd;margin-top:4px}.ppass{margin-top:6px;color:#eee}
+
+.progress{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.step{flex:1;text-align:center;padding:10px 8px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:12px;font-weight:900}
+.step.active{background:#fff;color:#000}.step.done{background:rgba(120,220,160,.22);color:#d8ffe8}
+
+.bracketWrap{padding:14px}.bracketTitle{font-size:18px;font-weight:900;margin-bottom:12px}
+.bracketGrid{display:grid;grid-template-columns:1fr 22px 1fr 22px 1fr;gap:8px;align-items:start}
+.roundCol{display:flex;flex-direction:column;gap:12px}
+.matchCard{border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.03);padding:8px}
+.matchCard.current{outline:2px solid rgba(255,255,255,.72)}
+.entry{padding:8px 10px;border-radius:10px;background:rgba(0,0,0,.2);font-size:12px;font-weight:900;min-height:36px;display:flex;align-items:center}
+.entry+.entry{margin-top:6px}
+.entry.you{background:rgba(255,255,255,.12)}.entry.win{background:rgba(120,220,160,.18)}.entry.lose{opacity:.45}
+.connectorCol{display:flex;flex-direction:column;gap:12px;padding-top:18px}
+.connector{height:88px;border-right:2px solid rgba(255,255,255,.18);border-top:2px solid rgba(255,255,255,.18);border-bottom:2px solid rgba(255,255,255,.18);border-radius:0 18px 18px 0}
+
+.comment{display:flex;gap:12px;align-items:center;padding:12px;margin-bottom:12px}
+.comment img{width:82px;height:82px;object-fit:contain}
+.commentText{font-size:14px;line-height:1.7}
+
+.flash{margin:6px 0 12px;text-align:center;font-size:18px;font-weight:900;padding:10px;border-radius:14px;opacity:0;transform:translateY(-6px) scale(.98);transition:.18s ease}
+
+.board{padding:12px;margin-bottom:12px}
+.boardHead,.brow{display:grid;grid-template-columns:1fr 42px 1fr;gap:8px;align-items:center}
+.boardHead{margin-bottom:8px}.brows{display:flex;flex-direction:column;gap:6px}
+.mini{min-height:72px;padding:8px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.04);display:grid;grid-template-columns:40px 1fr auto;gap:8px;align-items:center}
+.mini.right{grid-template-columns:auto 1fr 40px}
+.miniText{display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:0}
+.miniRole{font-size:11px;line-height:1.1;color:rgba(255,255,255,.72);white-space:nowrap}
+.miniName{font-size:15px;line-height:1.15;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.miniMeta{font-size:11px;line-height:1.1;color:rgba(255,255,255,.78);white-space:nowrap}
+.mini img{width:40px;height:40px;object-fit:contain;background:rgba(0,0,0,.18);border-radius:10px}
+.mini.dead{opacity:.24;filter:grayscale(1)}.mini.act{outline:2px solid rgba(255,255,255,.72)}
+.vlink{height:3px;background:rgba(255,255,255,.26);border-radius:999px;box-shadow:0 0 0 1px rgba(255,255,255,.04)}.vlink.act{background:rgba(255,255,255,.96);box-shadow:0 0 10px rgba(255,255,255,.18)}
+
+.battleTop{display:grid;grid-template-columns:1fr 56px 1fr;gap:10px;align-items:stretch}
+.vs{display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900}
+.fighter{border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px;min-height:286px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.fighter.player{background:radial-gradient(circle at 30% 20%, rgba(90,220,130,.18), transparent 42%),linear-gradient(180deg,rgba(15,52,30,.74),rgba(8,18,12,.8))}
+.fighter.enemy{background:radial-gradient(circle at 30% 20%, rgba(90,150,255,.18), transparent 42%),linear-gradient(180deg,rgba(12,31,60,.76),rgba(8,14,26,.82))}
+.sideLabel{font-size:12px;color:rgba(255,255,255,.72);margin-bottom:6px}
+.fname{font-size:22px;font-weight:900;line-height:1.15}
+.frole{font-size:14px;color:#cbd7ff;line-height:1.25;margin-top:4px}
+.fbody{flex:1;display:flex;align-items:flex-end;justify-content:center;position:relative;min-height:150px;padding:6px 0}
+.fimgWrap{width:150px;height:150px;display:flex;align-items:flex-end;justify-content:center}
+.fimg{max-width:100%;max-height:150px;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(0,0,0,.45))}
+.player .fimg{transform:scaleX(-1)}
+.hpRow{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.hpBar{height:12px;background:#2a2a2a;border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.hpFill{height:100%;width:100%;background:#77e0a0;transition:width .35s ease}
+.enemyFill{background:#6db5ff}
+
+.live{margin:10px 0;padding:12px;border-radius:14px;background:linear-gradient(180deg,rgba(20,20,20,.76),rgba(10,10,10,.72));border:1px solid rgba(255,255,255,.12);font-size:18px;font-weight:900;min-height:56px;display:flex;align-items:center;justify-content:center;text-align:center}
+.log{max-height:28svh;overflow:auto;padding:12px}.logLine{font-size:13px;line-height:1.6;padding:4px 0;border-bottom:1px dashed rgba(255,255,255,.06)}
+.bub{position:absolute;top:2px;max-width:128px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.96);color:#111;font-size:12px;font-weight:900;line-height:1.35;box-shadow:0 6px 18px rgba(0,0,0,.28);z-index:3}
+.bub.l{left:0}.bub.r{right:0}
+.dmg{position:absolute;top:18px;left:50%;transform:translateX(-50%);font-size:24px;font-weight:900;text-shadow:0 2px 10px rgba(0,0,0,.6);z-index:4}
+
+.overlay{position:fixed;inset:0;background:#000;display:flex;align-items:stretch;justify-content:center;z-index:1000}
+.cutin{width:100%;height:100%;position:relative;overflow:hidden}.cimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.cshade{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.10) 30%, rgba(0,0,0,.22) 58%, rgba(0,0,0,.72))}
+.ctop{position:absolute;top:max(18px, env(safe-area-inset-top));left:0;right:0;text-align:center;font-size:14px;font-weight:900;color:#ffd95e;z-index:2}
+.dwrap{position:absolute;left:14px;right:14px;bottom:152px;z-index:2}
+.dbox{border-radius:24px;padding:16px 16px 14px;background:rgba(0,0,0,.56);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.16)}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 16px;border-radius:999px;background:rgba(0,0,0,.62);font-size:18px;font-weight:900}
+.dtext{margin-top:14px;font-size:18px;line-height:1.78;white-space:pre-line}
+.sbox{position:absolute;left:14px;right:14px;bottom:max(12px, env(safe-area-inset-bottom));z-index:2;border-radius:18px;padding:14px;background:rgba(10,10,12,.82);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px)}
+.sprompt{font-size:15px;line-height:1.45;text-align:center;color:rgba(255,255,255,.92);margin-bottom:12px}
+.sbtns{display:flex;gap:10px}.sbtns button{flex:1;height:54px;border-radius:16px;font-size:18px;font-weight:900;border:none}
+.cancel{background:#1c1c1f;color:#fff;border:1px solid rgba(255,255,255,.14)}.ok{background:#fff;color:#000}
+.mvp{width:min(94vw,520px);max-height:92svh;overflow:auto;border-radius:24px;background:radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 38%),linear-gradient(180deg,#1b1b1d,#111113);border:1px solid rgba(255,255,255,.16);padding:18px;text-align:center}
+.ciWrap{min-height:300px;display:flex;align-items:center;justify-content:center;margin-top:6px}.ciWrap img{max-width:100%;max-height:46svh;object-fit:contain}.mName{font-size:34px;font-weight:900;margin-top:4px}.mStats{font-size:15px;line-height:1.7;color:#ddd;white-space:pre-line;margin-top:10px}
+
+.hitL{animation:hitL .22s ease}.hitR{animation:hitR .22s ease}.atkP{animation:atkP .24s ease}.atkE{animation:atkE .24s ease}.dAnim{animation:dPop .7s ease forwards}
+@keyframes hitL{0%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}100%{transform:translateX(0)}}
+@keyframes hitR{0%{transform:translateX(0)}20%{transform:translateX(10px)}40%{transform:translateX(-8px)}60%{transform:translateX(5px)}80%{transform:translateX(-3px)}100%{transform:translateX(0)}}
+@keyframes atkP{0%{transform:translateX(0) scaleX(-1)}50%{transform:translateX(24px) scale(1.05) scaleX(-1)}100%{transform:translateX(0) scaleX(-1)}}
+@keyframes atkE{0%{transform:translateX(0)}50%{transform:translateX(-24px) scale(1.05)}100%{transform:translateX(0)}}
+@keyframes dPop{0%{opacity:0;transform:translateX(-50%) translateY(10px) scale(.7)}25%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}100%{opacity:0;transform:translateX(-50%) translateY(-24px) scale(1.05)}}
+
+@media (max-width:520px){
+  .battleTop{grid-template-columns:1fr 44px 1fr;gap:8px}
+  .vs{font-size:24px}
+  .fighter{min-height:252px;padding:12px}
+  .fname{font-size:18px}
+  .fimgWrap{width:128px;height:128px}
+  .fimg{max-width:128px;max-height:128px}
+  .dwrap{bottom:150px}
+  .badge{font-size:16px}
+  .dtext{font-size:16px}
+  .sprompt{font-size:14px}
+  .bracketGrid{grid-template-columns:1fr}
+  .connectorCol{display:none}
+}
+</style>
+</head>
+<body>
+<div id="bg" class="bg"></div><div class="shade"></div>
+
+<div class="app">
+<section id="build">
+<div class="title">デカブサ大戦</div>
+<div class="sub">大会モード修正版</div>
+
+<div class="card section">
+<div class="sectionTitle">チー娘選択</div>
+<div id="girlRow" class="girlRow"></div>
+<div class="girlPrev" style="margin-top:12px"><img id="gPrevImg"><div id="gPrevText" class="girlPrevText"></div></div>
+</div>
+
+<div class="card section">
+<div class="sectionTitle">大会選択</div>
+<div id="cupList" class="cupList"></div>
+</div>
+
+<div class="card section">
+<div class="sectionTitle">チーム編成</div>
+<div class="muted" style="margin-bottom:10px">先鋒 → 次鋒 → 中堅 → 副将 → 大将</div>
+<div id="teamList" class="teamList"></div>
+<div class="row" style="margin-top:10px"><button id="randomBtn" class="btn2">ランダム</button><button id="clearBtn" class="btn2">全て外す</button></div>
+</div>
+
+<div class="card section">
+<div class="sectionTitle">候補キャラ</div>
+<div id="pickGrid" class="pickGrid"></div>
+</div>
+
+<div class="card section">
+<div class="sectionTitle">対戦速度</div>
+<div class="modeRow">
+<button class="smallBtn buildSpeed active" data-sp="normal">普通</button>
+<button class="smallBtn buildSpeed" data-sp="fast">速い</button>
+<button class="smallBtn buildSpeed" data-sp="turbo">爆速</button>
+</div>
+</div>
+
+<div class="topBtns"><button id="toTournamentBtn" class="btn">大会表へ進む</button></div>
+</section>
+
+<section id="tournament" hidden>
+<div class="title">大会表</div>
+<div id="tourSub" class="sub">-</div>
+
+<div class="card section">
+<div class="sectionTitle">進行状況</div>
+<div id="progress" class="progress"></div>
+</div>
+
+<div class="card bracketWrap">
+<div class="bracketTitle" id="bracketTitle">初心者カップ</div>
+<div id="bracketGrid" class="bracketGrid"></div>
+</div>
+
+<div class="topBtns">
+<button id="startRoundBtn" class="btn">この試合を始める</button>
+<button id="backBuildBtn" class="btn2">編成に戻る</button>
+</div>
+</section>
+
+<section id="battleScreen" hidden>
+<div class="title">デカブサ大戦</div>
+<div id="battleSub" class="sub">オート対戦</div>
+
+<div class="card comment"><img id="cImg"><div id="cText" class="commentText"></div></div>
+
+<div class="card board">
+<div class="boardHead"><div style="font-size:13px;font-weight:900">あなた</div><div></div><div id="boardEnemyLabel" style="font-size:13px;font-weight:900;text-align:right">対戦相手</div></div>
+<div id="brows" class="brows"></div>
+</div>
+
+<div id="flash" class="flash"></div>
+
+<div class="battleTop">
+<div>
+<div class="sideLabel">あなた</div>
+<div id="pCard" class="fighter player">
+<div><div id="pName" class="fname">-</div><div id="pRole" class="frole">-</div></div>
+<div class="fbody"><div id="pBubble" class="bub l" hidden></div><div class="fimgWrap"><img id="pImg" class="fimg"></div></div>
+<div><div class="hpRow"><span>HP</span><span id="pHp">-</span></div><div class="hpBar"><div id="pFill" class="hpFill"></div></div></div>
+</div>
+</div>
+
+<div class="vs">VS</div>
+
+<div>
+<div id="enemySideLabel" class="sideLabel" style="text-align:right">対戦相手</div>
+<div id="eCard" class="fighter enemy">
+<div><div id="eName" class="fname" style="text-align:right">-</div><div id="eRole" class="frole" style="text-align:right">-</div></div>
+<div class="fbody"><div id="eBubble" class="bub r" hidden></div><div class="fimgWrap"><img id="eImg" class="fimg"></div></div>
+<div><div class="hpRow"><span>HP</span><span id="eHp">-</span></div><div class="hpBar"><div id="eFill" class="hpFill enemyFill"></div></div></div>
+</div>
+</div>
+</div>
+
+<div id="live" class="live">準備完了。</div>
+<div id="actions" class="topBtns" style="margin-top:10px" hidden><button id="backTournamentBtn" class="btn">大会表に戻る</button></div>
+</section>
+</div>
+
+<div id="cutin" class="overlay" hidden><div class="cutin"><img id="cutinImg" class="cimg"><div class="cshade"></div><div id="ctop" class="ctop"></div><div class="dwrap"><div class="dbox"><div id="cname" class="badge"></div><div id="ctext" class="dtext"></div></div></div><div class="sbox"><div id="sprompt" class="sprompt" hidden></div><div class="sbtns"><button id="ccancel" class="cancel" hidden>戻る</button><button id="cok" class="ok">OK</button></div></div></div></div>
+<div id="mvpModal" class="overlay" hidden><div class="mvp"><div class="sectionTitle" style="margin-bottom:0">MVP</div><div class="ciWrap"><img id="mvpImg"></div><div id="mvpName" class="mName"></div><div id="mvpStats" class="mStats"></div><div id="mvpLine" class="dtext" style="font-size:16px"></div><div class="topBtns" style="margin-top:18px"><button id="mvpClose" class="btn">閉じる</button></div></div></div>
+
+<script>
+const CHARS=[
+{id:"dekabusa",name:"デカブサ",role:"安定",attr:"水",hp:130,atk:25,def:22,spd:8,img:"dekabusa.png",passive:"背水：HP50%以下で与ダメージ+50%"},
+{id:"kabao",name:"カバオ",role:"耐久・回復",attr:"水",hp:145,atk:26,def:28,spd:10,img:"kabao.png",passive:"回復：ターン終了時にHP8回復"},
+{id:"nise",name:"ニセブサ",role:"バランス",attr:"水",hp:120,atk:28,def:20,spd:12,img:"nise.png",passive:"被ダメージ-20%"},
+{id:"juzo",name:"ジュウゾウ",role:"反撃型",attr:"水",hp:110,atk:30,def:18,spd:14,img:"juzo.png",passive:"被弾後、次の攻撃ダメージ+50%"},
+{id:"ratel",name:"ラテロウ",role:"先手特化",attr:"火",hp:95,atk:34,def:14,spd:20,img:"rate.png",passive:"先手時ダメージ+30%"},
+{id:"kanemon",name:"カンえもん",role:"初撃特化",attr:"火",hp:100,atk:36,def:15,spd:16,img:"kan.png",passive:"最初の攻撃ダメージ+40%"},
+{id:"namaken",name:"ナマケン",role:"奇襲",attr:"火",hp:105,atk:32,def:16,spd:18,img:"namaken.png",passive:"相手が満HPなら与ダメージ+50%"},
+{id:"panpan",name:"パンパン",role:"ロマン",attr:"火",hp:100,atk:38,def:12,spd:14,img:"panpan.png",passive:"15%で空振り / 35%で与ダメージ+70%"},
+{id:"ani",name:"デカブサ兄",role:"連勝型",attr:"草",hp:115,atk:33,def:18,spd:15,img:"ani.png",passive:"ターン経過ごとに与ダメージ上昇"},
+{id:"tora",name:"トラさん",role:"分身",attr:"草",hp:105,atk:31,def:17,spd:17,img:"tora.png",passive:"20%で攻撃回避"},
+{id:"gori",name:"ゴリさん",role:"防御",attr:"草",hp:120,atk:27,def:24,spd:9,img:"gori.png",passive:"初回被ダメージ半減"},
+{id:"king",name:"キング",role:"フィニッシャー",attr:"草",hp:110,atk:36,def:16,spd:13,img:"king.png",passive:"相手HP30%以下なら与ダメージ+40%"}
+];
+const GIRLS={A:{name:"チー娘A",img:"girlA_top.png",preview:"今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？",intro:"今日は軽く試すだけ。あなたの並び、ちゃんと意味あるんだよね？",ask:"この相手と戦いますか？",win:"ふーん……最初にしては悪くないかも。",lose:"その並び、まだ固まってない感じするね。",mvp:"今回はその子なんだ。",c:{normal:["その並びで来たんだ。","前が崩れるときついよ。"],crit:["今の大きいね。","それ、かなり痛いよ。"],danger:["残り少ないね。ここからだよ。"],finish:["勝負あり、かな。"]}},B:{name:"チー娘B",img:"girlB_top.png",preview:"どれを切るかね。速さ、大事だよ？",intro:"どれを切るかね。速さ、大事だよ？",ask:"この相手で試す？",win:"へえ、ちゃんと詰めて来たんだ。",lose:"その順番じゃ、切り返せないよ。",mvp:"そこが軸だったんだね。",c:{normal:["その順、面白いね。","速さ負けすると苦しいよ。"],crit:["今の一発、通したね。"],danger:["ここから切り返せる？"],finish:["そこを取るんだ。"]}},C:{name:"チー娘C",img:"girlC_top.png",preview:"焦らなくていいよ。押し切れるか、見てるから。",intro:"焦らなくていいよ。押し切れるか、見てるから。",ask:"この相手と続けますか？",win:"うん、落ち着いてた。悪くない。",lose:"押し切れなかったね。",mvp:"今回はその子が一番だったね。",c:{normal:["まだ様子見かな。","じわじわ来るね。"],crit:["今の大きい。"],danger:["残り少ないよ。"],finish:["ここで決まりかな。"]}},D:{name:"チー娘D",img:"girlD_top.png",preview:"……最後まで立っていられる？",intro:"……最後まで立っていられる？",ask:"この相手と戦う？",win:"……やるじゃん。",lose:"……その程度。",mvp:"……そこが要だったんだ。",c:{normal:["……見てる。","まだ足りないね。"],crit:["……重い。"],danger:["……終わりが近い。"],finish:["……決まったね。"]}}};
+const CUPS=[
+{id:"beginner",name:"初心者カップ",thumb:"girlA_top.png",desc:"まずはここから。\nモブも素直め。",teams:[{name:"あなた",team:null,isPlayer:true},{name:"やる気なし男",team:["dekabusa","kabao","nise","gori","tora"]},{name:"偏りマン(水)",team:["kabao","kabao","kabao","kabao","kabao"]},{name:"初心者",team:["dekabusa","tora","kabao","ratel","king"]},{name:"ネタ勢",team:["panpan","panpan","panpan","panpan","panpan"]},{name:"兄信者",team:["ani","ani","kabao","gori","king"]},{name:"スピード厨",team:["ratel","namaken","tora","kanemon","king"]},{name:"ガチ勢",team:["kabao","juzo","king","ratel","ani"]}]},
+{id:"speed",name:"偏りカップ",thumb:"girlB_top.png",desc:"尖った編成が多い。\n相性読みが大事。",teams:[{name:"あなた",team:null,isPlayer:true},{name:"火力厨",team:["panpan","kanemon","namaken","ratel","king"]},{name:"耐久厨",team:["kabao","gori","juzo","dekabusa","kabao"]},{name:"水信者",team:["kabao","nise","juzo","dekabusa","kabao"]},{name:"兄弟推し",team:["ani","dekabusa","nise","ani","king"]},{name:"分身マン",team:["tora","tora","tora","ratel","namaken"]},{name:"終盤型",team:["gori","kabao","ani","king","king"]},{name:"バランス勢",team:["dekabusa","kabao","tora","ratel","king"]}]},
+{id:"chi",name:"チー娘カップ",thumb:"girlD_top.png",desc:"最後はチー娘主催。\n手加減なし。",teams:[{name:"あなた",team:null,isPlayer:true},{name:"チー娘A",team:["nise","kabao","tora","king","kanemon"]},{name:"チー娘B",team:["ratel","ani","panpan","namaken","king"]},{name:"チー娘C",team:["kabao","juzo","dekabusa","gori","kanemon"]},{name:"チー娘D",team:["king","ratel","kabao","ani","juzo"]},{name:"無言のやつ",team:["king","king","ratel","ani","juzo"]},{name:"メタマン",team:["kabao","tora","king","kanemon","juzo"]},{name:"決勝常連",team:["dekabusa","kabao","ratel","ani","king"]}]}
+];
+const AL={dekabusa:["まあ行くか"],kabao:["まだまだ"],nise:["いくぞ"],juzo:["返す"],ratel:["先に行く"],kanemon:["決める"],namaken:["今だ"],panpan:["暴れる"],ani:["終わりだ"],tora:["いくぞ"],gori:["ふんっ"],king:["仕留める"]};
+const HL={dekabusa:["いて"],kabao:["その程度か"],nise:["効くな"],juzo:["まだだ"],ratel:["効くな"],kanemon:["まだだ"],namaken:["やるな"],panpan:["うわ"],ani:["チッ"],tora:["かすった"],gori:["ふんばる"],king:["浅いな"]};
+const SP={normal:{talk:420,after:320,turn:260,ko:620},fast:{talk:220,after:160,turn:120,ko:320},turbo:{talk:70,after:40,turn:40,ko:110}};
+const S={girl:"A",speed:"normal",team:["tora","kabao","king","ratel","dekabusa"],cup:"beginner",tour:null,battle:null};
+const E={bg:gid("bg"),build:gid("build"),tournament:gid("tournament"),battleScreen:gid("battleScreen"),girlRow:gid("girlRow"),gPrevImg:gid("gPrevImg"),gPrevText:gid("gPrevText"),cupList:gid("cupList"),teamList:gid("teamList"),pickGrid:gid("pickGrid"),randomBtn:gid("randomBtn"),clearBtn:gid("clearBtn"),toTournamentBtn:gid("toTournamentBtn"),tourSub:gid("tourSub"),progress:gid("progress"),bracketTitle:gid("bracketTitle"),bracketGrid:gid("bracketGrid"),startRoundBtn:gid("startRoundBtn"),backBuildBtn:gid("backBuildBtn"),battleSub:gid("battleSub"),cImg:gid("cImg"),cText:gid("cText"),brows:gid("brows"),flash:gid("flash"),pCard:gid("pCard"),eCard:gid("eCard"),pName:gid("pName"),pRole:gid("pRole"),pImg:gid("pImg"),pHp:gid("pHp"),pFill:gid("pFill"),eName:gid("eName"),eRole:gid("eRole"),eImg:gid("eImg"),eHp:gid("eHp"),eFill:gid("eFill"),pBubble:gid("pBubble"),eBubble:gid("eBubble"),live:gid("live"),enemySideLabel:gid("enemySideLabel"),actions:gid("actions"),backTournamentBtn:gid("backTournamentBtn"),cutin:gid("cutin"),cutinImg:gid("cutinImg"),ctop:gid("ctop"),cname:gid("cname"),ctext:gid("ctext"),sprompt:gid("sprompt"),ccancel:gid("ccancel"),cok:gid("cok"),mvpModal:gid("mvpModal"),mvpImg:gid("mvpImg"),mvpName:gid("mvpName"),mvpStats:gid("mvpStats"),mvpLine:gid("mvpLine"),mvpClose:gid("mvpClose"),boardEnemyLabel:gid("boardEnemyLabel"),buildSpeedBtns:[...document.querySelectorAll(".buildSpeed")]};
+function gid(id){return document.getElementById(id)}
+function g(){return GIRLS[S.girl]}
+function ch(id){return CHARS.find(x=>x.id===id)}
+function cup(){return CUPS.find(x=>x.id===S.cup)}
+function clone(v){return JSON.parse(JSON.stringify(v))}
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+function show(scr){E.build.hidden=scr!=="build";E.tournament.hidden=scr!=="tournament";E.battleScreen.hidden=scr!=="battle"}
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function adv(a,d){if(a==="水"&&d==="火")return 1.2;if(a==="火"&&d==="草")return 1.2;if(a==="草"&&d==="水")return 1.2;if(a==="火"&&d==="水")return .8;if(a==="草"&&d==="火")return .8;if(a==="水"&&d==="草")return .8;return 1}
+function setBg(){E.bg.style.backgroundImage=`url(${g().img})`}
+function say(t){E.cImg.src=g().img;E.cText.textContent=`${g().name}「${t}」`}
+function gl(kind){let a=g().c[kind]||g().c.normal;return a[rand(0,a.length-1)]}
+
+function renderGirls(){E.girlRow.innerHTML="";Object.keys(GIRLS).forEach(k=>{let b=document.createElement("button");b.className="girlThumb"+(S.girl===k?" active":"");b.innerHTML=`<img src="${GIRLS[k].img}" alt="${GIRLS[k].name}" onerror="this.style.opacity='.15'"><span>${k}</span>`;b.onclick=()=>{S.girl=k;renderGirls();renderGirlPrev();setBg();say(g().preview)};E.girlRow.appendChild(b)})}
+function renderGirlPrev(){E.gPrevImg.src=g().img;E.gPrevText.textContent=`${g().name}\n${g().preview}`}
+function renderCups(){E.cupList.innerHTML="";CUPS.forEach(c=>{let d=document.createElement("div");d.className="cupCard";d.innerHTML=`<img class="cupThumb" src="${c.thumb}" onerror="this.style.opacity='.15'"><div><div class="cupName">${c.name}</div><div class="cupMeta">${c.desc.replace(/\n/g,"<br>")}</div></div><button class="${S.cup===c.id?'btn2':'btn'}" style="width:92px;padding:12px 8px;font-size:14px">${S.cup===c.id?'選択中':'選ぶ'}</button>`;d.querySelector("button").onclick=()=>{S.cup=c.id;renderCups()};E.cupList.appendChild(d)})}
+function renderTeam(){E.teamList.innerHTML="";let L=["先鋒","次鋒","中堅","副将","大将"];for(let i=0;i<5;i++){let id=S.team[i],d=document.createElement("div");d.className="slot";if(id){let c=ch(id);d.innerHTML=`<img src="${c.img}" onerror="this.style.opacity='.15'"><div><div class="slotName">${L[i]} ${c.name}</div><div class="slotMeta">${c.attr} / ${c.role}</div></div><div class="mv"><button data-up="${i}" ${i===0?"disabled":""}>▲</button><button data-down="${i}" ${i===S.team.length-1?"disabled":""}>▼</button></div>`}else{d.innerHTML=`<img style="opacity:.15"><div><div class="slotName">${L[i]} 未選択</div><div class="slotMeta">ここに入れる</div></div><div class="mv"><button disabled>▲</button><button disabled>▼</button></div>`}E.teamList.appendChild(d)}E.teamList.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>{let i=+b.dataset.up;[S.team[i-1],S.team[i]]=[S.team[i],S.team[i-1]];renderTeam()});E.teamList.querySelectorAll("[data-down]").forEach(b=>b.onclick=()=>{let i=+b.dataset.down;[S.team[i+1],S.team[i]]=[S.team[i],S.team[i+1]];renderTeam()})}
+function renderPicks(){E.pickGrid.innerHTML="";CHARS.forEach(c=>{let sel=S.team.includes(c.id),d=document.createElement("div");d.className="pick"+(sel?" sel":"");d.innerHTML=`<img src="${c.img}" onerror="this.style.opacity='.15'"><div><div class="pname">${c.name}</div><div class="pmeta">${c.attr} / ${c.role}</div><div class="pstats">HP ${c.hp}　攻 ${c.atk}　防 ${c.def}　速 ${c.spd}</div><div class="ppass">${c.passive}</div><div class="row" style="margin-top:8px">${sel?`<button class="btn2" data-r="${c.id}">外す</button>`:`<button class="btn" data-a="${c.id}">選ぶ</button>`}</div></div>`;E.pickGrid.appendChild(d)});E.pickGrid.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{if(S.team.length>=5)return alert("5体までです");S.team.push(b.dataset.a);renderTeam();renderPicks()});E.pickGrid.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{S.team=S.team.filter(x=>x!==b.dataset.r);renderTeam();renderPicks()})}
+function buildTournament(){const teams=cup().teams.map(t=>({name:t.name,team:t.isPlayer?S.team.slice():t.team.slice(),isPlayer:!!t.isPlayer,won:false,lost:false}));S.tour={round:0,rounds:[teams,[null,null,null,null],[null,null],[null]],currentMatch:0,finished:false}}
+function roundName(i){return ["準々決勝","準決勝","決勝"][i]||"-"}
+function renderProgress(){E.progress.innerHTML="";["準々決勝","準決勝","決勝"].forEach((n,i)=>{let d=document.createElement("div");d.className="step"+(i<S.tour.round?" done":i===S.tour.round?" active":"");d.textContent=n;E.progress.appendChild(d)})}
+function currentMatchTeams(){const arr=S.tour.rounds[S.tour.round], idx=S.tour.currentMatch*2; return [arr[idx],arr[idx+1]]}
+function renderBracket(){E.bracketTitle.textContent=cup().name;E.tourSub.textContent=`${roundName(S.tour.round)} / 第${S.tour.currentMatch+1}試合`;const r0=S.tour.rounds[0],r1=S.tour.rounds[1],r2=S.tour.rounds[2];const card=(a,b,cur=false)=>`<div class="matchCard ${cur?'current':''}"><div class="entry ${a&&a.isPlayer?'you':''} ${a&&a.won?'win':''} ${a&&a.lost?'lose':''}">${a?a.name:'???'}</div><div class="entry ${b&&b.isPlayer?'you':''} ${b&&b.won?'win':''} ${b&&b.lost?'lose':''}">${b?b.name:'???'}</div></div>`;E.bracketGrid.innerHTML=`<div class="roundCol">${card(r0[0],r0[1],S.tour.round===0&&S.tour.currentMatch===0)}${card(r0[2],r0[3],S.tour.round===0&&S.tour.currentMatch===1)}${card(r0[4],r0[5],S.tour.round===0&&S.tour.currentMatch===2)}${card(r0[6],r0[7],S.tour.round===0&&S.tour.currentMatch===3)}</div><div class="connectorCol"><div class="connector"></div><div class="connector"></div></div><div class="roundCol">${card(r1[0],r1[1],S.tour.round===1&&S.tour.currentMatch===0)}${card(r1[2],r1[3],S.tour.round===1&&S.tour.currentMatch===1)}</div><div class="connectorCol"><div class="connector" style="height:188px"></div></div><div class="roundCol">${card(r2[0],r2[1],S.tour.round===2&&S.tour.currentMatch===0)}${card(S.tour.rounds[3][0],null,false)}</div>`}
+
+function cloneFighter(char,side,idx){return {...clone(char),side,idx,currentHp:char.hp,maxHp:char.hp,alive:true,wins:0,matchWin:0,damageDealt:0,damageTaken:0,flags:{first:false,hit:false,ani:0,counter:false}}}
+function ap(){return S.battle.playerTeam[S.battle.pi]}
+function ae(){return S.battle.enemyTeam[S.battle.ei]}
+function nextAlive(arr,s){for(let i=s;i<arr.length;i++)if(arr[i].alive)return i;return -1}
+function first(a,b){return a.spd+rand(-2,2)>=b.spd+rand(-2,2)?a:b}
+function calc(att,def){if(def.id==="tora"&&Math.random()<.2)return{d:0,c:false,t:`${def.name}は分身した。`};let rate=adv(att.attr,def.attr),base=Math.max(8,att.atk-def.def*.45),mul=1,crit=false,text="";if(att.id==="kanemon"&&!att.flags.first){mul*=1.4;text="初撃全力。"}if(att.id==="dekabusa"&&att.currentHp<=att.maxHp*.5){mul*=1.5;text="背水。"}if(att.id==="namaken"&&def.currentHp===def.maxHp){mul*=1.5;text="奇襲。"}if(att.id==="king"&&def.currentHp<=def.maxHp*.3){mul*=1.4;text="仕留めに来た。"}if(att.id==="ani"){mul*=1+att.flags.ani;if(att.flags.ani>0)text="加速装置。"}if(att.id==="juzo"&&att.flags.counter){mul*=1.5;att.flags.counter=false;text="反撃態勢。"}if(att.id==="ratel"&&S.battle.firstId===att.id){mul*=1.3;text="先手必勝。"}if(att.id==="panpan"){if(Math.random()<.15)return{d:0,c:false,t:`${att.name}は空振りした。`};if(Math.random()<.35){mul*=1.7;text="暴走した。"}}let reduce=1;if(def.id==="gori"&&!def.flags.hit){reduce*=.5;text=text?text+" 初回ガード。":"初回ガード。"}if(def.id==="nise")reduce*=.8;if(Math.random()<.08){crit=true;mul*=1.5}let dmg=Math.max(8,Math.round(base*rate*mul*reduce*(.92+Math.random()*.16)));att.flags.first=true;def.flags.hit=true;if(def.id==="juzo"&&def.alive)def.flags.counter=true;return{d:dmg,c:crit,t:text}}
+function heal(f){if(f.id==="kabao"&&f.alive){let b=f.currentHp;f.currentHp=Math.min(f.maxHp,f.currentHp+8);if(f.currentHp>b)return `${f.name}は回復した。`}return null}
+function bubble(side,text){let t=side==="player"?E.pBubble:E.eBubble;t.textContent=text;t.hidden=false;clearTimeout(t._t);t._t=setTimeout(()=>t.hidden=true,850)}
+function animAtk(side){let c=side==="player"?E.pCard:E.eCard,k=side==="player"?"atkP":"atkE";c.classList.remove(k);void c.offsetWidth;c.classList.add(k);setTimeout(()=>c.classList.remove(k),260)}
+function animHit(side){let c=side==="player"?E.pCard:E.eCard,k=side==="player"?"hitL":"hitR";c.classList.remove(k);void c.offsetWidth;c.classList.add(k);setTimeout(()=>c.classList.remove(k),240)}
+function dmg(side,val,crit){let c=side==="player"?E.pCard:E.eCard,d=document.createElement("div");d.className="dmg dAnim";d.style.color=crit?"#ffd95e":"#fff";d.textContent=val;c.appendChild(d);setTimeout(()=>d.remove(),700)}
+function flash(txt,type="n"){E.flash.textContent=txt;if(type==="ko"){E.flash.style.background="linear-gradient(180deg,rgba(255,215,90,.22),rgba(255,140,0,.10))";E.flash.style.border="1px solid rgba(255,215,90,.35)"}else if(type==="crit"){E.flash.style.background="linear-gradient(180deg,rgba(255,110,110,.22),rgba(255,255,255,.06))";E.flash.style.border="1px solid rgba(255,150,150,.3)"}else{E.flash.style.background="linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.06))";E.flash.style.border="1px solid rgba(255,255,255,.2)"}E.flash.style.opacity="1";E.flash.style.transform="translateY(0) scale(1)";clearTimeout(flash._t);flash._t=setTimeout(()=>{E.flash.style.opacity="0";E.flash.style.transform="translateY(-6px) scale(.98)"},700)}
+function log(t){E.live.textContent=t}
+function renderBattle(){
+let p=S.battle.view?S.battle.lastP:ap(),e=S.battle.view?S.battle.lastE:ae();
+E.pName.textContent=p?`${S.battle.view?(S.battle.playerWon?"勝ち ":"負け "):""}${p.name}`:"-";
+E.pRole.textContent=p?`${p.attr} / ${p.role}`:"-";
+E.pImg.src=p?p.img:"";
+E.pHp.textContent=p?`${Math.max(0,p.currentHp)} / ${p.maxHp}`:"-";
+E.pFill.style.width=p?`${Math.max(0,p.currentHp/p.maxHp*100)}%`:"0%";
+E.eName.textContent=e?`${S.battle.view?(S.battle.playerWon?"負け ":"勝ち "):""}${e.name}`:"-";
+E.eRole.textContent=e?`${e.attr} / ${e.role}`:"-";
+E.eImg.src=e?e.img:"";
+E.eHp.textContent=e?`${Math.max(0,e.currentHp)} / ${e.maxHp}`:"-";
+E.eFill.style.width=e?`${Math.max(0,e.currentHp/e.maxHp*100)}%`:"0%";
+if(S.battle && S.battle.enemyTrainerName){
+  E.enemySideLabel.textContent = S.battle.enemyTrainerName;
+}else{
+  E.enemySideLabel.textContent = "対戦相手";
+}
+renderBoard()
+}
+function renderBoard(){
+E.brows.innerHTML="";
+let L=["先鋒","次鋒","中堅","副将","大将"];
+for(let i=0;i<5;i++){
+  let p=S.battle.playerTeam[i],e=S.battle.enemyTeam[i],r=document.createElement("div");
+  r.className="brow";
+  const active = S.battle.pi===i && S.battle.ei===i && !S.battle.view;
+  const connectorClass = active ? "vlink act" : "vlink";
+  r.innerHTML = `
+    <div class="mini ${p&&!p.alive?'dead':''} ${S.battle.pi===i&&!S.battle.view?'act':''}">
+      <img src="${p?p.img:''}">
+      <div class="miniText">
+        <div class="miniRole">${L[i]}</div>
+        <div class="miniName">${p?p.name:'-'}</div>
+        <div class="miniMeta">${p?`${p.attr} / HP ${Math.max(0,p.currentHp)}`:'-'}</div>
+      </div>
+      <div style="font-size:11px;font-weight:900">${p?(p.alive?'○':'×'):''}</div>
+    </div>
+    <div>
+      <div class="${connectorClass}"></div>
+    </div>
+    <div class="mini right ${e&&!e.alive?'dead':''} ${S.battle.ei===i&&!S.battle.view?'act':''}">
+      <div style="font-size:11px;font-weight:900">${e?(e.alive?'○':'×'):''}</div>
+      <div class="miniText" style="text-align:right">
+        <div class="miniRole">${L[i]}</div>
+        <div class="miniName">${e?e.name:'-'}</div>
+        <div class="miniMeta">${e?`${e.attr} / HP ${Math.max(0,e.currentHp)}`:'-'}</div>
+      </div>
+      <img src="${e?e.img:''}">
+    </div>`;
+  E.brows.appendChild(r);
+}
+}
+function cutin({top,text,prompt="",showCancel=false,okText="OK",cancelText="戻る",ok=null,cancel=null}){E.cutin.hidden=false;E.cutinImg.src=g().img;E.ctop.textContent=top;E.cname.textContent=g().name;E.ctext.textContent=text;E.sprompt.textContent=prompt;E.sprompt.hidden=!prompt;E.ccancel.hidden=!showCancel;E.ccancel.textContent=cancelText;E.cok.textContent=okText;E.cok.onclick=()=>{E.cutin.hidden=true;if(ok)ok()};E.ccancel.onclick=()=>{E.cutin.hidden=true;if(cancel)cancel()}}
+function openMvp(){let m=S.battle.mvp;E.mvpImg.src=m.img;E.mvpName.textContent=m.name;E.mvpStats.textContent=`勝利本数 ${m.matchWin}\n撃破数 ${m.wins}\n残HP ${Math.max(0,m.currentHp)}\n総ダメ ${m.damageDealt}`;E.mvpLine.textContent=`${g().name}「${g().mvp}」`;E.mvpModal.hidden=false}
+E.mvpClose.onclick=()=>E.mvpModal.hidden=true
+async function attack(att,def){bubble(att.side,AL[att.id][0]);animAtk(att.side);log(`${att.name}の攻撃。`);await wait(SP[S.speed].talk);let r=calc(att,def);if(r.t)log(r.t);if(r.d<=0){log(`${att.name}の攻撃は当たらない。`);return}def.currentHp-=r.d;att.damageDealt+=r.d;def.damageTaken+=r.d;animHit(def.side);bubble(def.side,HL[def.id][0]);dmg(def.side,r.d,r.c);renderBattle();if(r.c){flash("クリティカル！","crit");say(gl("crit"))}else say(gl("normal"));if(def.currentHp<=0){def.currentHp=0;def.alive=false;att.wins++;att.matchWin++;renderBattle();flash("K.O.","ko");log(`${def.name}は倒れた。`);say(gl("finish"));await wait(SP[S.speed].ko)}}
+async function match(p,e){while(p.alive&&e.alive){S.battle.turn++;if(p.currentHp<=p.maxHp*.35||e.currentHp<=e.maxHp*.35)say(gl("danger"));let a=first(p,e),d=a===p?e:p;S.battle.firstId=a.id;await attack(a,d);if(d.alive)await wait(SP[S.speed].after);if(d.alive)await attack(d,a);if(p.id==="ani"&&p.alive)p.flags.ani=Math.min(.3,p.flags.ani+.1);if(e.id==="ani"&&e.alive)e.flags.ani=Math.min(.3,e.flags.ani+.1);let hp=heal(p),he=heal(e);if(hp)log(hp);if(he)log(he);renderBattle();await wait(SP[S.speed].turn)}}
+function mvp(a,b){let all=[...a,...b];all.sort((x,y)=>(y.matchWin*100+y.wins*80+y.damageDealt+Math.max(0,y.currentHp))-(x.matchWin*100+x.wins*80+x.damageDealt+Math.max(0,x.currentHp)));return all[0]}
+function advanceTournament(playerWon){const roundArr=S.tour.rounds[S.tour.round],idx=S.tour.currentMatch*2,a=roundArr[idx],b=roundArr[idx+1],winner=playerWon?(a.isPlayer?a:b):(a.isPlayer?b:a),loser=playerWon?(a.isPlayer?b:a):(a.isPlayer?a:b);winner.won=true;loser.lost=true;if(S.tour.round<2){S.tour.rounds[S.tour.round+1][S.tour.currentMatch]=winner}else{S.tour.rounds[3][0]=winner}const max=S.tour.round===0?4:S.tour.round===1?2:1;if(S.tour.currentMatch<max-1){S.tour.currentMatch++}else{if(S.tour.round<2){S.tour.round++;S.tour.currentMatch=0}else{S.tour.finished=true}}}
+async function finishBattle(playerWon){S.battle.playerWon=playerWon;S.battle.view=true;S.battle.pi=-1;S.battle.ei=-1;S.battle.mvp=mvp(S.battle.playerTeam,S.battle.enemyTeam);renderBattle();cutin({top:playerWon?"WIN":"LOSE",text:playerWon?g().win:g().lose,okText:S.tour.finished?"優勝結果へ":"大会表へ",ok:()=>{openMvp();advanceTournament(playerWon);renderProgress();renderBracket();E.actions.hidden=false;}});log(playerWon?"あなたの勝ち。":"相手の勝ち。")}
+async function runBattle(){const [left,right]=currentMatchTeams();const enemy=left.isPlayer?right:left;S.battle={playerTeam:S.team.map((id,i)=>cloneFighter(ch(id),"player",i)),enemyTeam:enemy.team.map((id,i)=>cloneFighter(ch(id),"enemy",i)),enemyTrainerName:enemy.name,pi:0,ei:0,turn:0,view:false,playerWon:false,lastP:null,lastE:null,mvp:null,firstId:null};E.actions.hidden=true;E.battleSub.textContent=`${roundName(S.tour.round)} / ${enemy.name}`;say(g().intro);show("battle");renderBattle();while(true){let p=S.battle.playerTeam[S.battle.pi],e=S.battle.enemyTeam[S.battle.ei];if(!p||!e)break;S.battle.lastP=p;S.battle.lastE=e;log(`${["先鋒","次鋒","中堅","副将","大将"][S.battle.pi]} ${p.name} vs ${["先鋒","次鋒","中堅","副将","大将"][S.battle.ei]} ${e.name}`);await match(p,e);if(!p.alive)S.battle.pi=nextAlive(S.battle.playerTeam,S.battle.pi+1);if(!e.alive)S.battle.ei=nextAlive(S.battle.enemyTeam,S.battle.ei+1);if(S.battle.pi===-1||S.battle.ei===-1)break}await finishBattle(S.battle.ei===-1)}
+E.randomBtn.onclick=()=>{S.team=shuffle(CHARS.map(c=>c.id)).slice(0,5);renderTeam();renderPicks()}
+E.clearBtn.onclick=()=>{S.team=[];renderTeam();renderPicks()}
+E.toTournamentBtn.onclick=()=>{if(S.team.length!==5)return alert("5体必要です");buildTournament();renderProgress();renderBracket();E.tourSub.textContent=`${cup().name} / 準備完了`;show("tournament")}
+E.backBuildBtn.onclick=()=>show("build")
+E.startRoundBtn.onclick=()=>{const [a,b]=currentMatchTeams();const enemy=a.isPlayer?b:a;cutin({top:roundName(S.tour.round),text:`${enemy.name} と戦う。`,prompt:g().ask,showCancel:true,okText:"戦う",cancelText:"戻る",ok:runBattle})}
+E.backTournamentBtn.onclick=()=>show("tournament")
+E.buildSpeedBtns.forEach(b=>b.onclick=()=>{S.speed=b.dataset.sp;E.buildSpeedBtns.forEach(x=>x.classList.toggle("active",x===b))})
+function init(){renderGirls();renderGirlPrev();renderCups();renderTeam();renderPicks();setBg();say(g().preview);show("build")}
+init()
+</script>
+</body>
+</html>
