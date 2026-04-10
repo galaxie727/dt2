@@ -88,8 +88,8 @@ body{min-height:100svh;overflow-x:hidden}
 .vlink{position:absolute;left:6px;right:6px;top:50%;height:3px;background:rgba(255,255,255,.26);border-radius:999px;transform:translateY(-50%);box-shadow:0 0 0 1px rgba(255,255,255,.04)}
 .vlink.act{background:rgba(255,255,255,.96);box-shadow:0 0 10px rgba(255,255,255,.18)}
 .vdiag{position:absolute;left:10px;width:34px;height:3px;background:rgba(255,255,255,.40);border-radius:999px;top:50%;transform-origin:left center;display:none}
-.vdiag.down{transform:translateY(-50%) rotate(28deg)}
-.vdiag.up{transform:translateY(-50%) rotate(-28deg)}
+.vdiag.down{transform:translateY(-50%) rotate(34deg)}
+.vdiag.up{transform:translateY(-50%) rotate(-34deg)}
 .vdiag.show{display:block;box-shadow:0 0 10px rgba(255,255,255,.16)}
 
 .battleTop{display:grid;grid-template-columns:1fr 56px 1fr;gap:10px;align-items:stretch}
@@ -137,9 +137,12 @@ body{min-height:100svh;overflow-x:hidden}
 @keyframes dPop{0%{opacity:0;transform:translateX(-50%) translateY(10px) scale(.7)}25%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}100%{opacity:0;transform:translateX(-50%) translateY(-24px) scale(1.05)}}
 
 .miniCutin{
-  display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:12px 14px;border-radius:16px;
-  background:linear-gradient(180deg,rgba(28,28,30,.92),rgba(12,12,12,.88));
-  border:1px solid rgba(255,255,255,.18);box-shadow:0 10px 28px rgba(0,0,0,.32)
+  position:fixed;left:50%;top:110px;transform:translateX(-50%);
+  width:min(92vw,460px);display:flex;align-items:center;gap:12px;
+  padding:12px 14px;border-radius:16px;
+  background:linear-gradient(180deg,rgba(28,28,30,.96),rgba(12,12,12,.92));
+  border:1px solid rgba(255,255,255,.18);box-shadow:0 10px 28px rgba(0,0,0,.36);
+  z-index:9999
 }
 .miniCutin img{width:64px;height:64px;object-fit:contain;border-radius:12px}
 .miniCutin div{font-size:15px;font-weight:900;line-height:1.45}
@@ -314,8 +317,14 @@ function showMiniCutin(txt){
   E.miniCutin.hidden=false;
   E.miniCutinImg.src=g().img;
   E.miniCutinText.textContent=txt;
+  E.miniCutin.style.opacity="1";
+  E.miniCutin.style.transform="translateX(-50%) translateY(0)";
   clearTimeout(showMiniCutin._t);
-  showMiniCutin._t=setTimeout(()=>{E.miniCutin.hidden=true},1200);
+  showMiniCutin._t=setTimeout(()=>{
+    E.miniCutin.style.opacity="0";
+    E.miniCutin.style.transform="translateX(-50%) translateY(-8px)";
+    setTimeout(()=>{E.miniCutin.hidden=true;E.miniCutin.style.opacity="1";E.miniCutin.style.transform="translateX(-50%) translateY(0)"},220);
+  },1500);
 }
 
 function renderGirls(){E.girlRow.innerHTML="";Object.keys(GIRLS).forEach(k=>{let b=document.createElement("button");b.className="girlThumb"+(S.girl===k?" active":"");b.innerHTML=`<img src="${GIRLS[k].img}" alt="${GIRLS[k].name}" onerror="this.style.opacity='.15'"><span>${k}</span>`;b.onclick=()=>{S.girl=k;renderGirls();renderGirlPrev();setBg();say(g().preview)};E.girlRow.appendChild(b)})}
@@ -393,6 +402,7 @@ renderBoard()
 }
 
 
+
 function renderBoard(){
 E.brows.innerHTML="";
 let L=["先鋒","次鋒","中堅","副将","大将"];
@@ -400,9 +410,10 @@ for(let i=0;i<5;i++){
   let p=S.battle.playerTeam[i],e=S.battle.enemyTeam[i],r=document.createElement("div");
   r.className="brow";
   const active = S.battle.pi===i && S.battle.ei===i && !S.battle.view;
-  let diagClass="";
+  let diagClass="", lineClass=active?'act':'dim';
   if(S.battle.lastAdvance && S.battle.lastAdvance.row===i){
     diagClass = S.battle.lastAdvance.side==="player" ? "down show" : "up show";
+    lineClass = "dim";
   }
   r.innerHTML = `
     <div class="mini ${p&&!p.alive?'dead':''} ${S.battle.pi===i&&!S.battle.view?'act':''}">
@@ -414,7 +425,7 @@ for(let i=0;i<5;i++){
       <div style="font-size:11px;font-weight:900">${p?(p.alive?'○':'×'):''}</div>
     </div>
     <div class="vcell">
-      <div class="vlink ${active?'act':'dim'}"></div>
+      <div class="vlink ${lineClass}"></div>
       <div class="vdiag ${diagClass}"></div>
     </div>
     <div class="mini right ${e&&!e.alive?'dead':''} ${S.battle.ei===i&&!S.battle.view?'act':''}">
@@ -427,10 +438,11 @@ for(let i=0;i<5;i++){
     </div>`;
   E.brows.appendChild(r);
 }
-}function cutin({top,text,prompt="",showCancel=false,okText="OK",cancelText="戻る",ok=null,cancel=null}){E.cutin.hidden=false;E.cutinImg.src=g().img;E.ctop.textContent=top;E.cname.textContent=g().name;E.ctext.textContent=text;E.sprompt.textContent=prompt;E.sprompt.hidden=!prompt;E.ccancel.hidden=!showCancel;E.ccancel.textContent=cancelText;E.cok.textContent=okText;E.cok.onclick=()=>{E.cutin.hidden=true;if(ok)ok()};E.ccancel.onclick=()=>{E.cutin.hidden=true;if(cancel)cancel()}}
+}
+function cutin({top,text,prompt="",showCancel=false,okText="OK",cancelText="戻る",ok=null,cancel=null}){E.cutin.hidden=false;E.cutinImg.src=g().img;E.ctop.textContent=top;E.cname.textContent=g().name;E.ctext.textContent=text;E.sprompt.textContent=prompt;E.sprompt.hidden=!prompt;E.ccancel.hidden=!showCancel;E.ccancel.textContent=cancelText;E.cok.textContent=okText;E.cok.onclick=()=>{E.cutin.hidden=true;if(ok)ok()};E.ccancel.onclick=()=>{E.cutin.hidden=true;if(cancel)cancel()}}
 function openMvp(){let m=S.battle.mvp;E.mvpImg.src=m.img;E.mvpName.textContent=m.name;E.mvpStats.textContent=`勝利本数 ${m.matchWin}\n撃破数 ${m.wins}\n残HP ${Math.max(0,m.currentHp)}\n総ダメ ${m.damageDealt}`;E.mvpLine.textContent=`${g().name}「${g().mvp}」`;E.mvpModal.hidden=false}
 E.mvpClose.onclick=()=>E.mvpModal.hidden=true
-async function attack(att,def){bubble(att.side,AL[att.id][0]);animAtk(att.side);log(`${att.name}の攻撃。`);await wait(SP[S.speed].talk);let r=calc(att,def);if(r.t)log(r.t);if(r.d<=0){log(`${att.name}の攻撃は当たらない。`);return}def.currentHp-=r.d;att.damageDealt+=r.d;def.damageTaken+=r.d;animHit(def.side);bubble(def.side,HL[def.id][0]);dmg(def.side,r.d,r.c);renderBattle();if(r.c){flash(`クリティカル！ ${att.name}の一撃。`,"crit");say(gl("crit"))}else say(gl("normal"));if(def.currentHp<=0){def.currentHp=0;def.alive=false;att.wins++;att.matchWin++;renderBattle();flash(`K.O. ${def.name}は倒れた。`,"ko");showMiniCutin(`${g().name}「${gl("finish")}」`);say(gl("finish"));await wait(SP[S.speed].ko)}}
+async function attack(att,def){bubble(att.side,AL[att.id][0]);animAtk(att.side);log(`${att.name}の攻撃。`);await wait(SP[S.speed].talk);let r=calc(att,def);if(r.t)log(r.t);if(r.d<=0){log(`${att.name}の攻撃は当たらない。`);return}def.currentHp-=r.d;att.damageDealt+=r.d;def.damageTaken+=r.d;animHit(def.side);bubble(def.side,HL[def.id][0]);dmg(def.side,r.d,r.c);renderBattle();if(r.c){flash(`クリティカル！ ${att.name}の一撃。`,"crit");say(gl("crit"))}else say(gl("normal"));if(def.currentHp<=0){def.currentHp=0;def.alive=false;att.wins++;att.matchWin++;renderBattle();flash(`K.O. ${def.name}は倒れた。`,"ko");showMiniCutin(`${g().name}カットイン：${gl("finish")}`);say(gl("finish"));await wait(SP[S.speed].ko)}}
 async function match(p,e){while(p.alive&&e.alive){S.battle.turn++;if(p.currentHp<=p.maxHp*.35||e.currentHp<=e.maxHp*.35)say(gl("danger"));let a=first(p,e),d=a===p?e:p;S.battle.firstId=a.id;await attack(a,d);if(d.alive)await wait(SP[S.speed].after);if(d.alive)await attack(d,a);if(p.id==="ani"&&p.alive)p.flags.ani=Math.min(.3,p.flags.ani+.1);if(e.id==="ani"&&e.alive)e.flags.ani=Math.min(.3,e.flags.ani+.1);let hp=heal(p),he=heal(e);if(hp)log(hp);if(he)log(he);renderBattle();await wait(SP[S.speed].turn)}}
 function mvp(a,b){let all=[...a,...b];all.sort((x,y)=>(y.matchWin*100+y.wins*80+y.damageDealt+Math.max(0,y.currentHp))-(x.matchWin*100+x.wins*80+x.damageDealt+Math.max(0,x.currentHp)));return all[0]}
 
