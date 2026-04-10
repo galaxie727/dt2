@@ -74,7 +74,7 @@ body{min-height:100svh;overflow-x:hidden}
 .flash{margin:6px 0 12px;text-align:center;font-size:18px;font-weight:900;padding:10px;border-radius:14px;opacity:0;transform:translateY(-6px) scale(.98);transition:.18s ease}
 
 .board{padding:12px;margin-bottom:12px}
-.boardHead,.brow{display:grid;grid-template-columns:1fr 54px 1fr;gap:8px;align-items:center}
+.boardHead,.brow{display:grid;grid-template-columns:1fr 42px 1fr;gap:8px;align-items:center}
 .boardHead{margin-bottom:8px}.brows{display:flex;flex-direction:column;gap:6px}
 .mini{min-height:72px;padding:8px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.04);display:grid;grid-template-columns:40px 1fr auto;gap:8px;align-items:center}
 .mini.right{grid-template-columns:auto 1fr 40px}
@@ -87,10 +87,10 @@ body{min-height:100svh;overflow-x:hidden}
 .vcell{position:relative;height:72px}
 .vlink{position:absolute;left:6px;right:6px;top:50%;height:3px;background:rgba(255,255,255,.26);border-radius:999px;transform:translateY(-50%);box-shadow:0 0 0 1px rgba(255,255,255,.04)}
 .vlink.act{background:rgba(255,255,255,.96);box-shadow:0 0 10px rgba(255,255,255,.18)}
-.diagLine{position:absolute;width:38px;height:3px;background:rgba(255,255,255,.36);border-radius:999px;left:8px;top:50%;transform-origin:left center;opacity:.95}
-.diagLine.down{transform:translateY(-50%) rotate(28deg)}
-.diagLine.up{transform:translateY(-50%) rotate(-28deg)}
-.diagLine.act{background:rgba(255,255,255,.96);box-shadow:0 0 10px rgba(255,255,255,.18)}
+.vdiag{position:absolute;left:10px;width:34px;height:3px;background:rgba(255,255,255,.40);border-radius:999px;top:50%;transform-origin:left center;display:none}
+.vdiag.down{transform:translateY(-50%) rotate(28deg)}
+.vdiag.up{transform:translateY(-50%) rotate(-28deg)}
+.vdiag.show{display:block;box-shadow:0 0 10px rgba(255,255,255,.16)}
 
 .battleTop{display:grid;grid-template-columns:1fr 56px 1fr;gap:10px;align-items:stretch}
 .vs{display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900}
@@ -349,54 +349,30 @@ for(let i=0;i<5;i++){
   r.className="brow";
 
   const active = S.battle.pi===i && S.battle.ei===i && !S.battle.view;
-  const pAlive = p && p.alive;
-  const eAlive = e && e.alive;
-
-  let connector = `<div class="vcell"><div class="vlink ${active?'act':''}"></div></div>`;
-
-  // 勝ち抜き時にだけ斜め線を出す
-  if(!S.battle.view && S.battle.mode==="survival"){
-    // 左が残って次の敵へ進む
-    if(i === S.battle.pi && pAlive && !eAlive && i < 4){
-      connector = `<div class="vcell">
-        <div class="vlink act"></div>
-        <div class="diagLine down act"></div>
-      </div>`;
-    }
-    // 右が残って次の味方へ進む
-    else if(i === S.battle.ei && !pAlive && eAlive && i < 4){
-      connector = `<div class="vcell">
-        <div class="vlink act"></div>
-        <div class="diagLine up act"></div>
-      </div>`;
-    }
-    // 直前の勝ち残りの流れを薄く残す
-    else if(S.battle.lastAdvance && S.battle.lastAdvance.from===i){
-      const cls = S.battle.lastAdvance.side==="player" ? "down" : "up";
-      connector = `<div class="vcell">
-        <div class="vlink"></div>
-        <div class="diagLine ${cls}"></div>
-      </div>`;
-    }
+  let diagClass = "";
+  if(!S.battle.view && S.battle.lastAdvance){
+    if(S.battle.lastAdvance.side==="player" && S.battle.lastAdvance.from===i) diagClass = "down show";
+    if(S.battle.lastAdvance.side==="enemy" && S.battle.lastAdvance.from===i) diagClass = "up show";
   }
 
   r.innerHTML = `
     <div class="mini ${p&&!p.alive?'dead':''} ${S.battle.pi===i&&!S.battle.view?'act':''}">
       <img src="${p?p.img:''}">
-      <div class="miniText">
-        <div class="miniRole">${L[i]}</div>
-        <div class="miniName">${p?p.name:'-'}</div>
-        <div class="miniMeta">${p?`${p.attr} / HP ${Math.max(0,p.currentHp)}`:'-'}</div>
+      <div style="min-width:0">
+        <div style="font-size:12px;font-weight:900">${L[i]} ${p?p.name:'-'}</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.68)">${p?`${p.attr} / HP ${Math.max(0,p.currentHp)}`:'-'}</div>
       </div>
       <div style="font-size:11px;font-weight:900">${p?(p.alive?'○':'×'):''}</div>
     </div>
-    ${connector}
+    <div class="vcell">
+      <div class="vlink ${active?'act':''}"></div>
+      <div class="vdiag ${diagClass}"></div>
+    </div>
     <div class="mini right ${e&&!e.alive?'dead':''} ${S.battle.ei===i&&!S.battle.view?'act':''}">
       <div style="font-size:11px;font-weight:900">${e?(e.alive?'○':'×'):''}</div>
-      <div class="miniText" style="text-align:right">
-        <div class="miniRole">${L[i]}</div>
-        <div class="miniName">${e?e.name:'-'}</div>
-        <div class="miniMeta">${e?`${e.attr} / HP ${Math.max(0,e.currentHp)}`:'-'}</div>
+      <div style="min-width:0;text-align:right">
+        <div style="font-size:12px;font-weight:900">${e?e.name:'-'} ${L[i]}</div>
+        <div style="font-size:10px;color:rgba(255,255,255,.68)">${e?`${e.attr} / HP ${Math.max(0,e.currentHp)}`:'-'}</div>
       </div>
       <img src="${e?e.img:''}">
     </div>`;
@@ -412,15 +388,7 @@ async function match(p,e){while(p.alive&&e.alive){S.battle.turn++;if(p.currentHp
 function mvp(a,b){let all=[...a,...b];all.sort((x,y)=>(y.matchWin*100+y.wins*80+y.damageDealt+Math.max(0,y.currentHp))-(x.matchWin*100+x.wins*80+x.damageDealt+Math.max(0,x.currentHp)));return all[0]}
 function advanceTournament(playerWon){const roundArr=S.tour.rounds[S.tour.round],idx=S.tour.currentMatch*2,a=roundArr[idx],b=roundArr[idx+1],winner=playerWon?(a.isPlayer?a:b):(a.isPlayer?b:a),loser=playerWon?(a.isPlayer?b:a):(a.isPlayer?a:b);winner.won=true;loser.lost=true;if(S.tour.round<2){S.tour.rounds[S.tour.round+1][S.tour.currentMatch]=winner}else{S.tour.rounds[3][0]=winner}const max=S.tour.round===0?4:S.tour.round===1?2:1;if(S.tour.currentMatch<max-1){S.tour.currentMatch++}else{if(S.tour.round<2){S.tour.round++;S.tour.currentMatch=0}else{S.tour.finished=true}}}
 async function finishBattle(playerWon){S.battle.playerWon=playerWon;S.battle.view=true;S.battle.pi=-1;S.battle.ei=-1;S.battle.mvp=mvp(S.battle.playerTeam,S.battle.enemyTeam);renderBattle();cutin({top:playerWon?"WIN":"LOSE",text:playerWon?g().win:g().lose,okText:S.tour.finished?"優勝結果へ":"大会表へ",ok:()=>{openMvp();advanceTournament(playerWon);renderProgress();renderBracket();E.actions.hidden=false;}});log(playerWon?"あなたの勝ち。":"相手の勝ち。")}
-async function runBattle(){const [left,right]=currentMatchTeams();const enemy=left.isPlayer?right:left;S.battle={playerTeam:S.team.map((id,i)=>cloneFighter(ch(id),"player",i)),enemyTeam:enemy.team.map((id,i)=>cloneFighter(ch(id),"enemy",i)),enemyTrainerName:enemy.name,mode:"survival",pi:0,ei:0,turn:0,view:false,playerWon:false,lastP:null,lastE:null,mvp:null,firstId:null,lastAdvance:null};E.actions.hidden=true;E.battleSub.textContent=`${roundName(S.tour.round)} / ${enemy.name}`;say(g().intro);show("battle");renderBattle();while(true){let p=S.battle.playerTeam[S.battle.pi],e=S.battle.enemyTeam[S.battle.ei];if(!p||!e)break;S.battle.lastP=p;S.battle.lastE=e;log(`${["先鋒","次鋒","中堅","副将","大将"][S.battle.pi]} ${p.name} vs ${["先鋒","次鋒","中堅","副将","大将"][S.battle.ei]} ${e.name}`);await match(p,e);S.battle.lastAdvance=null;
-if(p.alive && !e.alive){
-  S.battle.lastAdvance={side:"player",from:S.battle.ei};
-}
-if(!p.alive && e.alive){
-  S.battle.lastAdvance={side:"enemy",from:S.battle.pi};
-}
-if(!p.alive)S.battle.pi=nextAlive(S.battle.playerTeam,S.battle.pi+1);
-if(!e.alive)S.battle.ei=nextAlive(S.battle.enemyTeam,S.battle.ei+1);if(S.battle.pi===-1||S.battle.ei===-1)break}await finishBattle(S.battle.ei===-1)}
+async function runBattle(){const [left,right]=currentMatchTeams();const enemy=left.isPlayer?right:left;S.battle={playerTeam:S.team.map((id,i)=>cloneFighter(ch(id),"player",i)),enemyTeam:enemy.team.map((id,i)=>cloneFighter(ch(id),"enemy",i)),enemyTrainerName:enemy.name,pi:0,ei:0,turn:0,view:false,playerWon:false,lastP:null,lastE:null,mvp:null,firstId:null,lastAdvance:null};E.actions.hidden=true;E.battleSub.textContent=`${roundName(S.tour.round)} / ${enemy.name}`;say(g().intro);show("battle");renderBattle();while(true){let p=S.battle.playerTeam[S.battle.pi],e=S.battle.enemyTeam[S.battle.ei];if(!p||!e)break;S.battle.lastP=p;S.battle.lastE=e;log(`${["先鋒","次鋒","中堅","副将","大将"][S.battle.pi]} ${p.name} vs ${["先鋒","次鋒","中堅","副将","大将"][S.battle.ei]} ${e.name}`);await match(p,e);S.battle.lastAdvance=null;if(p.alive&&!e.alive)S.battle.lastAdvance={side:"player",from:S.battle.ei};if(!p.alive&&e.alive)S.battle.lastAdvance={side:"enemy",from:S.battle.pi};if(!p.alive)S.battle.pi=nextAlive(S.battle.playerTeam,S.battle.pi+1);if(!e.alive)S.battle.ei=nextAlive(S.battle.enemyTeam,S.battle.ei+1);if(S.battle.pi===-1||S.battle.ei===-1)break}await finishBattle(S.battle.ei===-1)}
 E.randomBtn.onclick=()=>{S.team=shuffle(CHARS.map(c=>c.id)).slice(0,5);renderTeam();renderPicks()}
 E.clearBtn.onclick=()=>{S.team=[];renderTeam();renderPicks()}
 E.toTournamentBtn.onclick=()=>{if(S.team.length!==5)return alert("5体必要です");buildTournament();renderProgress();renderBracket();E.tourSub.textContent=`${cup().name} / 準備完了`;show("tournament")}
