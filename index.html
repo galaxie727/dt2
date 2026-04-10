@@ -56,29 +56,16 @@ body{min-height:100svh;overflow-x:hidden}
 .step{flex:1;text-align:center;padding:10px 8px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:12px;font-weight:900}
 .step.active{background:#fff;color:#000}.step.done{background:rgba(120,220,160,.22);color:#d8ffe8}
 
-.bracketWrap{padding:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}.bracketTitle{font-size:18px;font-weight:900;margin-bottom:12px}
-.bracketGrid{display:grid;grid-template-columns:1fr 54px 1fr 54px 1fr;gap:8px;align-items:start;min-width:760px}
+.bracketWrap{padding:14px}.bracketTitle{font-size:18px;font-weight:900;margin-bottom:12px}
+.bracketGrid{display:grid;grid-template-columns:1fr 22px 1fr 22px 1fr;gap:8px;align-items:start}
 .roundCol{display:flex;flex-direction:column;gap:12px}
 .matchCard{border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.03);padding:8px}
 .matchCard.current{outline:2px solid rgba(255,255,255,.72)}
 .entry{padding:8px 10px;border-radius:10px;background:rgba(0,0,0,.2);font-size:12px;font-weight:900;min-height:36px;display:flex;align-items:center}
 .entry+.entry{margin-top:6px}
 .entry.you{background:rgba(255,255,255,.12)}.entry.win{background:rgba(120,220,160,.18)}.entry.lose{opacity:.45}
-.connectorCol{display:flex;flex-direction:column;gap:12px;padding-top:8px}
-.tConn{position:relative;height:96px}
-.tConn.tall{height:204px}
-.tConn .h{position:absolute;left:0;width:18px;height:2px;background:rgba(255,255,255,.34)}
-.tConn .h.top{top:24px}
-.tConn .h.bot{top:70px}
-.tConn.tall .h.top{top:50px}
-.tConn.tall .h.bot{top:154px}
-.tConn .d{position:absolute;left:18px;width:24px;height:2px;background:rgba(255,255,255,.34);transform-origin:left center}
-.tConn .d.down{top:24px;transform:rotate(30deg)}
-.tConn .d.up{top:70px;transform:rotate(-30deg)}
-.tConn.tall .d.down{top:50px;transform:rotate(28deg)}
-.tConn.tall .d.up{top:154px;transform:rotate(-28deg)}
-.tConn .v{position:absolute;right:0;top:35px;width:2px;height:26px;background:rgba(255,255,255,.34)}
-.tConn.tall .v{top:72px;height:60px}
+.connectorCol{display:flex;flex-direction:column;gap:12px;padding-top:18px}
+.connector{height:88px;border-right:2px solid rgba(255,255,255,.18);border-top:2px solid rgba(255,255,255,.18);border-bottom:2px solid rgba(255,255,255,.18);border-radius:0 18px 18px 0}
 
 .comment{display:flex;gap:12px;align-items:center;padding:12px;margin-bottom:12px}
 .comment img{width:82px;height:82px;object-fit:contain}
@@ -87,7 +74,7 @@ body{min-height:100svh;overflow-x:hidden}
 .flash{margin:6px 0 12px;text-align:center;font-size:18px;font-weight:900;padding:10px;border-radius:14px;opacity:0;transform:translateY(-6px) scale(.98);transition:.18s ease}
 
 .board{padding:12px;margin-bottom:12px}
-.boardHead,.brow{display:grid;grid-template-columns:1fr 42px 1fr;gap:8px;align-items:center}
+.boardHead,.brow{display:grid;grid-template-columns:1fr 54px 1fr;gap:8px;align-items:center}
 .boardHead{margin-bottom:8px}.brows{display:flex;flex-direction:column;gap:6px}
 .mini{min-height:72px;padding:8px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.04);display:grid;grid-template-columns:40px 1fr auto;gap:8px;align-items:center}
 .mini.right{grid-template-columns:auto 1fr 40px}
@@ -97,7 +84,13 @@ body{min-height:100svh;overflow-x:hidden}
 .miniMeta{font-size:11px;line-height:1.1;color:rgba(255,255,255,.78);white-space:nowrap}
 .mini img{width:40px;height:40px;object-fit:contain;background:rgba(0,0,0,.18);border-radius:10px}
 .mini.dead{opacity:.24;filter:grayscale(1)}.mini.act{outline:2px solid rgba(255,255,255,.72)}
-.vlink{height:3px;background:rgba(255,255,255,.26);border-radius:999px;box-shadow:0 0 0 1px rgba(255,255,255,.04)}.vlink.act{background:rgba(255,255,255,.96);box-shadow:0 0 10px rgba(255,255,255,.18)}
+.vcell{position:relative;height:72px}
+.vlink{position:absolute;left:6px;right:6px;top:50%;height:3px;background:rgba(255,255,255,.26);border-radius:999px;transform:translateY(-50%);box-shadow:0 0 0 1px rgba(255,255,255,.04)}
+.vlink.act{background:rgba(255,255,255,.96);box-shadow:0 0 10px rgba(255,255,255,.18)}
+.diagLine{position:absolute;width:38px;height:3px;background:rgba(255,255,255,.36);border-radius:999px;left:8px;top:50%;transform-origin:left center;opacity:.95}
+.diagLine.down{transform:translateY(-50%) rotate(28deg)}
+.diagLine.up{transform:translateY(-50%) rotate(-28deg)}
+.diagLine.act{background:rgba(255,255,255,.96);box-shadow:0 0 10px rgba(255,255,255,.18)}
 
 .battleTop{display:grid;grid-template-columns:1fr 56px 1fr;gap:10px;align-items:stretch}
 .vs{display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900}
@@ -133,9 +126,8 @@ body{min-height:100svh;overflow-x:hidden}
 .sprompt{font-size:15px;line-height:1.45;text-align:center;color:rgba(255,255,255,.92);margin-bottom:12px}
 .sbtns{display:flex;gap:10px}.sbtns button{flex:1;height:54px;border-radius:16px;font-size:18px;font-weight:900;border:none}
 .cancel{background:#1c1c1f;color:#fff;border:1px solid rgba(255,255,255,.14)}.ok{background:#fff;color:#000}
-.mvp{width:min(94vw,520px);height:86svh;max-height:86svh;overflow:hidden;border-radius:24px;background:radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 38%),linear-gradient(180deg,#1b1b1d,#111113);border:1px solid rgba(255,255,255,.16);padding:18px;text-align:center;display:flex;flex-direction:column;justify-content:space-between}
-.mvpMain{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
-.ciWrap{min-height:220px;display:flex;align-items:center;justify-content:center;margin-top:0}.ciWrap img{max-width:100%;max-height:32svh;object-fit:contain}.mName{font-size:34px;font-weight:900;margin-top:0}.mStats{font-size:15px;line-height:1.7;color:#ddd;white-space:pre-line;margin-top:0}
+.mvp{width:min(94vw,520px);max-height:92svh;overflow:auto;border-radius:24px;background:radial-gradient(circle at 50% 0%, rgba(255,255,255,.10), transparent 38%),linear-gradient(180deg,#1b1b1d,#111113);border:1px solid rgba(255,255,255,.16);padding:18px;text-align:center}
+.ciWrap{min-height:300px;display:flex;align-items:center;justify-content:center;margin-top:6px}.ciWrap img{max-width:100%;max-height:46svh;object-fit:contain}.mName{font-size:34px;font-weight:900;margin-top:4px}.mStats{font-size:15px;line-height:1.7;color:#ddd;white-space:pre-line;margin-top:10px}
 
 .hitL{animation:hitL .22s ease}.hitR{animation:hitR .22s ease}.atkP{animation:atkP .24s ease}.atkE{animation:atkE .24s ease}.dAnim{animation:dPop .7s ease forwards}
 @keyframes hitL{0%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}100%{transform:translateX(0)}}
@@ -155,6 +147,8 @@ body{min-height:100svh;overflow-x:hidden}
   .badge{font-size:16px}
   .dtext{font-size:16px}
   .sprompt{font-size:14px}
+  .bracketGrid{grid-template-columns:1fr}
+  .connectorCol{display:none}
 }
 </style>
 </head>
@@ -262,7 +256,7 @@ body{min-height:100svh;overflow-x:hidden}
 </div>
 
 <div id="cutin" class="overlay" hidden><div class="cutin"><img id="cutinImg" class="cimg"><div class="cshade"></div><div id="ctop" class="ctop"></div><div class="dwrap"><div class="dbox"><div id="cname" class="badge"></div><div id="ctext" class="dtext"></div></div></div><div class="sbox"><div id="sprompt" class="sprompt" hidden></div><div class="sbtns"><button id="ccancel" class="cancel" hidden>戻る</button><button id="cok" class="ok">OK</button></div></div></div></div>
-<div id="mvpModal" class="overlay" hidden><div class="mvp"><div class="mvpMain"><div class="sectionTitle" style="margin-bottom:0">MVP</div><div class="ciWrap"><img id="mvpImg"></div><div id="mvpName" class="mName"></div><div id="mvpStats" class="mStats"></div><div id="mvpLine" class="dtext" style="font-size:16px;margin-top:0"></div></div><div class="topBtns" style="margin-top:12px"><button id="mvpClose" class="btn">閉じる</button></div></div></div>
+<div id="mvpModal" class="overlay" hidden><div class="mvp"><div class="sectionTitle" style="margin-bottom:0">MVP</div><div class="ciWrap"><img id="mvpImg"></div><div id="mvpName" class="mName"></div><div id="mvpStats" class="mStats"></div><div id="mvpLine" class="dtext" style="font-size:16px"></div><div class="topBtns" style="margin-top:18px"><button id="mvpClose" class="btn">閉じる</button></div></div></div>
 
 <script>
 const CHARS=[
@@ -313,35 +307,7 @@ function buildTournament(){const teams=cup().teams.map(t=>({name:t.name,team:t.i
 function roundName(i){return ["準々決勝","準決勝","決勝"][i]||"-"}
 function renderProgress(){E.progress.innerHTML="";["準々決勝","準決勝","決勝"].forEach((n,i)=>{let d=document.createElement("div");d.className="step"+(i<S.tour.round?" done":i===S.tour.round?" active":"");d.textContent=n;E.progress.appendChild(d)})}
 function currentMatchTeams(){const arr=S.tour.rounds[S.tour.round], idx=S.tour.currentMatch*2; return [arr[idx],arr[idx+1]]}
-function renderBracket(){
-E.bracketTitle.textContent=cup().name;
-E.tourSub.textContent=`${roundName(S.tour.round)} / 第${S.tour.currentMatch+1}試合`;
-const r0=S.tour.rounds[0],r1=S.tour.rounds[1],r2=S.tour.rounds[2];
-const card=(a,b,cur=false)=>`<div class="matchCard ${cur?'current':''}"><div class="entry ${a&&a.isPlayer?'you':''} ${a&&a.won?'win':''} ${a&&a.lost?'lose':''}">${a?a.name:'???'}</div><div class="entry ${b&&b.isPlayer?'you':''} ${b&&b.won?'win':''} ${b&&b.lost?'lose':''}">${b?b.name:'???'}</div></div>`;
-const conn=(tall=false)=>`<div class="tConn ${tall?'tall':''}"><div class="h top"></div><div class="h bot"></div><div class="d down"></div><div class="d up"></div><div class="v"></div></div>`;
-E.bracketGrid.innerHTML=`
-  <div class="roundCol">
-    ${card(r0[0],r0[1],S.tour.round===0&&S.tour.currentMatch===0)}
-    ${card(r0[2],r0[3],S.tour.round===0&&S.tour.currentMatch===1)}
-    ${card(r0[4],r0[5],S.tour.round===0&&S.tour.currentMatch===2)}
-    ${card(r0[6],r0[7],S.tour.round===0&&S.tour.currentMatch===3)}
-  </div>
-  <div class="connectorCol">
-    ${conn(false)}
-    ${conn(false)}
-  </div>
-  <div class="roundCol">
-    ${card(r1[0],r1[1],S.tour.round===1&&S.tour.currentMatch===0)}
-    ${card(r1[2],r1[3],S.tour.round===1&&S.tour.currentMatch===1)}
-  </div>
-  <div class="connectorCol">
-    ${conn(true)}
-  </div>
-  <div class="roundCol">
-    ${card(r2[0],r2[1],S.tour.round===2&&S.tour.currentMatch===0)}
-    ${card(S.tour.rounds[3][0],null,false)}
-  </div>`;
-}
+function renderBracket(){E.bracketTitle.textContent=cup().name;E.tourSub.textContent=`${roundName(S.tour.round)} / 第${S.tour.currentMatch+1}試合`;const r0=S.tour.rounds[0],r1=S.tour.rounds[1],r2=S.tour.rounds[2];const card=(a,b,cur=false)=>`<div class="matchCard ${cur?'current':''}"><div class="entry ${a&&a.isPlayer?'you':''} ${a&&a.won?'win':''} ${a&&a.lost?'lose':''}">${a?a.name:'???'}</div><div class="entry ${b&&b.isPlayer?'you':''} ${b&&b.won?'win':''} ${b&&b.lost?'lose':''}">${b?b.name:'???'}</div></div>`;E.bracketGrid.innerHTML=`<div class="roundCol">${card(r0[0],r0[1],S.tour.round===0&&S.tour.currentMatch===0)}${card(r0[2],r0[3],S.tour.round===0&&S.tour.currentMatch===1)}${card(r0[4],r0[5],S.tour.round===0&&S.tour.currentMatch===2)}${card(r0[6],r0[7],S.tour.round===0&&S.tour.currentMatch===3)}</div><div class="connectorCol"><div class="connector"></div><div class="connector"></div></div><div class="roundCol">${card(r1[0],r1[1],S.tour.round===1&&S.tour.currentMatch===0)}${card(r1[2],r1[3],S.tour.round===1&&S.tour.currentMatch===1)}</div><div class="connectorCol"><div class="connector" style="height:188px"></div></div><div class="roundCol">${card(r2[0],r2[1],S.tour.round===2&&S.tour.currentMatch===0)}${card(S.tour.rounds[3][0],null,false)}</div>`}
 
 function cloneFighter(char,side,idx){return {...clone(char),side,idx,currentHp:char.hp,maxHp:char.hp,alive:true,wins:0,matchWin:0,damageDealt:0,damageTaken:0,flags:{first:false,hit:false,ani:0,counter:false}}}
 function ap(){return S.battle.playerTeam[S.battle.pi]}
@@ -381,8 +347,39 @@ let L=["先鋒","次鋒","中堅","副将","大将"];
 for(let i=0;i<5;i++){
   let p=S.battle.playerTeam[i],e=S.battle.enemyTeam[i],r=document.createElement("div");
   r.className="brow";
+
   const active = S.battle.pi===i && S.battle.ei===i && !S.battle.view;
-  const connectorClass = active ? "vlink act" : "vlink";
+  const pAlive = p && p.alive;
+  const eAlive = e && e.alive;
+
+  let connector = `<div class="vcell"><div class="vlink ${active?'act':''}"></div></div>`;
+
+  // 勝ち抜き時にだけ斜め線を出す
+  if(!S.battle.view && S.battle.mode==="survival"){
+    // 左が残って次の敵へ進む
+    if(i === S.battle.pi && pAlive && !eAlive && i < 4){
+      connector = `<div class="vcell">
+        <div class="vlink act"></div>
+        <div class="diagLine down act"></div>
+      </div>`;
+    }
+    // 右が残って次の味方へ進む
+    else if(i === S.battle.ei && !pAlive && eAlive && i < 4){
+      connector = `<div class="vcell">
+        <div class="vlink act"></div>
+        <div class="diagLine up act"></div>
+      </div>`;
+    }
+    // 直前の勝ち残りの流れを薄く残す
+    else if(S.battle.lastAdvance && S.battle.lastAdvance.from===i){
+      const cls = S.battle.lastAdvance.side==="player" ? "down" : "up";
+      connector = `<div class="vcell">
+        <div class="vlink"></div>
+        <div class="diagLine ${cls}"></div>
+      </div>`;
+    }
+  }
+
   r.innerHTML = `
     <div class="mini ${p&&!p.alive?'dead':''} ${S.battle.pi===i&&!S.battle.view?'act':''}">
       <img src="${p?p.img:''}">
@@ -393,9 +390,7 @@ for(let i=0;i<5;i++){
       </div>
       <div style="font-size:11px;font-weight:900">${p?(p.alive?'○':'×'):''}</div>
     </div>
-    <div>
-      <div class="${connectorClass}"></div>
-    </div>
+    ${connector}
     <div class="mini right ${e&&!e.alive?'dead':''} ${S.battle.ei===i&&!S.battle.view?'act':''}">
       <div style="font-size:11px;font-weight:900">${e?(e.alive?'○':'×'):''}</div>
       <div class="miniText" style="text-align:right">
@@ -408,6 +403,7 @@ for(let i=0;i<5;i++){
   E.brows.appendChild(r);
 }
 }
+}
 function cutin({top,text,prompt="",showCancel=false,okText="OK",cancelText="戻る",ok=null,cancel=null}){E.cutin.hidden=false;E.cutinImg.src=g().img;E.ctop.textContent=top;E.cname.textContent=g().name;E.ctext.textContent=text;E.sprompt.textContent=prompt;E.sprompt.hidden=!prompt;E.ccancel.hidden=!showCancel;E.ccancel.textContent=cancelText;E.cok.textContent=okText;E.cok.onclick=()=>{E.cutin.hidden=true;if(ok)ok()};E.ccancel.onclick=()=>{E.cutin.hidden=true;if(cancel)cancel()}}
 function openMvp(){let m=S.battle.mvp;E.mvpImg.src=m.img;E.mvpName.textContent=m.name;E.mvpStats.textContent=`勝利本数 ${m.matchWin}\n撃破数 ${m.wins}\n残HP ${Math.max(0,m.currentHp)}\n総ダメ ${m.damageDealt}`;E.mvpLine.textContent=`${g().name}「${g().mvp}」`;E.mvpModal.hidden=false}
 E.mvpClose.onclick=()=>E.mvpModal.hidden=true
@@ -416,7 +412,15 @@ async function match(p,e){while(p.alive&&e.alive){S.battle.turn++;if(p.currentHp
 function mvp(a,b){let all=[...a,...b];all.sort((x,y)=>(y.matchWin*100+y.wins*80+y.damageDealt+Math.max(0,y.currentHp))-(x.matchWin*100+x.wins*80+x.damageDealt+Math.max(0,x.currentHp)));return all[0]}
 function advanceTournament(playerWon){const roundArr=S.tour.rounds[S.tour.round],idx=S.tour.currentMatch*2,a=roundArr[idx],b=roundArr[idx+1],winner=playerWon?(a.isPlayer?a:b):(a.isPlayer?b:a),loser=playerWon?(a.isPlayer?b:a):(a.isPlayer?a:b);winner.won=true;loser.lost=true;if(S.tour.round<2){S.tour.rounds[S.tour.round+1][S.tour.currentMatch]=winner}else{S.tour.rounds[3][0]=winner}const max=S.tour.round===0?4:S.tour.round===1?2:1;if(S.tour.currentMatch<max-1){S.tour.currentMatch++}else{if(S.tour.round<2){S.tour.round++;S.tour.currentMatch=0}else{S.tour.finished=true}}}
 async function finishBattle(playerWon){S.battle.playerWon=playerWon;S.battle.view=true;S.battle.pi=-1;S.battle.ei=-1;S.battle.mvp=mvp(S.battle.playerTeam,S.battle.enemyTeam);renderBattle();cutin({top:playerWon?"WIN":"LOSE",text:playerWon?g().win:g().lose,okText:S.tour.finished?"優勝結果へ":"大会表へ",ok:()=>{openMvp();advanceTournament(playerWon);renderProgress();renderBracket();E.actions.hidden=false;}});log(playerWon?"あなたの勝ち。":"相手の勝ち。")}
-async function runBattle(){const [left,right]=currentMatchTeams();const enemy=left.isPlayer?right:left;S.battle={playerTeam:S.team.map((id,i)=>cloneFighter(ch(id),"player",i)),enemyTeam:enemy.team.map((id,i)=>cloneFighter(ch(id),"enemy",i)),enemyTrainerName:enemy.name,pi:0,ei:0,turn:0,view:false,playerWon:false,lastP:null,lastE:null,mvp:null,firstId:null};E.actions.hidden=true;E.battleSub.textContent=`${roundName(S.tour.round)} / ${enemy.name}`;say(g().intro);show("battle");renderBattle();while(true){let p=S.battle.playerTeam[S.battle.pi],e=S.battle.enemyTeam[S.battle.ei];if(!p||!e)break;S.battle.lastP=p;S.battle.lastE=e;log(`${["先鋒","次鋒","中堅","副将","大将"][S.battle.pi]} ${p.name} vs ${["先鋒","次鋒","中堅","副将","大将"][S.battle.ei]} ${e.name}`);await match(p,e);if(!p.alive)S.battle.pi=nextAlive(S.battle.playerTeam,S.battle.pi+1);if(!e.alive)S.battle.ei=nextAlive(S.battle.enemyTeam,S.battle.ei+1);if(S.battle.pi===-1||S.battle.ei===-1)break}await finishBattle(S.battle.ei===-1)}
+async function runBattle(){const [left,right]=currentMatchTeams();const enemy=left.isPlayer?right:left;S.battle={playerTeam:S.team.map((id,i)=>cloneFighter(ch(id),"player",i)),enemyTeam:enemy.team.map((id,i)=>cloneFighter(ch(id),"enemy",i)),enemyTrainerName:enemy.name,mode:"survival",pi:0,ei:0,turn:0,view:false,playerWon:false,lastP:null,lastE:null,mvp:null,firstId:null,lastAdvance:null};E.actions.hidden=true;E.battleSub.textContent=`${roundName(S.tour.round)} / ${enemy.name}`;say(g().intro);show("battle");renderBattle();while(true){let p=S.battle.playerTeam[S.battle.pi],e=S.battle.enemyTeam[S.battle.ei];if(!p||!e)break;S.battle.lastP=p;S.battle.lastE=e;log(`${["先鋒","次鋒","中堅","副将","大将"][S.battle.pi]} ${p.name} vs ${["先鋒","次鋒","中堅","副将","大将"][S.battle.ei]} ${e.name}`);await match(p,e);S.battle.lastAdvance=null;
+if(p.alive && !e.alive){
+  S.battle.lastAdvance={side:"player",from:S.battle.ei};
+}
+if(!p.alive && e.alive){
+  S.battle.lastAdvance={side:"enemy",from:S.battle.pi};
+}
+if(!p.alive)S.battle.pi=nextAlive(S.battle.playerTeam,S.battle.pi+1);
+if(!e.alive)S.battle.ei=nextAlive(S.battle.enemyTeam,S.battle.ei+1);if(S.battle.pi===-1||S.battle.ei===-1)break}await finishBattle(S.battle.ei===-1)}
 E.randomBtn.onclick=()=>{S.team=shuffle(CHARS.map(c=>c.id)).slice(0,5);renderTeam();renderPicks()}
 E.clearBtn.onclick=()=>{S.team=[];renderTeam();renderPicks()}
 E.toTournamentBtn.onclick=()=>{if(S.team.length!==5)return alert("5体必要です");buildTournament();renderProgress();renderBracket();E.tourSub.textContent=`${cup().name} / 準備完了`;show("tournament")}
