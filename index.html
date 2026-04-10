@@ -80,7 +80,7 @@ body{min-height:100svh;overflow-x:hidden}
 .mini.right{grid-template-columns:auto 1fr 40px}
 .mini img{width:40px;height:40px;object-fit:contain;background:rgba(0,0,0,.18);border-radius:10px}
 .mini.dead{opacity:.24;filter:grayscale(1)}.mini.act{outline:2px solid rgba(255,255,255,.72)}
-.vlink{height:2px;background:rgba(255,255,255,.18);border-radius:999px}.vlink.act{background:rgba(255,255,255,.86)}
+.vlink{height:3px;background:rgba(255,255,255,.26);border-radius:999px;box-shadow:0 0 0 1px rgba(255,255,255,.04)}.vlink.act{background:rgba(255,255,255,.96);box-shadow:0 0 10px rgba(255,255,255,.18)}
 
 .battleTop{display:grid;grid-template-columns:1fr 56px 1fr;gap:10px;align-items:stretch}
 .vs{display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900}
@@ -173,6 +173,15 @@ body{min-height:100svh;overflow-x:hidden}
 <div id="pickGrid" class="pickGrid"></div>
 </div>
 
+<div class="card section">
+<div class="sectionTitle">対戦速度</div>
+<div class="modeRow">
+<button class="smallBtn buildSpeed active" data-sp="normal">普通</button>
+<button class="smallBtn buildSpeed" data-sp="fast">速い</button>
+<button class="smallBtn buildSpeed" data-sp="turbo">爆速</button>
+</div>
+</div>
+
 <div class="topBtns"><button id="toTournamentBtn" class="btn">大会表へ進む</button></div>
 </section>
 
@@ -200,19 +209,10 @@ body{min-height:100svh;overflow-x:hidden}
 <div class="title">デカブサ大戦</div>
 <div id="battleSub" class="sub">オート対戦</div>
 
-<div class="card section" style="padding:12px">
-<div class="sectionTitle" style="margin-bottom:8px">対戦速度</div>
-<div class="modeRow">
-<button class="smallBtn active speed" data-sp="normal">普通</button>
-<button class="smallBtn speed" data-sp="fast">速い</button>
-<button class="smallBtn speed" data-sp="turbo">爆速</button>
-</div>
-</div>
-
 <div class="card comment"><img id="cImg"><div id="cText" class="commentText"></div></div>
 
 <div class="card board">
-<div class="boardHead"><div style="font-size:13px;font-weight:900">あなた</div><div></div><div style="font-size:13px;font-weight:900;text-align:right">敵</div></div>
+<div class="boardHead"><div style="font-size:13px;font-weight:900">あなた</div><div></div><div id="boardEnemyLabel" style="font-size:13px;font-weight:900;text-align:right">対戦相手</div></div>
 <div id="brows" class="brows"></div>
 </div>
 
@@ -273,7 +273,7 @@ const AL={dekabusa:["まあ行くか"],kabao:["まだまだ"],nise:["いくぞ"]
 const HL={dekabusa:["いて"],kabao:["その程度か"],nise:["効くな"],juzo:["まだだ"],ratel:["効くな"],kanemon:["まだだ"],namaken:["やるな"],panpan:["うわ"],ani:["チッ"],tora:["かすった"],gori:["ふんばる"],king:["浅いな"]};
 const SP={normal:{talk:420,after:320,turn:260,ko:620},fast:{talk:220,after:160,turn:120,ko:320},turbo:{talk:70,after:40,turn:40,ko:110}};
 const S={girl:"A",speed:"normal",team:["tora","kabao","king","ratel","dekabusa"],cup:"beginner",tour:null,battle:null};
-const E={bg:gid("bg"),build:gid("build"),tournament:gid("tournament"),battleScreen:gid("battleScreen"),girlRow:gid("girlRow"),gPrevImg:gid("gPrevImg"),gPrevText:gid("gPrevText"),cupList:gid("cupList"),teamList:gid("teamList"),pickGrid:gid("pickGrid"),randomBtn:gid("randomBtn"),clearBtn:gid("clearBtn"),toTournamentBtn:gid("toTournamentBtn"),tourSub:gid("tourSub"),progress:gid("progress"),bracketTitle:gid("bracketTitle"),bracketGrid:gid("bracketGrid"),startRoundBtn:gid("startRoundBtn"),backBuildBtn:gid("backBuildBtn"),battleSub:gid("battleSub"),cImg:gid("cImg"),cText:gid("cText"),brows:gid("brows"),flash:gid("flash"),pCard:gid("pCard"),eCard:gid("eCard"),pName:gid("pName"),pRole:gid("pRole"),pImg:gid("pImg"),pHp:gid("pHp"),pFill:gid("pFill"),eName:gid("eName"),eRole:gid("eRole"),eImg:gid("eImg"),eHp:gid("eHp"),eFill:gid("eFill"),pBubble:gid("pBubble"),eBubble:gid("eBubble"),live:gid("live"),enemySideLabel:gid("enemySideLabel"),actions:gid("actions"),backTournamentBtn:gid("backTournamentBtn"),speedBtns:[...document.querySelectorAll(".speed")],cutin:gid("cutin"),cutinImg:gid("cutinImg"),ctop:gid("ctop"),cname:gid("cname"),ctext:gid("ctext"),sprompt:gid("sprompt"),ccancel:gid("ccancel"),cok:gid("cok"),mvpModal:gid("mvpModal"),mvpImg:gid("mvpImg"),mvpName:gid("mvpName"),mvpStats:gid("mvpStats"),mvpLine:gid("mvpLine"),mvpClose:gid("mvpClose")};
+const E={bg:gid("bg"),build:gid("build"),tournament:gid("tournament"),battleScreen:gid("battleScreen"),girlRow:gid("girlRow"),gPrevImg:gid("gPrevImg"),gPrevText:gid("gPrevText"),cupList:gid("cupList"),teamList:gid("teamList"),pickGrid:gid("pickGrid"),randomBtn:gid("randomBtn"),clearBtn:gid("clearBtn"),toTournamentBtn:gid("toTournamentBtn"),tourSub:gid("tourSub"),progress:gid("progress"),bracketTitle:gid("bracketTitle"),bracketGrid:gid("bracketGrid"),startRoundBtn:gid("startRoundBtn"),backBuildBtn:gid("backBuildBtn"),battleSub:gid("battleSub"),cImg:gid("cImg"),cText:gid("cText"),brows:gid("brows"),flash:gid("flash"),pCard:gid("pCard"),eCard:gid("eCard"),pName:gid("pName"),pRole:gid("pRole"),pImg:gid("pImg"),pHp:gid("pHp"),pFill:gid("pFill"),eName:gid("eName"),eRole:gid("eRole"),eImg:gid("eImg"),eHp:gid("eHp"),eFill:gid("eFill"),pBubble:gid("pBubble"),eBubble:gid("eBubble"),live:gid("live"),enemySideLabel:gid("enemySideLabel"),actions:gid("actions"),backTournamentBtn:gid("backTournamentBtn"),cutin:gid("cutin"),cutinImg:gid("cutinImg"),ctop:gid("ctop"),cname:gid("cname"),ctext:gid("ctext"),sprompt:gid("sprompt"),ccancel:gid("ccancel"),cok:gid("cok"),mvpModal:gid("mvpModal"),mvpImg:gid("mvpImg"),mvpName:gid("mvpName"),mvpStats:gid("mvpStats"),mvpLine:gid("mvpLine"),mvpClose:gid("mvpClose"),boardEnemyLabel:gid("boardEnemyLabel"),buildSpeedBtns:[...document.querySelectorAll(".buildSpeed")]};
 function gid(id){return document.getElementById(id)}
 function g(){return GIRLS[S.girl]}
 function ch(id){return CHARS.find(x=>x.id===id)}
@@ -347,7 +347,7 @@ E.toTournamentBtn.onclick=()=>{if(S.team.length!==5)return alert("5体必要で�
 E.backBuildBtn.onclick=()=>show("build")
 E.startRoundBtn.onclick=()=>{const [a,b]=currentMatchTeams();const enemy=a.isPlayer?b:a;cutin({top:roundName(S.tour.round),text:`${enemy.name} と戦う。`,prompt:g().ask,showCancel:true,okText:"戦う",cancelText:"戻る",ok:runBattle})}
 E.backTournamentBtn.onclick=()=>show("tournament")
-E.speedBtns.forEach(b=>b.onclick=()=>{S.speed=b.dataset.sp;E.speedBtns.forEach(x=>x.classList.toggle("active",x===b))})
+E.buildSpeedBtns.forEach(b=>b.onclick=()=>{S.speed=b.dataset.sp;E.buildSpeedBtns.forEach(x=>x.classList.toggle("active",x===b))})
 function init(){renderGirls();renderGirlPrev();renderCups();renderTeam();renderPicks();setBg();say(g().preview);show("build")}
 init()
 </script>
