@@ -55,6 +55,10 @@ body{min-height:100svh}
 .moveBtns{display:flex;flex-direction:column;gap:6px}
 .moveBtn{width:38px;height:28px;background:#2b2b2b;color:#fff;border:1px solid var(--line)}
 .moveBtn:disabled{opacity:.28}
+#chiGirlSelect .chiGirlCard{background:#111;border:1px solid var(--line);border-radius:16px;padding:10px;text-align:center;cursor:pointer;transition:.18s ease}
+#chiGirlSelect .chiGirlCard.active{outline:2px solid rgba(255,255,255,.78);background:#1a1a1a}
+#chiGirlSelect .chiGirlImg{width:100%;height:96px;object-fit:contain;display:block;filter:drop-shadow(0 6px 16px rgba(0,0,0,.35))}
+#chiGirlSelect .chiGirlName{font-size:13px;font-weight:900;margin-top:6px}
 .battleMeta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 .metaPill{padding:7px 10px;border-radius:999px;background:#171717;border:1px solid var(--line);font-size:11px;color:#ddd}
 .commentCard{display:flex;gap:12px;align-items:center;margin-bottom:10px}
@@ -137,13 +141,21 @@ body{min-height:100svh}
   <div class="titleScreen">
     <div class="titleTop"><div class="title">デカブサ大戦</div><div class="sub">5対5 団体オートバトル</div></div>
     <div class="heroZone"><img class="hero" id="titleHero" src="./dekabusa.png" alt="デカブサ"></div>
-    <div><div class="copy">勝つかどうかは並びで決まる。</div><button class="btn" onclick="goBuild()">START</button><div class="version">ver 12.0</div></div>
+    <div>
+      <div class="copy">勝つかどうかは並びで決まる。</div>
+      <div class="panel" style="margin-bottom:12px;padding:12px">
+        <div class="sectionTitle" style="font-size:16px;margin-bottom:8px">チー娘を選ぶ</div>
+        <div id="chiGirlSelect" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px"></div>
+      </div>
+      <button class="btn" onclick="goBuild()">START</button>
+      <div class="version">ver 12.1</div>
+    </div>
   </div>
 </section>
 
 <section id="screenBuild" class="screen" hidden>
   <div class="topBar"><button class="btnGhost backBtn" onclick="goTitle()">戻る</button><div style="text-align:right"><div style="font-size:18px;font-weight:900">好きな順に並べろ。</div><div class="teamInfo">5体まで選択可能</div></div></div>
-  <div class="panel" style="margin-bottom:10px"><div class="sectionTitle">チー娘A</div><div class="commentCard"><img class="commentImg" src="./girlA_top.png" alt="" onerror="this.style.display='none'"><div class="commentText">「正解はないよ。今のあなたの並びを見せて。」</div></div></div>
+  <div class="panel" style="margin-bottom:10px"><div class="sectionTitle" id="buildChiName">チー娘A</div><div class="commentCard"><img class="commentImg" id="buildChiImg" src="./girlA_top.png" alt="" onerror="this.style.display='none'"><div class="commentText" id="buildChiText">「正解はないよ。今のあなたの並びを見せて。」</div></div></div>
   <div class="panel" style="margin-bottom:10px"><div class="sectionTitle">バトルモード</div><div class="modeRow"><button id="modeSurvivalBtn" class="modeBtn active" onclick="setBattleMode('survival')">勝ち抜き</button><button id="modeFixedBtn" class="modeBtn" onclick="setBattleMode('fixed')">対面固定</button></div><div id="modeHint" class="teamInfo">勝ったキャラが残って次と戦う</div></div>
   <div class="panel" style="margin-bottom:10px"><div class="sectionTitle">候補キャラ</div><div id="pickGrid" class="pickGrid"></div></div>
   <div class="panel" style="margin-bottom:10px"><div class="sectionTitle">現在の並び</div><div class="teamInfo">先鋒 → 次鋒 → 中堅 → 副将 → 大将</div><div id="teamList" class="teamList"></div><div class="bottomActions"><button id="confirmBtn" class="btn" onclick="startBattle()" disabled>この並びでいく</button><button class="btnGhost" onclick="fillRandom()">ランダムで埋める</button><button class="btnGhost" onclick="clearTeam()">全て外す</button></div></div>
@@ -168,6 +180,12 @@ body{min-height:100svh}
 </div>
 
 <script>
+const chiGirls=[
+{id:"A",name:"チー娘A",img:"./girlA_top.png",buildLine:"「正解はないよ。今のあなたの並びを見せて。」",mvpWin:["かなりよかったよ。","この子が一番目立ってたね。","流れを作った感じ。"],mvpLose:["頑張ってたけどね。","この子だけは悪くなかったよ。","一番マシだったかな。"]},
+{id:"B",name:"チー娘B",img:"./girlB_top.png",buildLine:"「今日はどう組むの？ ちょっと気になる。」",mvpWin:["ちゃんとハマってたね。","今回はこの子だったね。","いい流れ作れてたよ。"],mvpLose:["惜しかったね。","この子は結構よかったよ。","そこまで悪くなかったかな。"]},
+{id:"C",name:"チー娘C",img:"./girlC_top.png",buildLine:"「並び、大事だから。ちゃんと見せて。」",mvpWin:["今回はこの子で決まり。","かなり仕事してたよ。","一番しっかりしてたね。"],mvpLose:["この子はまだよかった。","今回はここかな。","思ったより頑張ってたよ。"]}
+];
+let selectedChiId=localStorage.getItem("dekabusa_selected_chi")||"A";
 const characters=[{id:"dekabusa",name:"デカブサ",attr:"water",role:"安定",hp:130,atk:25,def:22,spd:8,img:"./dekabusa.png",mvpLine:"まあ、こんな日もある。"},{id:"kabao",name:"カバオ",attr:"water",role:"耐久・回復",hp:145,atk:26,def:28,spd:10,img:"./kabao.png",mvpLine:"まだ立ってるぞ。"},{id:"nise",name:"ニセブサ",attr:"water",role:"バランス",hp:120,atk:28,def:20,spd:12,img:"./nise.png",mvpLine:"似てるだけじゃない。"},{id:"juzo",name:"ジュウゾウ",attr:"water",role:"反撃型",hp:110,atk:30,def:18,spd:14,img:"./juzo.png",mvpLine:"読めてた。"},{id:"ratel",name:"ラテロウ",attr:"fire",role:"先手特化",hp:95,atk:34,def:14,spd:20,img:"./rate.png",mvpLine:"速かっただろ。"},{id:"kanemon",name:"カンえもん",attr:"fire",role:"初撃特化",hp:100,atk:36,def:15,spd:16,img:"./kan.png",mvpLine:"初手で決めた。"},{id:"namaken",name:"ナマケン",attr:"fire",role:"奇襲",hp:105,atk:32,def:16,spd:18,img:"./namaken.png",mvpLine:"やる時はやる。"},{id:"panpan",name:"パンパン",attr:"fire",role:"ロマン",hp:100,atk:38,def:12,spd:14,img:"./panpan.png",mvpLine:"暴れ足りないな。"},{id:"ani",name:"デカブサ兄",attr:"grass",role:"連勝型",hp:115,atk:33,def:18,spd:15,img:"./ani.png",mvpLine:"当然だな。"},{id:"tora",name:"トラさん",attr:"grass",role:"分身",hp:105,atk:31,def:17,spd:17,img:"./tora.png",mvpLine:"分身しただけだ。"},{id:"gori",name:"ゴリさん",attr:"grass",role:"防御",hp:120,atk:27,def:24,spd:9,img:"./gori.png",mvpLine:"ふんばった。"},{id:"king",name:"キング",attr:"grass",role:"フィニッシャー",hp:110,atk:36,def:16,spd:13,img:"./king.png",mvpLine:"仕留めた。"}];
 const attackLines={dekabusa:["まあ行くか","やるか","重いぞ"],kabao:["まだまだ","どっしり","重いぞ"],nise:["いくぞ","本気だ","似てるだけじゃない"],juzo:["返す","そこだ","読めた"],ratel:["先に行く","速いだろ","置いてくぞ"],kanemon:["初手だ","決める","行くぞ"],namaken:["やる時はやる","今だ","そこだ"],panpan:["うおりゃ","暴れる","いくぞ"],ani:["遅い","見えてる","終わりだ"],tora:["見切れるか？","いくぞ","捕まえた"],gori:["ふんっ","受けろ","いくぞ"],king:["仕留める","逃がさない","終わりだ"]};
 const hitLines={dekabusa:["いて","重いな","まだだ"],kabao:["その程度か","まだ立ってる","平気だ"],nise:["効くな","まだいる","似てない痛さだ"],juzo:["読んでた","まだだ","返す"],ratel:["まだ速い","それだけか","効くな"],kanemon:["まだだ","浅い","効くな"],namaken:["やるな","ちょい痛い","まだだ"],panpan:["うわ","ちっ","まだまだ"],ani:["チッ","悪くない","まだだ"],tora:["かすった","まだ見える","浅い"],gori:["効くな","まだいける","ふんばる"],king:["浅いな","その程度か","まだ立つ"]};
@@ -192,7 +210,7 @@ function fillRandom(){team=shuffle(characters.map(c=>c.id)).slice(0,5);renderAll
 function clearTeam(){team=[];renderAll()}
 function renderPickGrid(){const el=document.getElementById("pickGrid");el.innerHTML="";characters.forEach(ch=>{const selected=team.includes(ch.id);const card=document.createElement("div");card.className="pickCard"+(selected?" selected":"");card.innerHTML=`<div class="cardMain"><div class="cardImgWrap"><img class="cardImg" src="${ch.img}" alt="${ch.name}" onerror="this.style.opacity='.18'"></div><div><div><span class="cardName">${ch.name}</span><span class="attrPill ${attrClass(ch.attr)}">${attrLabel(ch.attr)}</span></div><div class="cardRole">${ch.role}</div><div class="cardStats">HP ${ch.hp}　攻 ${ch.atk}　防 ${ch.def}　速 ${ch.spd}</div><div class="cardPassive">並びで強さが変わる5対5向けキャラ</div><div class="cardButtons">${selected?`<button class="smallBtn" onclick="removeFromTeam('${ch.id}')">外す</button>`:`<button class="smallBtn main" onclick="addToTeam('${ch.id}')">選ぶ</button>`}<button class="smallBtn" onclick="alert('今回は相性画面は省略版です')">相性</button></div></div></div>`;el.appendChild(card)})}
 function renderTeamList(){const el=document.getElementById("teamList"),orders=["先鋒","次鋒","中堅","副将","大将"];el.innerHTML="";for(let i=0;i<5;i++){const id=team[i],row=document.createElement("div");row.className="teamSlot";if(id){const ch=getChar(id);row.innerHTML=`<img class="slotThumb" src="${ch.img}" alt="${ch.name}" onerror="this.style.opacity='.18'"><div><div class="slotOrder">${orders[i]}</div><div class="slotName">${ch.name}</div><div class="slotMeta">${attrLabel(ch.attr)} / ${ch.role}</div></div><div class="moveBtns"><button class="moveBtn" onclick="moveUp(${i})" ${i===0?'disabled':''}>▲</button><button class="moveBtn" onclick="moveDown(${i})" ${i===team.length-1?'disabled':''}>▼</button></div>`}else{row.innerHTML=`<div class="slotThumb"></div><div><div class="slotOrder">${orders[i]}</div><div class="slotName" style="opacity:.35">未選択</div><div class="slotMeta">ここに入れる</div></div><div></div>`}el.appendChild(row)}document.getElementById("confirmBtn").disabled=team.length!==5}
-function renderAll(){renderPickGrid();renderTeamList();setBattleMode(battleMode)}
+function renderAll(){renderPickGrid();renderTeamList();setBattleMode(battleMode);renderChiGirlSelector();renderBuildChi()}
 function cloneFighter(ch,side,idx){return {...JSON.parse(JSON.stringify(ch)),side,orderIndex:idx,maxHp:ch.hp,currentHp:ch.hp,alive:true,wins:0,matchWin:0,damageDealt:0}}
 const teamAliveCount=arr=>arr.filter(v=>v.alive).length;
 function aliveNext(arr,start){for(let i=start;i<arr.length;i++){if(arr[i].alive)return i}return -1}
@@ -210,7 +228,11 @@ function showBubble(side,text){const el=document.getElementById(side==="player"?
 function playAttackMotion(side){const el=document.querySelector(side==="player"?"#playerCard .fighterVisual":"#enemyCard .fighterVisual");if(!el)return;el.classList.remove("attackForward");void el.offsetWidth;el.classList.add("attackForward");setTimeout(()=>el.classList.remove("attackForward"),250)}
 function playHitMotion(side){const card=document.getElementById(side==="player"?"playerCard":"enemyCard");if(!card)return;card.classList.remove("hitShake");void card.offsetWidth;card.classList.add("hitShake");setTimeout(()=>card.classList.remove("hitShake"),260)}
 function calcMvp(teamArr){let best=teamArr[0],bestScore=-1;teamArr.forEach(f=>{const score=f.matchWin*100+f.wins*80+f.damageDealt+Math.max(0,f.currentHp);if(score>bestScore){bestScore=score;best=f}});return best}
-function getMvpGirlComment(mvp,playerWon){if(playerWon){const lines=[`${mvp.name}、今回はかなりよかったよ。`,`この子が一番目立ってたね。`,`流れを作ったのは${mvp.name}だったかな。`];return `チー娘A「${lines[Math.floor(Math.random()*lines.length)]}」`;}const lines=[`${mvp.name}は頑張ってたけどね。`,`今回はこの子が一番マシだったかな。`,`${mvp.name}だけは悪くなかったよ。`];return `チー娘A「${lines[Math.floor(Math.random()*lines.length)]}」`}
+function getSelectedChi(){return chiGirls.find(v=>v.id===selectedChiId)||chiGirls[0]}
+function selectChiGirl(id){selectedChiId=id;localStorage.setItem("dekabusa_selected_chi",id);renderChiGirlSelector();renderBuildChi()}
+function renderChiGirlSelector(){const wrap=document.getElementById("chiGirlSelect");if(!wrap)return;wrap.innerHTML="";chiGirls.forEach(g=>{const div=document.createElement("div");div.className="chiGirlCard"+(g.id===selectedChiId?" active":"");div.innerHTML=`<img class="chiGirlImg" src="${g.img}" alt="${g.name}" onerror="this.style.opacity='.18'"><div class="chiGirlName">${g.name}</div>`;div.onclick=()=>selectChiGirl(g.id);wrap.appendChild(div)})}
+function renderBuildChi(){const chi=getSelectedChi();const nameEl=document.getElementById("buildChiName"),imgEl=document.getElementById("buildChiImg"),textEl=document.getElementById("buildChiText");if(nameEl)nameEl.textContent=chi.name;if(imgEl){imgEl.src=chi.img;imgEl.onerror=function(){this.style.display='none'}}if(textEl)textEl.textContent=chi.buildLine}
+function getMvpGirlComment(mvp,playerWon){const chi=getSelectedChi();const pool=playerWon?chi.mvpWin:chi.mvpLose;const line=pool[Math.floor(Math.random()*pool.length)];return `${chi.name}「${mvp.name}、${line}」`}
 function openMvp(mvp,playerWon){document.getElementById("mvpImg").src=mvp.img;document.getElementById("mvpImg").onerror=function(){this.style.opacity='.18'};document.getElementById("mvpName").textContent=mvp.name;document.getElementById("mvpStats").textContent=`勝利本数 ${mvp.matchWin}\n撃破数 ${mvp.wins}\n残HP ${Math.max(0,mvp.currentHp)}\n総ダメ ${mvp.damageDealt}`;document.getElementById("mvpGirlComment").textContent=getMvpGirlComment(mvp,playerWon);document.getElementById("mvpLine").textContent=mvp.mvpLine||"今回はその子なんだ。";document.getElementById("mvpModal").hidden=false}
 function closeMvp(){document.getElementById("mvpModal").hidden=true}
 function makeEnemyTeam(){return shuffle(characters.map(c=>c.id).filter(id=>!team.includes(id))).slice(0,5)}
@@ -219,7 +241,7 @@ async function battleLoopSurvival(){while(true){const pIdx=aliveNext(battle.play
 async function battleLoopFixed(){for(let i=0;i<5;i++){battle.playerActiveIndex=i;battle.enemyActiveIndex=i;battle.matchCount++;battle.lineHistory=battle.lineHistory.map(v=>({...v,active:false}));battle.lineHistory.push({playerIdx:i,enemyIdx:i,active:true});renderBattleHeader();await duel(battle.playerTeam[i],battle.enemyTeam[i],i===4)}}
 async function startBattle(){if(team.length!==5)return;battle={playerTeam:team.map((id,i)=>cloneFighter(getChar(id),"player",i)),enemyTeam:makeEnemyTeam().map((id,i)=>cloneFighter(getChar(id),"enemy",i)),playerActiveIndex:0,enemyActiveIndex:0,matchCount:0,lineHistory:[{playerIdx:0,enemyIdx:0,active:true}]};showOnlyScreen("screenBattle");document.getElementById("battleActions").hidden=true;renderBattleHeader();showLive("対戦開始。");await wait(500);if(battleMode==="fixed")await battleLoopFixed();else await battleLoopSurvival();const playerAlive=teamAliveCount(battle.playerTeam),enemyAlive=teamAliveCount(battle.enemyTeam),playerWon=battleMode==="fixed"?battle.playerTeam.reduce((s,f)=>s+f.matchWin,0)>=battle.enemyTeam.reduce((s,f)=>s+f.matchWin,0):enemyAlive===0;document.getElementById("resultTitle").textContent=playerWon?"WIN":"LOSE";document.getElementById("resultSub").textContent=playerWon?"並びがハマった。":"並び負けした。";document.getElementById("battleActions").hidden=false;const mvpTarget=playerWon?calcMvp(battle.playerTeam):calcMvp(battle.enemyTeam);openMvp(mvpTarget,playerWon)}
 function rematch(){startBattle()}
-document.getElementById("titleHero").onerror=function(){this.src="./king.png";this.onerror=function(){this.style.display="none"}};setBattleMode("survival");goTitle();renderAll();window.addEventListener("resize",()=>{if(battle)drawStatusLines()});
+document.getElementById("titleHero").onerror=function(){this.src="./king.png";this.onerror=function(){this.style.display="none"}};setBattleMode("survival");goTitle();renderAll();renderChiGirlSelector();renderBuildChi();window.addEventListener("resize",()=>{if(battle)drawStatusLines()});
 </script>
 </body>
 </html>
